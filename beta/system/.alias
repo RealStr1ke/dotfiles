@@ -1,0 +1,58 @@
+# Shortcuts
+alias reload="source ~/.bash_profile"
+alias _="sudo"
+alias g="git"
+alias rr="rm -rf"
+
+# Directory Listing
+alias l="ls -CF"
+alias la="ls -A"
+alias ll="ls -alF"
+alias ld="ls -ld */"
+alias ls="ls --color=auto"
+
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
+
+# Enable aliases to be sudo-ed
+alias sudo='sudo '
+
+# Merge PDF files, preserving hyperlinks
+# Usage: `mergepdf input{1,2,3}.pdf`
+alias mergepdf='gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.pdf'
+
+# Directory Traversal
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+
+# NPM
+alias ni="npm install"
+alias nu="npm uninstall"
+alias nup="npm update"
+alias nri="rm -r node_modules && npm install"
+alias ncd="npm-check -su"
+
+# API Requests
+
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+	alias "${method}"="lwp-request -m '${method}'"
+done
+unset method
+
+
+# Recursively remove .DS_Store files
+alias cleanupds="find . -type f -name '*.DS_Store' -ls -delete"
+
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec ${SHELL} -l"
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
+
+# Miscellaneous
+alias quit="exit"
+alias week="date +%V"
+alias speedtest="wget -O /dev/null http://speed.transip.nl/100mb.bin"

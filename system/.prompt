@@ -1,0 +1,19 @@
+# Bash Prompt
+
+# Old Bash Prompt
+# PS1='\[\e]0;\u \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]str1ke\[\033[00m\] \[\033[01;34m\]\w$(__git_ps1 " (%s)") \$ \[\033[00m\]'
+
+# username@hostname workdir (git branch) ❯
+# PS1='\[\e[0;1;38;5;111m\]\u\[\e[0;1;38;5;111m\]@\[\e[0;1;38;5;111m\]\h \[\e[0;1;38;5;117m\]\w \[\e[0m\](\[\e[0;1;38;5;254m\]$(git branch 2>/dev/null | grep '"'"'^*'"'"' | colrm 1 2)\[\e[0m\]) \[\e[0;1;2;5m\]❯ \[\e[0m\]'
+
+# username workdir (git branch) ❯
+PS1='\[\e[0;1;38;5;111m\]\u \[\e[0;1;38;5;117m\]\w \[\e[0m\](\[\e[0;1;38;5;254m\]$(git branch 2>/dev/null | grep '"'"'^*'"'"' | colrm 1 2)\[\e[0m\]) \[\e[0;1;2;5m\]❯ \[\e[0m\]'
+
+# username@hostname workdir ❯
+# PS1='\[\e[0;1;38;5;111m\]\u\[\e[0;1;38;5;111m\]@\[\e[0;1;38;5;111m\]\h \[\e[0;1;38;5;117m\]\w \[\e[0;1;2;5m\]❯ \[\e[0m\]'
+
+# username workdir ❯
+# PS1='\[\e[0;1;38;5;111m\]\u \[\e[0;1;38;5;117m\]\w \[\e[0;1;2;5m\]❯ \[\e[0m\]'
+
+
+
