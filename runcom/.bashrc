@@ -3,9 +3,9 @@
 
 # [ -n "$PS1" ] && source ~/.bash_profile;
 
-source "./.inputrc"
+source "$HOME/.dotfiles/runcom/.inputrc"
 
-source "../runcom/.aliases"
-source "../runcom/.env"
-source "../runcom/.function"
-source "../runcom/.prompt"
+source "$HOME/.dotfiles/system/.aliases"
+source "$HOME/.dotfiles/system/.env"
+source "$HOME/.dotfiles/system/.function"
+source "$HOME/.dotfiles/system/.prompt"
