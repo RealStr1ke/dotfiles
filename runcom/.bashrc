@@ -2,8 +2,10 @@
 # [[ $- == *i* ]] || return
 
 # [ -n "$PS1" ] && source ~/.bash_profile;
-source "$HOME/.inputrc"
-source ../../workspace/dotfiles/system/.alias
-source ../../workspace/dotfiles/system/.env
-source ../../workspace/dotfiles/system/.function
-source ../../workspace/dotfiles/system/.prompt
+
+source "$HOME/.dotfiles/system/.inputrc"
+
+source "$HOME/.dotfiles/runcom/.aliases"
+source "$HOME/.dotfiles/runcom/.env"
+source "$HOME/.dotfiles/runcom/.function"
+source "$HOME/.dotfiles/runcom/.prompt"
