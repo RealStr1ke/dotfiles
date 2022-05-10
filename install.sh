@@ -1,29 +1,20 @@
-# rm "~/.alias"
-# rm "~/.env"
-# rm "~/.function"
-# rm "~/.prompt"
-# rm "~/.path"
+#!/usr/bin/env bash
+echo "Installing .files from RealStr1ke/dotfiles"
 
-# rm "~/.bash_profile"
-# rm "~/.inputrc"
+cd ~/.dotfiles
 
-# ln -sf "~/workspace/dotfiles/system/.alias" ~/.alias
-# ln -sf "~/workspace/dotfiles/system/.env" ~/.env
-# ln -sf "~/workspace/dotfiles/system/.function" ~/.function
-# ln -sf "~/workspace/dotfiles/system/.path" ~/.path
-# ln -sf "~/workspace/dotfiles/system/.prompt" ~/.prompt
+runcom="bash_profile bashrc inputrc"
+system="alias env function prompt"
+# install=""
 
-# ln -sf "~/workspace/dotfiles/runcom/.bash_profile" ~/.bash_profile
-# ln -sf "~/workspace/dotfiles/runcom/.inputrc" ~/.inputrc
+echo "RUNCOM"
+for file in ${runcom}; do
+    echo "Creating symlink to $file in home directory."
+    ln -sf $HOME/.dotfiles/system/.${file} $HOME/.${file}
+done
 
-
-# cp "/workspace/dotfiles/system/.alias" "/.alias"
-# cp "/workspace/dotfiles/system/.env" "/.env"
-# cp "/workspace/dotfiles/system/.function" "/.function"
-# cp "/workspace/dotfiles/system/.prompt" "/.prompt"
-
-# cp "/workspace/dotfiles/runcom/.bash_profile" "/.bash_profile"
-# cp "/workspace/dotfiles/runcom/.inputrc" "/.inputrc"
-# cp "/workspace/dotfiles/runcom/.bashrc" "/.bashrc"
-
-ln -sf ~/workspace/dotfiles/runcom/.bashrc ~/.bashrc
+echo "SYSTEM"
+for file in ${system}; do
+    echo "Creating symlink to $file in home directory."
+    ln -sf $HOME/.dotfiles/system/.${file} $HOME/.${file}
+done
