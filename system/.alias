@@ -5,11 +5,11 @@ alias g="git"
 alias rr="rm -rf"
 
 # Directory Listing
+alias ls="ls --color=auto"
 alias l="ls -CF"
 alias la="ls -A"
 alias ll="ls -alF"
 alias ld="ls -ld */"
-alias ls="ls --color=auto"
 
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"
