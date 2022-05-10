@@ -8,7 +8,7 @@ set show-all-if-ambiguous on
 set mark-symlinked-directories on
 
 # Flip through autocompletion matches with Shift-Tab.
-"\e[Z": menu-complete
+# "\e[Z": menu-complete
 
 # Show all autocomplete results at once
 set page-completions off
@@ -32,5 +32,5 @@ set output-meta on
 set convert-meta off
 
 # Filtered history search
-"\e[A": history-search-backward
-"\e[B": history-search-forward
+# "\e[A": history-search-backward
+# "\e[B": history-search-forward
