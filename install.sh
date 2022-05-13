@@ -6,7 +6,7 @@ SOURCE="https://github.com/RealStr1ke/dotfiles"
 TARBALL="$SOURCE/tarball/master"
 TARGET="$HOME/.dotfiles"
 TAR_CMD="tar -xzv -C "$TARGET" --strip-components=1 --exclude='{.gitignore}'"
-
+export PATH=""
 is_executable() {
 	type "$1" > /dev/null 2>&1
 }
@@ -32,6 +32,8 @@ fi
 # Installation
 echo "Installing .files from RealStr1ke/dotfiles"
 
+export PATH="$HOME/.dotfiles/bin:$PATH"
+
 touch $HOME/.dotfiles/system/.extra
 
 for DOTFILE in `find $HOME/.dotfiles/runcom -type f -name ".*" -printf "%f\n"`
@@ -47,7 +49,6 @@ cd $HOME
 mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 mkdir "$HOME/homebrew/var/tmp"
 mkdir "$HOME/bin"
-export PATH="$HOME/homebrew/bin:$PATH"
 
 # Completion Message & Information
 echo "→ Installation has been completed!"
