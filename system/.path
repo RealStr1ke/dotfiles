@@ -1,3 +1,4 @@
+echo "PATH IS BEING INITIALIZED"
 # Homebrew
 PATH="$HOME/homebrew/bin:$PATH";
 
