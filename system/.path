@@ -1,8 +1,13 @@
 # echo "PATH IS BEING INITIALIZED"
+
 # Homebrew
 PATH="$HOME/homebrew/bin:$PATH";
 
+# Dotfile Binaries
+PATH="$HOME/.dotfiles/bin:$PATH";
+
 # Main Binaries
 PATH="$HOME/bin:$PATH";
+
 
 export PATH;

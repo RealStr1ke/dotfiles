@@ -6,10 +6,11 @@ SOURCE="https://github.com/RealStr1ke/dotfiles"
 TARBALL="$SOURCE/tarball/master"
 TARGET="$HOME/.dotfiles"
 TAR_CMD="tar -xzv -C "$TARGET" --strip-components=1 --exclude='{.gitignore}'"
-export PATH="$HOME/.dotfiles/bin:$PATH"
 is_executable() {
 	type "$1" > /dev/null 2>&1
 }
+
+PATH="$HOME/.dotfiles/bin:$PATH"
 
 if is_executable "git"; then
 	CMD="git clone $SOURCE $TARGET"
@@ -47,6 +48,9 @@ cd $HOME
 mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 mkdir "$HOME/homebrew/var/tmp"
 mkdir "$HOME/bin"
+
+# Exporting PATH
+export PATH;
 
 # Completion Message & Information
 echo "→ Installation has been completed!"
