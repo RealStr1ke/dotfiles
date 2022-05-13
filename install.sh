@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# bash -c "`curl -fsSL https://raw.githubusercontent.com/RealStr1ke/dotfiles/master/install.sh`"
 
 # Importing
 SOURCE="https://github.com/RealStr1ke/dotfiles"

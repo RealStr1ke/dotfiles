@@ -5,6 +5,6 @@
 
 for DOTFILE in `find $HOME/.dotfiles/system -type f -name ".*" -printf "%f\n"`
 do
-    source "$HOME/.dotfiles/runcom/$DOTFILE"
+    source "$HOME/.dotfiles/system/$DOTFILE"
 done
 unset DOTFILE
