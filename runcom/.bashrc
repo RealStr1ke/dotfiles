@@ -3,9 +3,8 @@
 
 # [ -n "$PS1" ] && source ~/.bash_profile;
 
-source "$HOME/.dotfiles/runcom/.inputrc"
-
-source "$HOME/.dotfiles/system/.aliases"
-source "$HOME/.dotfiles/system/.env"
-source "$HOME/.dotfiles/system/.function"
-source "$HOME/.dotfiles/system/.prompt"
+for DOTFILE in `find $HOME/.dotfiles/system -type f -name ".*" -printf "%f\n"`
+do
+    source "$HOME/.dotfiles/runcom/$DOTFILE"
+done
+unset DOTFILE

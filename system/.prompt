@@ -1,4 +1,5 @@
 # Bash Prompt
+# A full-fledged bash prompt function will come soon, this will do for now.
 
 # Old Bash Prompt
 # PS1='\[\e]0;\u \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]str1ke\[\033[00m\] \[\033[01;34m\]\w$(__git_ps1 " (%s)") \$ \[\033[00m\]'

@@ -1,0 +1,7 @@
+# purple="\e[1;35m";
+# echo "\[\e[1;35m\]→ Installation has been completed!"
+echo "→ Installation has been completed!"
+echo "→ Thank you for using RealStr1ke's dotfiles, inspired from many dotfile repos."
+echo "→ For extra custom configurations, you can edit the ~/.dotfiles/system/.extra file (untracked)."
+echo "→ Next up, you should run '~/.dotfiles/packages/install.sh' to install saved packages."
+echo "→ Remember to restart your bash prompt after completing the installation."

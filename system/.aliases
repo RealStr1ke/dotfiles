@@ -1,5 +1,5 @@
 # Shortcuts
-alias reload="source ~/.bash_profile"
+alias reload="source $HOME/.bash_profile"
 alias _="sudo"
 alias g="git"
 alias rr="rm -rf"
@@ -26,6 +26,9 @@ alias mergepdf='gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.p
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"
 
 # NPM
 alias ni="npm install"
@@ -35,24 +38,28 @@ alias nri="rm -r node_modules && npm install"
 alias ncd="npm-check -su"
 
 # API Requests
-
+# One of @janmoesen’s ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "${method}"="lwp-request -m '${method}'"
 done
 unset method
 
-
 # Recursively remove .DS_Store files
 alias cleanupds="find . -type f -name '*.DS_Store' -ls -delete"
-
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec ${SHELL} -l"
 
 # Print each PATH entry on a separate line
+# alias path="$PATH" | tr ':' '\n'
 alias path='echo -e ${PATH//:/\\n}'
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 # Miscellaneous
+alias cls="clear"
 alias quit="exit"
 alias week="date +%V"
 alias speedtest="wget -O /dev/null http://speed.transip.nl/100mb.bin"

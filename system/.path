@@ -1,0 +1,7 @@
+# Homebrew
+PATH="$HOME/homebrew/bin:$PATH";
+
+# Main Binaries
+PATH="$HOME/bin:$PATH";
+
+export PATH;

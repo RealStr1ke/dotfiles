@@ -11,6 +11,4 @@ release-it
 svgo
 tldr
 underscore-cli
-webtorrent
-webtorrent-cli
 yarn
