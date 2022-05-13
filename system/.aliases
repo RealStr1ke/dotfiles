@@ -79,6 +79,9 @@ unset method
 # Recursively remove .DS_Store files
 alias cleanupds="find . -type f -name '*.DS_Store' -ls -delete"
 
+# Recursively remove .spotdl-cache files
+alias cleanupspdl='find . -type f -name '\''.spotdl-cache'\'' -ls -delete'
+
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec ${SHELL} -l"
 
@@ -136,6 +139,8 @@ alias quit="exit"
 alias cls="clear;ls"
 alias dec2hex='printf "%x\n" $1'
 alias speedtest="wget -O /dev/null http://speed.transip.nl/100mb.bin"
+
+
 
 # Automatically add completion for all aliases to commands having completion functions
 # source: http://superuser.com/questions/436314/how-can-i-get-bash-to-perform-tab-completion-for-my-aliases
