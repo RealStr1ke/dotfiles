@@ -1,34 +1,14 @@
-# Shortcuts
+# ----------------------------
+# |        Shortcuts         |
+# ----------------------------
 alias reload="source $HOME/.bash_profile"
 alias _="sudo"
 alias g="git"
 alias rr="rm -rf"
 
-# Directory Listing
-alias ls="ls --color=auto"
-alias l="ls -CF"
-alias la="ls -A"
-alias ll="ls -alF"
-alias ld="ls -ld */"
-
-alias grep="grep --color=auto"
-alias egrep="egrep --color=auto"
-alias fgrep="fgrep --color=auto"
-
-# Enable aliases to be sudo-ed
-alias sudo='sudo '
-
-# Merge PDF files, preserving hyperlinks
-# Usage: `mergepdf input{1,2,3}.pdf`
-alias mergepdf='gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.pdf'
-
-# Directory Traversal
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ~="cd ~" # `cd` is probably faster to type though
-alias -- -="cd -"
+# ----------------------------
+# |     Safety Features      |
+# ----------------------------
 
 # Safety Features (Confirm before overwriting)
 alias rm='rm -I'     # 'rm -i' prompts for every file
@@ -41,8 +21,44 @@ alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
+
+# ----------------------------
+# |        Languages         |
+# ----------------------------
+
+# Python
+alias 2to="2to3"
+alias idle="idle3"
+alias pip="pip3"
+alias pydoc="pydoc3"
+alias python="python3"
+alias python-config="python3-config"
+alias wheel="wheel3"
+alias py="python3"
+
+
+# ----------------------------
+# |    Package Management    |
+# ----------------------------
+
 # Homebrew
 alias brewu='brew update && brew upgrade && brew cleanup && brew doctor'
+alias bi='brew install'
+
+# Yarn
+alias yi='yarn install'
+
+# npm
+alias ni="npm install"
+alias nu="npm uninstall"
+alias nup="npm update"
+alias nri="rm -r node_modules && npm install"
+alias ncd="npm-check -su"
+
+
+# ----------------------------
+# |        Date/Time         |
+# ----------------------------
 
 # Date
 alias date_iso_8601='date "+%Y%m%dT%H%M%S"'
@@ -59,15 +75,47 @@ alias date_time='date "+%H:%M:%S"'
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
-# NPM
-alias ni="npm install"
-alias nu="npm uninstall"
-alias nup="npm update"
-alias nri="rm -r node_modules && npm install"
-alias ncd="npm-check -su"
+
+# ----------------------------
+# |  File/Folder Management  |
+# ----------------------------
+
+# Directory Traversal
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"
+
+# Directory Listing
+alias ls="ls --color=auto"
+alias l="ls -CF"
+alias la="ls -A"
+alias ll="ls -alF"
+alias ld="ls -ld */"
+
+# Grep Coloring
+alias grep="grep --color=auto"
+alias egrep="egrep --color=auto"
+alias fgrep="fgrep --color=auto"
 
 # Zippin
 alias gz='tar -zcvf'
+
+# Recursively remove .DS_Store files
+alias cleanupds="find . -type f -name '*.DS_Store' -ls -delete"
+
+# Recursively remove .spotdl-cache files
+alias cleanupspdl='find . -type f -name '\''.spotdl-cache'\'' -ls -delete'
+
+
+# ----------------------------
+# |        Networking        |
+# ----------------------------
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
 # API Requests
 # One of @janmoesen’s ProTip™s
@@ -76,24 +124,10 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 done
 unset method
 
-# Recursively remove .DS_Store files
-alias cleanupds="find . -type f -name '*.DS_Store' -ls -delete"
+# ----------------------------
+# |  Hardware/Software Info  |
+# ----------------------------
 
-# Recursively remove .spotdl-cache files
-alias cleanupspdl='find . -type f -name '\''.spotdl-cache'\'' -ls -delete'
-
-# Reload the shell (i.e. invoke as a login shell)
-alias reload="exec ${SHELL} -l"
-
-# Print each PATH entry on a separate line
-# alias path="$PATH" | tr ':' '\n'
-alias path='echo -e ${PATH//:/\\n}'
-# IP addresses
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en0"
-alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
-
-# Hardware/Software Info
 # Pass options to free
 alias meminfo="free -m -l -t"
 
@@ -131,21 +165,42 @@ alias du_overview='du -h | grep "^[0-9,]*[MG]" | sort -hr | less'
 # Shows the complete disk usage to legibly
 alias df='df -kTh'
 
-# Fun
+# ----------------------------
+# |           Fun            |
+# ----------------------------
 alias starwars="telnet towel.blinkenlights.nl"
 
-# Miscellaneous
+
+# ----------------------------
+# |      Miscellaneous       |
+# ----------------------------
 alias quit="exit"
 alias cls="clear;ls"
 alias dec2hex='printf "%x\n" $1'
 alias speedtest="wget -O /dev/null http://speed.transip.nl/100mb.bin"
 
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec ${SHELL} -l"
 
+# Print each PATH entry on a separate line
+# alias path="$PATH" | tr ':' '\n'
+alias path='echo -e ${PATH//:/\\n}'
+
+# Enable aliases to be sudo-ed
+alias sudo='sudo '
+
+# Merge PDF files, preserving hyperlinks
+# Usage: `mergepdf input{1,2,3}.pdf`
+alias mergepdf='gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -sOutputFile=_merged.pdf'
+
+
+# ----------------------------
+# |     Alias Completion     |
+# ----------------------------
 
 # Automatically add completion for all aliases to commands having completion functions
 # source: http://superuser.com/questions/436314/how-can-i-get-bash-to-perform-tab-completion-for-my-aliases
-alias_completion()
-{
+alias_completion() {
   local namespace="alias_completion"
 
   # parse function based completion definitions, where capture group 2 => function and 3 => trigger
@@ -195,7 +250,9 @@ alias_completion()
   done < <(alias -p | sed -rne "s/$alias_regex/\1 '\2' '\3'/p")
   source "$tmp_file" && rm -f "$tmp_file"
 }
+
 if [ -n "$BASH_VERSION" ]; then
   alias_completion
 fi
+
 unset -f alias_completion
