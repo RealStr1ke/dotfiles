@@ -4,7 +4,6 @@
 alias reload="source $HOME/.bash_profile"
 alias _="sudo"
 alias g="git"
-alias rr="rm -rf"
 
 # ----------------------------
 # |     Safety Features      |
@@ -102,6 +101,12 @@ alias fgrep="fgrep --color=auto"
 
 # Zippin
 alias gz='tar -zcvf'
+
+# Recursively remove given folder
+alias rr="rm -rf"
+
+# Recursively copy given folder into new directory
+alias cpr="cp -rf"
 
 # Recursively remove .DS_Store files
 alias cleanupds="find . -type f -name '*.DS_Store' -ls -delete"
