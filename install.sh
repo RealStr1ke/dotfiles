@@ -44,10 +44,17 @@ do
 done
 
 # Homebrew Installation
-cd $HOME
-mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-mkdir "$HOME/homebrew/var/tmp"
-mkdir "$HOME/bin"
+
+if is-executable gp; then
+	echo "Gitpod detected, not installing Homebrew (or Linuxbrew)"
+else
+	cd $HOME
+	mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+	mkdir "$HOME/homebrew/var/tmp"
+	mkdir "$HOME/bin"
+fi
+
+
 
 # Exporting PATH
 export PATH;
