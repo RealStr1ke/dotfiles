@@ -1,4 +1,11 @@
+# WIP
+
 tap "goles/battery"
+tap 'homebrew/cask'
+tap 'homebrew/cask-fonts'
+tap 'homebrew/cask-versions'
+tap 'nicoverbruggen/homebrew-cask'
+tap 'stripe/stripe-cli'
 tap "homebrew/bundle"
 tap "homebrew/core"
 
@@ -19,6 +26,7 @@ brew "ffmpeg"
 brew "fnm"
 brew "gh"
 brew "gnu-sed"
+brew "svn"
 brew "goles/battery/battery"
 brew "grep"
 brew "grip"
@@ -31,10 +39,13 @@ brew "links"
 brew "lynx"
 brew "mackup"
 brew "make"
+brew 'mysql'
+brew 'nginx'
 brew "midnight-commander"
 brew "nano"
 brew "ncdu"
 brew "pandoc"
+brew 'yarn'
 brew "peco"
 brew "psgrep"
 # brew "python"
@@ -56,3 +67,45 @@ brew "webp"
 brew "wget"
 brew "youtube-dl"
 brew "zsh"
+
+# Apps
+cask '1password'
+cask 'caffeine'
+cask 'camo-studio'
+cask 'dbngin'
+cask 'discord'
+cask 'docker'
+cask 'figma'
+cask 'firefox'
+cask 'github'
+cask 'google-chrome'
+cask 'gpg-suite'
+cask 'helo'
+cask 'homebrew/cask-drivers/elgato-stream-deck'
+cask 'imageoptim'
+cask 'insomnia'
+cask 'pastebot'
+cask 'phpmon'
+cask 'phpstorm'
+cask 'ray'
+cask 'screenflow'
+cask 'slack'
+cask 'tableplus'
+cask 'telegram-desktop'
+cask 'the-unarchiver'
+cask 'tinkerwell'
+cask 'transmit'
+cask 'tunnelbear'
+cask 'tuple'
+cask 'visual-studio-code'
+cask 'whatsapp'
+cask 'zoom'
+
+# Fonts
+cask 'font-lato'
+cask 'font-open-sans'
+cask 'font-roboto'
+cask 'font-source-code-pro-for-powerline'
+cask 'font-source-code-pro'
+cask 'font-source-sans-pro'
+cask 'font-source-serif-pro'

@@ -102,11 +102,17 @@ alias fgrep="fgrep --color=auto"
 # Zippin
 alias gz='tar -zcvf'
 
+# Open dotfiles directory
+alias dfs="cd $DOTFILES"
+
 # Recursively remove given folder
 alias rr="rm -rf"
 
 # Recursively copy given folder into new directory
 alias cpr="cp -rf"
+
+# Turn given file into executable (chmod alias)
+alias chmox='chmod -x'
 
 # Recursively remove .DS_Store files
 alias cleanupds="find . -type f -name '*.DS_Store' -ls -delete"
@@ -128,6 +134,13 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "${method}"="lwp-request -m '${method}'"
 done
 unset method
+
+
+# ----------------------------
+# |          Typos           |
+# ----------------------------
+alias breq="brew"
+
 
 # ----------------------------
 # |  Hardware/Software Info  |

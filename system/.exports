@@ -11,6 +11,8 @@ else
 fi
 export HOMEBREW_TEMP
 
+# Dotfiles Directory
+export DOTFILES="$HOME/.dotfiles"
 
 # Enable persistent REPL history for `node`.
 export NODE_REPL_HISTORY=~/.node_history;

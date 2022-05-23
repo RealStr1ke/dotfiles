@@ -10,8 +10,13 @@ fi
 # Dotfile Binaries
 PATH="$HOME/.dotfiles/bin:$PATH";
 
+# Use project specific binaries before global ones
+PATH="node_modules/.bin:vendor/bin:$PATH"
+
 # Main Binaries
 PATH="$HOME/bin:$PATH";
 
+# Use current directory's binaries
+PATH="bin:$PATH"
 
 export PATH;
