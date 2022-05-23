@@ -4,6 +4,7 @@
 alias reload="source $HOME/.bash_profile"
 alias _="sudo"
 alias g="git"
+alias push="git push"
 
 # ----------------------------
 # |     Safety Features      |
