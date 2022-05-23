@@ -3,7 +3,6 @@
 # Homebrew
 if [ "$(uname)" = "Linux" ]; then
     PATH="$HOME/.linuxbrew/bin:$PATH";
-    echo 'test'
 else
     PATH="$HOME/homebrew/bin:$PATH";
 fi

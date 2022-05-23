@@ -49,8 +49,13 @@ if is-executable gp; then
 	echo "Gitpod detected, not installing Homebrew (or Linuxbrew)"
 else
 	cd $HOME
-	mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
-	mkdir "$HOME/homebrew/var/tmp"
+	if [ "$(uname)" = "Linux" ]; then
+		mkdir .linuxbrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C .linuxbrew
+		mkdir "$HOME/.linuxbrew/var/tmp"
+	else
+		mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+		mkdir "$HOME/homebrew/var/tmp"
+	fi
 	mkdir "$HOME/bin"
 fi
 

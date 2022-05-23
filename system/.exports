@@ -4,7 +4,13 @@
 export EDITOR='vim';
 
 # Set's the Homebrew temp directory for installations
-export HOMEBREW_TEMP="$HOME/homebrew/var/tmp"
+if [ "$(uname)" = "Linux" ]; then
+    HOMEBREW_TEMP="$HOME/.linuxbrew/var/tmp"
+else
+    HOMEBREW_TEMP="$HOME/homebrew/var/tmp"
+fi
+export HOMEBREW_TEMP
+
 
 # Enable persistent REPL history for `node`.
 export NODE_REPL_HISTORY=~/.node_history;
