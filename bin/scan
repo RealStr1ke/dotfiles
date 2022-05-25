@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# From cowbooy @ github
+# From cowboy @ github
 
 if ARGV.include? '-h' or ARGV.include? '--help' then puts <<-HELP
 Port-scan one machine or everything on your subnet(s).
