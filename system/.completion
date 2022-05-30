@@ -1,10 +1,11 @@
-# BREW_PREFIX=$(brew --prefix)
+#!/usr/bin/env bash
+BREW_PREFIX=$(brew --prefix)
 
 # Bash
 
-# if is-executable brew; then
-#   . "$BREW_PREFIX/share/bash-completion/bash_completion"
-# fi
+if is-executable brew; then
+  . "$BREW_PREFIX/share/bash-completion/bash_completion"
+fi
 
 # Dotfiles
 
@@ -17,18 +18,18 @@
 
 # npm (https://docs.npmjs.com/cli/completion)
 
-# if is-executable npm; then
-#   . <(npm completion)
-# fi
+if is-executable npm; then
+  . <(npm completion)
+fi
 
 # fnm
 
-# if is-executable fnm; then
-#   . <(fnm completions)
-# fi
+if is-executable fnm; then
+  . <(fnm completions)
+fi
 
 # Git
 
-# if is-executable git; then
-#   . "$BREW_PREFIX/etc/bash_completion.d/git-completion.bash"
-# fi
+if is-executable git; then
+	"curl -fsSL https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash | ."
+fi
