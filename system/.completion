@@ -1,15 +1,26 @@
 #!/usr/bin/env bash
 
-# Bash
+# Homebrew
 
 if [ "$(uname -m)" = "armv7l" ]; then
 	:
 else
 	if is-executable brew; then
 		BREW_PREFIX=$(brew --prefix)
-		. "$BREW_PREFIX/share/bash-completion/bash_completion"
+		# . "$BREW_PREFIX/etc/bash_completion.d/brew"
+		if [[ -r "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
+		then
+			source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
+		else
+			for COMPLETION in "${BREW_PREFIX}/etc/bash_completion.d/"*
+			do
+				[[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+			done
+		fi
 	fi
 fi
+
+  
 
 
 
