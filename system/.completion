@@ -3,9 +3,15 @@ BREW_PREFIX=$(brew --prefix)
 
 # Bash
 
-if is-executable brew; then
-  . "$BREW_PREFIX/share/bash-completion/bash_completion"
+if [ "$(uname -m)" = "armv7l" ]; then
+	:
+else
+	if is-executable brew; then
+		. "$BREW_PREFIX/share/bash-completion/bash_completion"
+	fi
 fi
+
+
 
 # Dotfiles
 
@@ -31,5 +37,5 @@ fi
 # Git
 
 if is-executable git; then
-	"curl -fsSL https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash | ."
+	curl -fsSL "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash" | .
 fi
