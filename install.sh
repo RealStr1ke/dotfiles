@@ -47,6 +47,8 @@ done
 
 if is-executable gp; then
 	echo "Gitpod detected, not installing Homebrew (or Linuxbrew)"
+elif [ "$(uname -m)" = "armv7l" ]; then
+	echo "ARMv7l CPU detected (possibly Raspberry Pi), not installing Homebrew (or Linuxbrew)"
 else
 	cd $HOME
 	if [ "$(uname)" = "Linux" ]; then
@@ -58,6 +60,18 @@ else
 	fi
 	mkdir "$HOME/bin"
 fi
+
+# Kitty Installation
+
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+if [ "$(uname)" = "Linux" ]; then
+	ln -sf "~/.local/kitty.app/bin/kitty" "~/bin/kitty"
+else
+	ln -sf "/Applications/kitty.app/bin/kitty" "~/bin/kitty"
+fi
+# https://sw.kovidgoyal.net/kitty/binary/
+# https://www.gnu.org/gnu/linux-and-gnu.en.html
+# https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script#394235
 
 
 
