@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-BREW_PREFIX=$(brew --prefix)
 
 # Bash
 
@@ -7,6 +6,7 @@ if [ "$(uname -m)" = "armv7l" ]; then
 	:
 else
 	if is-executable brew; then
+		BREW_PREFIX=$(brew --prefix)
 		. "$BREW_PREFIX/share/bash-completion/bash_completion"
 	fi
 fi
