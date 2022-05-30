@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # ----------------------------
 # |        Shortcuts         |
 # ----------------------------
@@ -204,6 +206,9 @@ alias reload="exec ${SHELL} -l"
 # Print each PATH entry on a separate line
 # alias path="$PATH" | tr ':' '\n'
 alias path='echo -e ${PATH//:/\\n}'
+
+# Removes duplicate PATH entries
+alias dpath="PATH=$(echo -e ${${echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}'}//:/\\n})"
 
 # Enable aliases to be sudo-ed
 alias sudo='sudo '

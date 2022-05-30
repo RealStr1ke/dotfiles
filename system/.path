@@ -1,22 +1,26 @@
-# echo "PATH IS BEING INITIALIZED"
-
 # Homebrew
-if [ "$(uname)" = "Linux" ]; then
-    PATH="$HOME/.linuxbrew/bin:$PATH";
+if is-executable gp; then
+	:
+elif [ "$(uname -m)" = "armv7l" ]; then
+	:
 else
-    PATH="$HOME/homebrew/bin:$PATH";
+	if [ "$(uname)" = "Linux" ]; then
+		PATH="$HOME/.linuxbrew/bin:$PATH";
+	else
+		PATH="$HOME/homebrew/bin:$PATH";
+	fi
 fi
 
 # Dotfile Binaries
 PATH="$HOME/.dotfiles/bin:$PATH";
 
-# Use project specific binaries before global ones
-PATH="node_modules/.bin:vendor/bin:$PATH"
-
 # Main Binaries
 PATH="$HOME/bin:$PATH";
 
-# Use current directory's binaries
+# Use project specific binaries before global ones
+PATH="node_modules/.bin:vendor/bin:$PATH"
+
+# Use current directory's binaries over global ones
 PATH="bin:$PATH"
 
 export PATH;

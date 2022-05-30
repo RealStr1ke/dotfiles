@@ -43,6 +43,8 @@ do
 	# && source "$DOTFILE"
 done
 
+mkdir "$HOME/bin"
+
 # Homebrew Installation
 
 if is-executable gp; then
@@ -58,7 +60,6 @@ else
 		mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 		mkdir "$HOME/homebrew/var/tmp"
 	fi
-	mkdir "$HOME/bin"
 fi
 
 # Kitty Installation
@@ -74,7 +75,7 @@ fi
 # https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script#394235
 
 
-
+#!/usr/bin/env bash
 # Exporting PATH
 export PATH;
 

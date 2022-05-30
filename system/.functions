@@ -6,7 +6,7 @@ function ps0() {
 }
 
 function ps1() {
-  source "$DOTFILES_DIR"/system/.prompt
+  source "$DOTFILES"/system/.prompt
 }
 
 # Shorthand for find
