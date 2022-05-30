@@ -1,13 +1,10 @@
 # WIP
 
-tap "goles/battery"
-tap 'homebrew/cask'
-tap 'homebrew/cask-fonts'
-tap 'homebrew/cask-versions'
-tap 'nicoverbruggen/homebrew-cask'
-tap 'stripe/stripe-cli'
-tap "homebrew/bundle"
 tap "homebrew/core"
+tap "homebrew/bundle"
+
+tap 'stripe/stripe-cli'
+tap "goles/battery"
 
 brew "bat"
 brew "bats-core"
@@ -70,6 +67,13 @@ brew "wget"
 brew "youtube-dl"
 brew "zsh"
 
+# Cask
+tap 'homebrew/cask'
+tap 'homebrew/cask-fonts'
+tap "homebrew/cask-drivers"
+tap 'homebrew/cask-versions'
+tap 'nicoverbruggen/homebrew-cask'
+
 # Apps
 cask '1password'
 cask 'caffeine'
@@ -77,21 +81,29 @@ cask 'camo-studio'
 cask 'dbngin'
 cask 'discord'
 cask 'docker'
+cask "dropbox"
 cask 'figma'
 cask 'firefox'
 cask 'github'
 cask 'google-chrome'
+cask "google-chrome-canary"
 cask 'gpg-suite'
+cask "hammerspoon"
 cask 'helo'
 cask 'homebrew/cask-drivers/elgato-stream-deck'
 cask 'imageoptim'
 cask 'insomnia'
+cask "kaleidoscope2"
 cask 'pastebot'
 cask 'phpmon'
 cask 'phpstorm'
+cask "postman"
 cask 'ray'
+cask "raycast"
 cask 'screenflow'
 cask 'slack'
+cask "sourcetree"
+cask "spotify"
 cask 'tableplus'
 cask 'telegram-desktop'
 cask 'the-unarchiver'
@@ -100,13 +112,27 @@ cask 'transmit'
 cask 'tunnelbear'
 cask 'tuple'
 cask 'visual-studio-code'
+cask "vlc"
 cask 'whatsapp'
 cask 'zoom'
 
+# Quick Look Plugins (https://github.com/sindresorhus/quick-look-plugins)
+cask "qlcolorcode"
+cask "qlstephen"
+cask "qlmarkdown"
+cask "quicklook-json"
+cask "qlimagesize"
+cask "suspicious-package"
+cask "apparency"
+cask "quicklookase"
+cask "qlvideo"
+
 # Fonts
 cask 'font-lato'
-cask 'font-open-sans'
+cask "font-hack"
 cask 'font-roboto'
+cask "font-fira-code"
+cask 'font-open-sans'
 cask 'font-source-code-pro-for-powerline'
 cask 'font-source-code-pro'
 cask 'font-source-sans-pro'
