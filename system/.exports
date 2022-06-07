@@ -9,6 +9,7 @@ if [ "$(uname)" = "Linux" ]; then
     	HOMEBREW_TEMP="/home/linuxbrew/.linuxbrew/var/tmp"
 	else
     	HOMEBREW_TEMP="$HOME/.linuxbrew/var/tmp"
+	fi
 else
     HOMEBREW_TEMP="$HOME/homebrew/var/tmp"
 fi

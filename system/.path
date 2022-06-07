@@ -9,6 +9,7 @@ else
 			PATH="/home/linuxbrew/.linuxbrew/bin:$PATH";
 		else
 			PATH="$HOME/.linuxbrew/bin:$PATH";
+		fi
 	else
 		PATH="$HOME/homebrew/bin:$PATH";
 	fi

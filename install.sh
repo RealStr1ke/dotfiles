@@ -60,6 +60,7 @@ else
 		else
 			mkdir .linuxbrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C "$HOME/.linuxbrew"
 			mkdir "$HOME/.linuxbrew/var/tmp"
+		fi
 	else
 		mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 		mkdir "$HOME/homebrew/var/tmp"
