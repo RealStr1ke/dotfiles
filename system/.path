@@ -5,7 +5,10 @@ elif [ "$(uname -m)" = "armv7l" ]; then
 	:
 else
 	if [ "$(uname)" = "Linux" ]; then
-		PATH="$HOME/.linuxbrew/bin:$PATH";
+		if [$(sudo -l | grep ALL) = "(ALL : ALL) ALL"]; then
+			PATH="/home/linuxbrew/.linuxbrew/bin:$PATH";
+		else
+			PATH="$HOME/.linuxbrew/bin:$PATH";
 	else
 		PATH="$HOME/homebrew/bin:$PATH";
 	fi

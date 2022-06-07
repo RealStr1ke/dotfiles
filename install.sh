@@ -54,8 +54,12 @@ elif [ "$(uname -m)" = "armv7l" ]; then
 else
 	cd $HOME
 	if [ "$(uname)" = "Linux" ]; then
-		mkdir .linuxbrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C .linuxbrew
-		mkdir "$HOME/.linuxbrew/var/tmp"
+		if [$(sudo -l | grep ALL) = "(ALL : ALL) ALL"]; then
+			mkdir .linuxbrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C "/home/linuxbrew/.linuxbrew"
+			mkdir "/home/linuxbrew/.linuxbrew/var/tmp"
+		else
+			mkdir .linuxbrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C "$HOME/.linuxbrew"
+			mkdir "$HOME/.linuxbrew/var/tmp"
 	else
 		mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
 		mkdir "$HOME/homebrew/var/tmp"
