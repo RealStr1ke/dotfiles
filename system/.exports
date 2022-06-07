@@ -5,7 +5,7 @@ export EDITOR='vim';
 
 # Set's the Homebrew temp directory for installations
 if [ "$(uname)" = "Linux" ]; then
-	if [$(sudo -l | grep ALL) = "(ALL : ALL) ALL"]; then
+	if [ $(sudo -l | grep ALL) = "(ALL : ALL) ALL" ]; then
     	HOMEBREW_TEMP="/home/linuxbrew/.linuxbrew/var/tmp"
 	else
     	HOMEBREW_TEMP="$HOME/.linuxbrew/var/tmp"
