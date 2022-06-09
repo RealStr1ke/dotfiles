@@ -209,7 +209,7 @@ alias reload="exec ${SHELL} -l"
 alias path='echo -e ${PATH//:/\\n}'
 
 # Removes duplicate PATH entries
-# alias dpath="PATH=$(echo -e ${${echo -n $PATH | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}'}//:/\\n})"
+alias dpath="printf %s "$PATH" | awk -v RS=: -v ORS=: '!arr[$0]++'"
 
 # Enable aliases to be sudo-ed
 alias sudo='sudo '
