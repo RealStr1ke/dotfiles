@@ -29,6 +29,11 @@ PATH="node_modules/.bin:vendor/bin:$PATH"
 # Use current directory's binaries over global ones
 # PATH="bin:$PATH"
 
+# Adding Global NPM packages to PATH
+if [ -d "/usr/local/lib/node_modules/node/bin" ]; then
+	PATH="/usr/local/lib/node_modules/node/bin:$PATH"
+fi
+
 # Remove duplicate PATH entries because why not
 PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
 
