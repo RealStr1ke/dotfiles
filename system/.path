@@ -27,6 +27,6 @@ PATH="$HOME/bin:$PATH";
 PATH="node_modules/.bin:vendor/bin:$PATH"
 
 # Use current directory's binaries over global ones
-# PATH="bin:$PATH"
+PATH="bin:$PATH"
 
 export PATH;
