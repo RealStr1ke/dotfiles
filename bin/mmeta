@@ -1,0 +1,62 @@
+#!/usr/bin/env node
+
+(async () => {
+	const mm = require('music-metadata');
+	const nid = require('node-id3');
+	const glob = require('glob');
+	const path = require('path');
+    const colors = require('colors');
+    
+    const args = process.argv.slice(2);
+    // console.log(args);
+    // console.log(process.cwd());
+    function bold(arg) { return colors.bold(colors.blue(arg))};
+    function white(arg) { return colors.white(arg); };
+    console.log(colors.bold(colors.white('-'.repeat(process.stdout.columns))));
+    for (let file in args) {
+        if (file > 0) {
+            console.log(colors.bold(colors.white('-'.repeat(process.stdout.columns))));
+        }
+
+        file = args[file];
+        const filePath = `${process.cwd()}/${file}`;
+        const fileData = path.parse(filePath);
+        // console.log(fileData);
+
+        const metadata = await mm.parseFile(filePath);
+        const nidmetadata = nid.read(filePath, {
+            exclude: ['USLT'],            // don't read the specified tags (default: [])
+            onlyRaw: false,               // only return raw object (default: false)
+            noRaw: false                  // don't generate raw object (default: false)
+        });
+
+        // console.log(metadata.common)
+        // console.log(nidmetadata)
+
+        const cmd = metadata.common;
+        const nmd = nidmetadata;
+
+        const md = {
+            title: cmd.title,
+            artist: cmd.artists.join(', '),
+            trackNumber: cmd.track.no,
+            album: cmd.album,
+            partOfSet: cmd.disk.no,
+            genre: nmd.genre,
+            // performerInfo: cmd.albumartist.split('/').join(', '),
+            performerInfo: cmd.albumartist.split('/')[0],
+            image: nmd.image
+        }
+        console.log([
+            `${bold('File:')} ${white(fileData.base)}`,
+            `${bold('Title:')} ${white(md.title)}`,
+            `${bold('Artist:')} ${white(md.artist)}`,
+            `${bold('Track Number:')} ${white(md.trackNumber)}`,
+            `${bold('Album:')} ${white(md.album)}`,
+            `${bold('Disk Number:')} ${white(md.partOfSet)}`,
+            `${bold('Genre:')} ${white(md.genre)}`,
+            `${bold('Album Artist:')} ${white(md.performerInfo)}`,
+        ].join('\n'))
+    }
+    console.log(colors.bold(colors.white('-'.repeat(process.stdout.columns))));
+})();
