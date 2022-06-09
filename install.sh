@@ -35,7 +35,7 @@ else
 	while true; do
 		read -p "Do you wish to install the dotfiles with the given provider? (y/n) " yn
 		case $yn in
-			[Yy]* ) echo "Installing..." break;;
+			[Yy]* ) echo "Installing..."; break;;
 			[Nn]* ) echo "Aborting."; exit;;
 			* ) echo "Please answer yes or no.";;
 		esac
