@@ -21,7 +21,7 @@ fi
 PATH="$HOME/.dotfiles/bin:$PATH";
 
 # Main Binaries
-PATH="$HOME/bin:$PATH";
+PATH="$HOME/.local/bin:$HOME/bin:$PATH";
 
 # Use project specific binaries before global ones
 PATH="node_modules/.bin:vendor/bin:$PATH"
