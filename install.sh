@@ -32,14 +32,18 @@ fi
 if [ -z "$CMD" ]; then
 	echo "No git, curl or wget available. Aborting."
 else
-	while true; do
-		read -p "Do you wish to install the dotfiles with the given provider? (y/n) " yn
-		case $yn in
-			[Yy]* ) echo "Installing..."; break;;
-			[Nn]* ) echo "Aborting."; exit;;
-			* ) echo "Please answer yes or no.";;
-		esac
-	done
+	if is_executable "gp"; then
+		:
+	else
+		while true; do
+			read -p "Do you wish to install the dotfiles with the given provider? (y/n) " yn
+			case $yn in
+				[Yy]* ) echo "Installing..."; break;;
+				[Nn]* ) echo "Aborting."; exit;;
+				* ) echo "Please answer yes or no.";;
+			esac
+		done
+	fi
 	mkdir -p "$TARGET"
 	eval "$CMD"
 	echo "Downloaded .files from RealStr1ke/dotfiles!"
@@ -79,7 +83,7 @@ done
 
 # Homebrew Installation
 if is-executable "gp"; then
-	echo "Gitpod detected, not installing Homebrew (or Linuxbrew)"
+	echo "Gitpod detected, not installing Homebrew (or Linuxbrew)."
 else
 	NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
@@ -107,20 +111,33 @@ fi
 # Kitty Installation
 # https://sw.kovidgoyal.net/kitty/binary/
 
-curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin \\
-    installer=nightly launch=n
+if is_executable "gp"; then
+	echo "Gitpod detected, not installing Kitty."
+elif is_executable "kitty"; then
+	echo "Kitty already installed, not re-installing."
+else
+	curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
 
-if [ "$(uname)" = "Linux" ]; then
-	# Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
-	# your system-wide PATH)
-	ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
-	# Place the kitty.desktop file somewhere it can be found by the OS
-	cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-	# If you want to open text files and images in kitty via your file manager also add the kitty-open.desktop file
-	cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
-	# Update the paths to the kitty and its icon in the kitty.desktop file(s)
-	sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
-	sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+	function kitty_desktop() {
+		# Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
+		# your system-wide PATH)
+		ln -sf ~/.local/kitty.app/bin/kitty ~/.local/bin/
+		# Place the kitty.desktop file somewhere it can be found by the OS
+		cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+		# If you want to open text files and images in kitty via your file manager also add the kitty-open.desktop file
+		cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+		# Update the paths to the kitty and its icon in the kitty.desktop file(s)
+		sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+		sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+	}
+	while true; do
+		read -p "Would you like Kitty to be a desktop application? (y/n) " yn
+		case $yn in
+			[Yy]* ) echo "Setting up..."; kitty_desktop; echo "Done setting up Kitty's desktop app!"; break;;
+			[Nn]* ) break;;
+			* ) echo "Please answer yes or no.";;
+		esac
+	done
 fi
 
 # https://www.gnu.org/gnu/linux-and-gnu.en.html
