@@ -14,6 +14,15 @@ function f() {
 	find . -name "$1" 2>&1 | grep -v 'Permission denied'
 }
 
+# Make all files in current directory executable
+function allex {
+	for FILE in `find "$(pwd)" -type f -printf "%f\n"`
+	do
+		chmod +x FILE
+	done
+	unset FILE
+}
+
 # List all files, long format, colorized, permissions in octal
 function lf(){
  	ls -l  "$@" | awk '
