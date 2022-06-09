@@ -18,7 +18,7 @@ function f() {
 function allex() {
 	for FILE in `find "$(pwd)" -type f -printf "%f\n"`
 	do
-		chmod +x FILE
+		chmod +x $FILE
 	done
 	unset FILE
 }
