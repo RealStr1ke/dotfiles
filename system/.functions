@@ -15,7 +15,7 @@ function f() {
 }
 
 # Make all files in current directory executable
-function allex {
+function allex() {
 	for FILE in `find "$(pwd)" -type f -printf "%f\n"`
 	do
 		chmod +x FILE
