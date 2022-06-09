@@ -29,4 +29,7 @@ PATH="node_modules/.bin:vendor/bin:$PATH"
 # Use current directory's binaries over global ones
 PATH="bin:$PATH"
 
+# Remove duplicate PATH entries because why not
+PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
+
 export PATH;
