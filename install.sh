@@ -82,7 +82,6 @@ if is-executable "gp"; then
 	echo "Gitpod detected, not installing Homebrew (or Linuxbrew)"
 else
 	NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	if [ -d "$HOME/.linuxbrew/" ]
 fi
 
 # if is-executable "gp"; then

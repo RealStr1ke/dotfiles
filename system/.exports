@@ -4,14 +4,22 @@
 export EDITOR='vim';
 
 # Set's the Homebrew temp directory for installations
-if [ "$(uname)" = "Linux" ]; then
-	if [ "$(sudo -l | grep ALL)" = "(ALL : ALL) ALL" ]; then
-    	HOMEBREW_TEMP="/home/linuxbrew/.linuxbrew/var/tmp"
-	else
-    	HOMEBREW_TEMP="$HOME/.linuxbrew/var/tmp"
-	fi
+if is-executable "gp"; then
+	:
 else
-    HOMEBREW_TEMP="$HOME/homebrew/var/tmp"
+	if [ "$(uname)" = "Linux" ]; then
+		if [ -d "/home/linuxbrew/.linuxbrew/" ]; then
+			HOMEBREW_TEMP="/home/linuxbrew/.linuxbrew/var/tmp"
+		elif [ -d "$HOME/.linuxbrew" ]; then
+			HOMEBREW_TEMP="$HOME/.linuxbrew/var/tmp"
+		fi
+	elif [ "$(uname)" = "Darwin" ]; then
+		if [[ "$(/usr/bin/uname -m)" == "arm64" ]]; then
+			HOMEBREW_TEMP="/opt/homebrew/var/tmp"
+		else
+			HOMEBREW_TEMP="/usr/local/Homebrew/var/tmp"
+		fi
+	fi
 fi
 
 export HOMEBREW_TEMP
@@ -37,7 +45,7 @@ export SAVEHIST='4096';
 export HISTCONTROL='ignoreboth';
 
 # Prefer US English and use UTF-8.
-export LANG='en_US.UTF-8';
+export LANG='en_US.UTF-8' 2>/dev/null;
 export LC_ALL='en_US.UTF-8' 2>/dev/null;
 
 # Highlight section titles in manual pages.

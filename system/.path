@@ -1,17 +1,19 @@
 # Homebrew
-if is-executable gp; then
-	:
-elif [ "$(uname -m)" = "armv7l" ]; then
+if is-executable "gp"; then
 	:
 else
 	if [ "$(uname)" = "Linux" ]; then
-		if [ "$(sudo -l | grep ALL)" = "(ALL : ALL) ALL" ]; then
-			PATH="/home/linuxbrew/.linuxbrew/bin:$PATH";
-		else
-			PATH="$HOME/.linuxbrew/bin:$PATH";
+		if [ -d "/home/linuxbrew/.linuxbrew/" ]; then
+			PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+		elif [ -d "$HOME/.linuxbrew" ]; then
+			PATH="$HOME/.linuxbrew/bin:$PATH"
 		fi
-	else
-		PATH="$HOME/homebrew/bin:$PATH";
+	elif [ "$(uname)" = "Darwin" ]; then
+		if [[ "$(/usr/bin/uname -m)" == "arm64" ]]; then
+			PATH="/opt/homebrew/bin:$PATH"
+		else
+			PATH="/usr/local/Homebrew/bin:$PATH"
+		fi
 	fi
 fi
 
