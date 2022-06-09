@@ -197,6 +197,7 @@ alias starwars="telnet towel.blinkenlights.nl"
 # ----------------------------
 alias quit="exit"
 alias cls="clear;ls"
+alias cla="clear;la"
 alias dec2hex='printf "%x\n" $1'
 alias speedtest="wget -O /dev/null http://speed.transip.nl/100mb.bin"
 
