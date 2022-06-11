@@ -72,6 +72,7 @@ if tput setaf 1 &> /dev/null; then
 	violet=$(tput setaf 61);
 	white=$(tput setaf 15);
 	yellow=$(tput setaf 136);
+	# 111 117 254 5
 else
 	bold='';
 	reset="\e[0m";
@@ -86,6 +87,7 @@ else
 	white="\e[1;37m";
 	yellow="\e[1;33m";
 fi;
+
 
 # Highlight the user name when logged in as root.
 if [[ "${USER}" == "root" ]]; then
