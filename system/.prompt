@@ -1,24 +1,151 @@
-# Bash Prompt
-# A full-fledged bash prompt function will come soon, this will do for now.
+#!/usr/bin/env bash
 
-# Old Bash Prompt
-# PS1='\[\e]0;\u \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]str1ke\[\033[00m\] \[\033[01;34m\]\w$(__git_ps1 " (%s)") \$ \[\033[00m\]'
-# PS1='\[\e]0;\u \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]bolt@str1ke\[\033[00m\] \[\033[01;34m\]\w \$ \[\033[00m\]'
-
-# username@hostname workdir (git branch) ❯
-# PS1='\[\e[0;1;38;5;111m\]\u\[\e[0;1;38;5;111m\]@\[\e[0;1;38;5;111m\]\h \[\e[0;1;38;5;117m\]\w \[\e[0m\](\[\e[0;1;38;5;254m\]$(git branch 2>/dev/null | grep '"'"'^*'"'"' | colrm 1 2)\[\e[0m\]) \[\e[0;1;2;5m\]❯ \[\e[0m\]'
-
-# username workdir (git branch) ❯
-# PS1='\[\e[0;1;38;5;111m\]\u \[\e[0;1;38;5;117m\]\w \[\e[0m\](\[\e[0;1;38;5;254m\]$(git branch 2>/dev/null | grep '"'"'^*'"'"' | colrm 1 2)\[\e[0m\]) \[\e[0;1;2;5m\]❯ \[\e[0m\]'
-
-# str1ke workdir (git branch) ❯
-PS1='\[\e[0;1;38;5;111m\]str1ke \[\e[0;1;38;5;117m\]\w \[\e[0m\](\[\e[0;1;38;5;254m\]$(git branch 2>/dev/null | grep '"'"'^*'"'"' | colrm 1 2)\[\e[0m\]) \[\e[0;1;2;5m\]❯ \[\e[0m\]'
-
-# username@hostname workdir ❯
-# PS1='\[\e[0;1;38;5;111m\]\u\[\e[0;1;38;5;111m\]@\[\e[0;1;38;5;111m\]\h \[\e[0;1;38;5;117m\]\w \[\e[0;1;2;5m\]❯ \[\e[0m\]'
-
-# username workdir ❯
-# PS1='\[\e[0;1;38;5;111m\]\u \[\e[0;1;38;5;117m\]\w \[\e[0;1;2;5m\]❯ \[\e[0m\]'
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+	export TERM='gnome-256color';
+elif infocmp xterm-256color >/dev/null 2>&1; then
+	export TERM='xterm-256color';
+fi;
 
 
+# Get Colors
+if tput setaf 1 &> /dev/null; then
+	tput sgr0; # reset colors
+	bold=$(tput bold);
+	reset=$(tput sgr0);
 
+	chalkblue=$(tput setaf 111);
+    lightblue=$(tput setaf 117);
+
+    # Solarized colors, taken from http://git.io/solarized-colors.
+	black=$(tput setaf 0);
+	blue=$(tput setaf 33);
+	cyan=$(tput setaf 37);
+	green=$(tput setaf 64);
+	orange=$(tput setaf 166);
+	purple=$(tput setaf 125);
+	red=$(tput setaf 124);
+	violet=$(tput setaf 61);
+	white=$(tput setaf 15);
+	yellow=$(tput setaf 136);
+	# 111 117 254 5
+else
+    # WIP: Make sure the fallback is equal to the colors above
+    # For now, I'll leave it as is, as I usually have tput available
+	bold='';
+	reset="\e[0m";
+	black="\e[1;30m";
+	blue="\e[1;34m";
+	cyan="\e[1;36m";
+	green="\e[1;32m";
+	orange="\e[1;33m";
+	purple="\e[1;35m";
+	red="\e[1;31m";
+	violet="\e[1;35m";
+	white="\e[1;37m";
+	yellow="\e[1;33m";
+fi;
+
+
+# Function inspired from @mathiasbynens/dotfiles 
+# Minor tweaks have been made
+prompt_git() {
+    local status='';
+    local branch='';
+    local full='';
+
+    # Check if the current directory is in a Git repository.
+	git rev-parse --is-inside-work-tree &>/dev/null || return;
+
+    # Check for what branch we’re on.
+	# Get the short symbolic ref. If HEAD isn’t a symbolic ref, get a
+	# tracking remote branch or tag. Otherwise, get the
+	# short SHA for the latest commit, or give up.
+	branch="$(git symbolic-ref --quiet --short HEAD 2> /dev/null || \
+		git describe --all --exact-match HEAD 2> /dev/null || \
+		git rev-parse --short HEAD 2> /dev/null || \
+		echo '(unknown)')";
+        
+    # Early exit for Chromium & Blink repo, as the dirty check takes too long.
+	# Thanks, @paulirish!
+	# https://github.com/paulirish/dotfiles/blob/dd33151f/.bash_prompt#L110-L123
+	repoUrl="$(git config --get remote.origin.url)";
+	if grep -q 'chromium/src.git' <<< "${repoUrl}"; then
+		status+="${chalkblue}";
+		status+='*';
+	else
+		# Check for uncommitted changes in the index.
+		if ! $(git diff --quiet --ignore-submodules --cached); then
+			status+="${yellow}";
+			status+='+';
+		fi;
+		# Check for unstaged changes.
+		if ! $(git diff-files --quiet --ignore-submodules --); then
+			status+="${violet}";
+			status+='!';
+		fi;
+		# Check for untracked files.
+		if [ -n "$(git ls-files --others --exclude-standard)" ]; then
+			status+="${cyan}";
+			status+='?';
+		fi;
+		# Check for stashed files.
+		if $(git rev-parse --verify refs/stash &>/dev/null); then
+			status+="${purple}";
+			status+='$';
+		fi;
+	fi;
+	status+="${reset}";
+	status+="${bold}";
+	status+="${white}";
+
+    if [ "${status}" != "" ]; then
+        status=" [${bold}${status}]"
+    fi;
+    # [[ ! -z "${status}"]] && 
+
+    echo -e " (${branch})${status}"
+}
+
+
+# Aesthetic Changes
+
+# Highlight the user name when logged in as root.
+if [[ "${USER}" == "root" ]]; then
+	userStyle="${cyan}";
+else
+	userStyle="${chalkblue}";
+fi;
+
+# Highlight the hostname when connected via SSH.
+if [[ "${SSH_TTY}" ]]; then
+	hostStyle="${bold}${red}";
+else
+	hostStyle="${blue}";
+fi;
+
+# Check if current user isn't properly
+if [ "${USER}" = "I have no name!" ]; then
+    export USER='str1ke';
+fi
+
+dirStyle="${bold}${lightblue}"
+atStyle="${bold}${violet}"
+
+# Disable showing the host in Bash prompt (custom)
+export NO_PROMPT_HOST=1;
+
+# Set PS1 Variable for Prompt
+PS1="\[\033]0;\W\007\]"
+PS1+="\[${bold}\]";
+PS1+="\[${userStyle}\]${USER}";
+if [[ "${NO_PROMPT_HOST}" ]]; then
+    PS1+="";
+else
+    PS1+="\[${atStyle}\]@";
+    PS1+="\[${hostStyle}\]\h";
+fi;
+
+PS1+=" ";
+PS1+="\[${dirStyle}\]\w";
+PS1+="\[${white}\]\$(prompt_git) ";
+PS1+="\[${white}\]❯ \[${reset}\]";
