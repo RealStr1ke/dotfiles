@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "colors": "^1.4.0",
+    "node-id3": "^0.2.3"
+  }
+}
