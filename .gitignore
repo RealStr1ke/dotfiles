@@ -1,4 +1,3 @@
 system/.extra
-backup/*
 backup/
 node_modules/
