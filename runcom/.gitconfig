@@ -1,3 +1,6 @@
 [user]
 	email = TMenelas@outlook.com
 	name = Thandi Menelas
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
