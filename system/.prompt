@@ -96,9 +96,7 @@ prompt_git() {
 	fi;
 
 	# [ -n "${status}" ] && status=" [${status}]";
-	if [ -z "${status}" ]; then
-		:
-	else
+	if [[ ! -z "${status}" ]]; then
 		status+="${reset}";
 		status+="${bold}";
 		status+="${white}";
