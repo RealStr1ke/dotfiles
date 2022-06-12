@@ -95,18 +95,7 @@ prompt_git() {
 		fi;
 	fi;
 
-	# [ -n "${status}" ] && status=" [${status}]";
-	if [[ ! -z "${status}" ]]; then
-		status+="${reset}";
-		status+="${bold}";
-		status+="${white}";
-		status=" [${bold}${status}]";
-	fi;
-	# [[ -z "${status}" ]] && 
-    # if [ "$(echo ${status})" != "" ]; then
-    #     status=" [${bold}${status}]"
-    # fi;
-    # [[ ! -z "${status}"]] && 
+	[[ ! -z "${status}" ]] && status=" [${bold}${status}${reset}${bold}${white}]";
 
     echo -e " (${branch})${status}"
 }
