@@ -1,3 +1,0 @@
-if is-executable fnm; then
-	eval "$(fnm env)"
-fi

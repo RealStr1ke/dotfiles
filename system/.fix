@@ -1,3 +1,31 @@
+#!/usr/bin/env bash
+
+if is-executable rbenv; then
+	eval "$(rbenv init -)"
+fi
+
+if is-executable brew; then
+	eval "$(brew shellenv)"
+fi
+
 if is-executable thefuck; then
 	eval $(thefuck --alias fix)
+fi
+
+if is-executable fnm; then
+	eval "$(fnm env)"
+fi
+
+# if is-executable pyenv; then
+# 	eval "$(pyenv init -)" &>/dev/null
+# fi
+
+# https://github.com/clvv/fasd#install
+if is-executable fasd; then
+	fasd_cache="$HOME/.fasd-init-bash"
+	if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+	fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+	fi
+	. "$fasd_cache"
+	unset fasd_cache
 fi

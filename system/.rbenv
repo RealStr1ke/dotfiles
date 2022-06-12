@@ -1,3 +1,0 @@
-if is-executable rbenv; then
-  eval "$(rbenv init -)"
-fi
