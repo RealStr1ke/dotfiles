@@ -98,7 +98,7 @@ prompt_git() {
 	status+="${bold}";
 	status+="${white}";
 
-    if [ "${status}" != "" ]; then
+    if [ "$(echo ${status})" != "" ]; then
         status=" [${bold}${status}]"
     fi;
     # [[ ! -z "${status}"]] && 
