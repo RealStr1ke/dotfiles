@@ -98,9 +98,11 @@ prompt_git() {
 	status+="${bold}";
 	status+="${white}";
 
-    if [ "$(echo ${status})" != "" ]; then
-        status=" [${bold}${status}]"
-    fi;
+	# [ -n "${status}" ] && status=" [${status}]";
+	[ -n "${status}" ] && status=" [${bold}${status}]";
+    # if [ "$(echo ${status})" != "" ]; then
+    #     status=" [${bold}${status}]"
+    # fi;
     # [[ ! -z "${status}"]] && 
 
     echo -e " (${branch})${status}"
