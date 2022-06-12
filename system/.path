@@ -15,6 +15,7 @@ else
 			PATH="/usr/local/Homebrew/bin:$PATH"
 		fi
 	fi
+	PATH="$(brew --prefix)/sbin:$PATH"
 fi
 
 # Dotfile Binaries
