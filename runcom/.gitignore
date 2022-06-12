@@ -1,3 +1,17 @@
+
+# "ignore" directories (because I'm that kind of person)
 ignore/
-ignore/*
+
+# Node.js
 node_modules/
+
+# Python
+*.pyc
+
+# macOS
+.Spotlight-V100
+.Trashes
+.DS_Store
+Desktop.ini
+._*
+Thumbs.db
