@@ -94,14 +94,14 @@ prompt_git() {
 			status+='$';
 		fi;
 	fi;
-	status+="${reset}";
-	status+="${bold}";
-	status+="${white}";
 
 	# [ -n "${status}" ] && status=" [${status}]";
 	if [ -z "${status}" ]; then
 		:
 	else
+		status+="${reset}";
+		status+="${bold}";
+		status+="${white}";
 		status=" [${bold}${status}]";
 	fi;
 	# [[ -z "${status}" ]] && 
