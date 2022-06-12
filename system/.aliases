@@ -211,6 +211,19 @@ alias path='echo -e ${PATH//:/\\n}'
 # Removes duplicate PATH entries
 alias dpath="printf %s "$PATH" | awk -v RS=: -v ORS=: '!arr[$0]++'"
 
+# Kill all the tabs in Chrome to free up memory
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+# Lock the screen (when going AFK)
+alias afk="i3lock -c 000000"
+
+# vhosts
+alias hosts='sudo nano /etc/hosts'
+
+# Copy working directory
+alias cwd='pwd | tr -d "\r\n" | xclip -selection clipboard'
+
 # Enable aliases to be sudo-ed
 alias sudo='sudo '
 
