@@ -99,7 +99,12 @@ prompt_git() {
 	status+="${white}";
 
 	# [ -n "${status}" ] && status=" [${status}]";
-	[ -n "${status}" ] && status=" [${bold}${status}]";
+	if [ -z "${status}" ]; then
+		:
+	else
+		status=" [${bold}${status}]";
+	fi;
+	# [[ -z "${status}" ]] && 
     # if [ "$(echo ${status})" != "" ]; then
     #     status=" [${bold}${status}]"
     # fi;
