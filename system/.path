@@ -1,7 +1,5 @@
 # Homebrew
-if is-executable "gp"; then
-	:
-else
+if is-executable "brew"; then
 	if [ "$(uname)" = "Linux" ]; then
 		if [ -d "/home/linuxbrew/.linuxbrew/" ]; then
 			PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
@@ -22,17 +20,19 @@ fi
 PATH="$HOME/.dotfiles/bin:$PATH";
 
 # Main Binaries
-PATH="$HOME/.local/bin:$HOME/bin:$PATH";
+PATH="$HOME/.local/bin:$PATH";
+PATH="$HOME/bin:$PATH";
 
 # Use project specific binaries before global ones
-PATH="node_modules/.bin:vendor/bin:$PATH"
+PATH="node_modules/.bin:$PATH";
+PATH="vendor/bin:$PATH";
 
 # Use current directory's binaries over global ones
 # PATH="bin:$PATH"
 
 # Adding Global NPM packages to PATH
-if [ -d "/usr/local/lib/node_modules/node/bin" ]; then
-	PATH="/usr/local/lib/node_modules/node/bin:$PATH"
+if is-executable "npm"; then
+	PATH="$(npm bin --location=global):$PATH"
 fi
 
 # Remove duplicate PATH entries because why not

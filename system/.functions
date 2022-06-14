@@ -27,6 +27,11 @@ function tput_colors() {
 	done
 }
 
+# Markdown
+function md() {
+	pandoc $1 | lynx -stdin -dump
+}
+
 # Table of colors
 function colortest() {
 	printf "          "

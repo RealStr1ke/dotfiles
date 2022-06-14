@@ -4,9 +4,7 @@
 export EDITOR='vim';
 
 # Set's the Homebrew temp directory for installations
-if is-executable "gp"; then
-	:
-else
+if is-executable "brew"; then
 	if [ "$(uname)" = "Linux" ]; then
 		if [ -d "/home/linuxbrew/.linuxbrew/" ]; then
 			HOMEBREW_TEMP="/home/linuxbrew/.linuxbrew/var/tmp"
@@ -20,9 +18,12 @@ else
 			HOMEBREW_TEMP="/usr/local/Homebrew/var/tmp"
 		fi
 	fi
+	export HOMEBREW_TEMP;
+	export LIBRARY_PATH="$(brew --prefix)/lib:$LIBRARY_PATH"
+	export LDFLAGS="${LDFLAGS} -L$(brew --prefix)/lib"
+	export CPPFLAGS="${CPPFLAGS} -I$(brew --prefix)/include"
 fi
 
-export HOMEBREW_TEMP
 
 # Dotfiles Directory
 export DOTFILES="$HOME/.dotfiles"
