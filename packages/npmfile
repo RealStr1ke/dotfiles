@@ -1,9 +1,19 @@
+auto-install
+cost-of-modules
+clipboard-cli
+eslint
 fast-cli
 fkill-cli
 get-port-cli
+terminal-image-cli
+terminal-link-cli
+taskbook
+boxen-cli
+jsome
 gtop
 local-web-server
 nodemon
+npkill
 npm
 npm-check
 prettier
@@ -11,4 +21,6 @@ release-it
 svgo
 tldr
 underscore-cli
+wallpaper
+wifi-password-cli
 yarn
