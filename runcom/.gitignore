@@ -8,6 +8,13 @@ node_modules/
 # Python
 *.pyc
 
+# Linux
+*.deb
+*.rpm
+
+# Windows
+desktop.ini
+
 # macOS
 .Spotlight-V100
 .Trashes
@@ -15,3 +22,9 @@ node_modules/
 Desktop.ini
 ._*
 Thumbs.db
+
+# Random stuff I don't want
+*.old
+*.disabled
+*.tmp
+*.iso
