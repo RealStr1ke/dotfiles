@@ -281,6 +281,15 @@ function getcertnames() {
 	fi
 }
 
+# spotdl w/ path template
+function spdl() {
+    if [ "$#" = "0" ]; then
+        spotdl -h
+    else
+        spotdl "$*" --path-template '{album}/{title}.{ext}'
+    fi
+}
+
 # Call from a local repo to open the repository on github/bitbucket in browser
 # Modified version of https://github.com/zeke/ghwd
 function repo() {
@@ -333,6 +342,19 @@ function repo() {
 
 	open "$url" &> /dev/null || (echo "Using $(type open) to open URL failed." && exit 1);
 }
+
+# Search Bash History
+# From alrra/dotfiles
+hist() {
+    #           ┌─ Enable colors for pipe.
+    #           │  ("--color=auto" enables colors only
+    #           │   if the output is in the terminal.)
+    grep --color=always "$*" "$HISTFILE" \
+        | less --no-init --raw-control-chars
+          #    │         └─ Display ANSI color escape sequences in raw form.
+          #    └─ Don't clear the screen after quitting less.
+}
+
 
 # Get colors in manual pages
 function man() {

@@ -5,13 +5,13 @@ export EDITOR='vim';
 
 # Set's the Homebrew temp directory for installations
 if is-executable "brew"; then
-	if [ "$(uname)" = "Linux" ]; then
+	if [ "$(/usr/bin/env uname)" = "Linux" ]; then
 		if [ -d "/home/linuxbrew/.linuxbrew/" ]; then
 			HOMEBREW_TEMP="/home/linuxbrew/.linuxbrew/var/tmp"
 		elif [ -d "$HOME/.linuxbrew" ]; then
 			HOMEBREW_TEMP="$HOME/.linuxbrew/var/tmp"
 		fi
-	elif [ "$(uname)" = "Darwin" ]; then
+	elif [ "$(/usr/bin/env uname)" = "Darwin" ]; then
 		if [[ "$(/usr/bin/uname -m)" == "arm64" ]]; then
 			HOMEBREW_TEMP="/opt/homebrew/var/tmp"
 		else

@@ -16,9 +16,13 @@ if is-executable fnm; then
 	eval "$(fnm env)"
 fi
 
-# if is-executable pyenv; then
-# 	eval "$(pyenv init -)" &>/dev/null
-# fi
+if is-executable pyenv; then
+	eval "$(pyenv init -)" &>/dev/null
+fi
+
+# Something for spicetify will come soon
+# curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-cli/master/install.sh | sh
+# curl -fsSL https://raw.githubusercontent.com/spicetify/spicetify-marketplace/main/resources/install.sh | sh
 
 # https://github.com/clvv/fasd#install
 if is-executable fasd; then

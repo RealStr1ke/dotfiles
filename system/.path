@@ -1,19 +1,24 @@
 # Homebrew
-if is-executable "brew"; then
-	if [ "$(uname)" = "Linux" ]; then
+if ! is-executable "gp"; then
+	if [ "$(/usr/bin/env uname)" = "Linux" ]; then
 		if [ -d "/home/linuxbrew/.linuxbrew/" ]; then
 			PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 		elif [ -d "$HOME/.linuxbrew" ]; then
 			PATH="$HOME/.linuxbrew/bin:$PATH"
 		fi
 	elif [ "$(uname)" = "Darwin" ]; then
-		if [[ "$(/usr/bin/uname -m)" == "arm64" ]]; then
+		if [[ "$(/usr/bin/env uname -m)" == "arm64" ]]; then
 			PATH="/opt/homebrew/bin:$PATH"
 		else
 			PATH="/usr/local/Homebrew/bin:$PATH"
 		fi
 	fi
 	PATH="$(brew --prefix)/sbin:$PATH"
+fi
+
+# Spicetify CLI
+if [ -d "$HOME/.spicetify" ]; then
+	PATH="$PATH:$HOME/.spicetify"
 fi
 
 # Dotfile Binaries
@@ -32,6 +37,7 @@ PATH="vendor/bin:$PATH";
 
 # Adding Global NPM packages to PATH
 if is-executable "npm"; then
+	PATH="$(npm bin):$PATH"
 	PATH="$(npm bin --location=global):$PATH"
 fi
 
