@@ -11,7 +11,7 @@ echo "→ Installing NPM packages globally..."
 input="$DOTFILES/packages/npmfile"
 while IFS= read -r line
 do
-	npm install -g $line
+	sudo npm install -g $line
 done < "$input"
 
 # Visual Studio Code
