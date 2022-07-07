@@ -3,7 +3,6 @@
 # Homebrew
 if is-executable brew; then
 	BREW_PREFIX=$(brew --prefix)
-	# . "$BREW_PREFIX/etc/bash_completion.d/brew"
 	if [[ -r "${BREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]
 	then
 		source "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
@@ -27,5 +26,5 @@ fi
 
 # Git
 if is-executable git; then
-	bash -c `curl -fsSL "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash"`
+	curl -fsSL "https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash" | $SHELL
 fi
