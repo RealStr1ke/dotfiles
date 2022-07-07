@@ -1,13 +1,12 @@
 # # If not running interactively, don't do anything
-# [[ $- == *i* ]] || return
-
-# [ -n "$PS1" ] && source ~/.bash_profile;
+[[ $- == *i* ]] || return
 
 # Add dotfile binaries to PATH before sourcing dotfiles
-PATH="$HOME/.dotfiles/bin:$PATH"
+PATH="$HOME/.dotfiles/bin/main:$PATH";
+PATH="$HOME/.dotfiles/bin/fun:$PATH";
 
-for DOTFILE in `find $HOME/.dotfiles/system -type f -name ".*" -printf "%f\n"`
+for DOTFILE in `find $HOME/.dotfiles/shell/global -type f -name ".*" -printf "%f\n"`
 do
-    source "$HOME/.dotfiles/system/$DOTFILE"
+    source "$HOME/.dotfiles/shell/global/$DOTFILE"
 done
 unset DOTFILE
