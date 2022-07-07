@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 
 # ----------------------------
-# |        Shortcuts         |
-# ----------------------------
-alias _="sudo"
-alias javasel="sudo update-alternatives --config java"
-
-# ----------------------------
 # |     Safety Features      |
 # ----------------------------
 
@@ -35,6 +29,9 @@ alias python="python3"
 alias python-config="python3-config"
 alias wheel="wheel3"
 alias py="python3"
+
+# Java
+alias javasel="sudo update-alternatives --config java"
 
 
 # ----------------------------
@@ -235,10 +232,21 @@ alias starwars="telnet towel.blinkenlights.nl"
 # |      Miscellaneous       |
 # ----------------------------
 alias quit="exit"
+
+# Clear and list directories
 alias cls="clear;ls"
+
+# Clear shell and list directories (full)
 alias cla="clear;la"
+
+# Clear shell and show tasks (taskbook)
 alias ctb="clear;tb"
+
+# Decimal 2 Hexadecimal
+# alias dec2hex="od -v -t x1"
 alias dec2hex='printf "%x\n" $1'
+
+# Just a regular speedtest
 alias speedtest="wget -O /dev/null http://speed.transip.nl/100mb.bin"
 
 # Reload the shell (i.e. invoke as a login shell)
@@ -258,7 +266,7 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 # Lock the screen (when going AFK)
 alias afk="i3lock -c 000000"
 
-# vhosts
+# Open hosts file with nano
 alias hosts='sudo nano /etc/hosts'
 
 # Copy working directory
