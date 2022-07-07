@@ -1,0 +1,27 @@
+# alias code="code-insiders"
+alias msd="cd '/media/$USER/BYTE/Stuff/More Stuff/Media/Music'"
+# export PKG_CONFIG_PATH='/usr/lib/x86_64-linux-gnu/pkgconfig/:'
+export CALIBRE_USE_DARK_PALETTE=1
+# export PATH='/home/str1ke/Projects/Repos/ubuntu-gdm-set-background:/home/str1ke/.pyenv/shims:/run/user/1000/fnm_multishells/72947_1656548454693/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/home/str1ke/.rbenv/shims:/usr/local/lib/node_modules/node/bin:/home/str1ke/node_modules/.bin:vendor/bin:node_modules/.bin:/home/str1ke/bin:/home/str1ke/.local/bin:/home/str1ke/.dotfiles/bin:/home/linuxbrew/.linuxbrew/sbin:/home/linuxbrew/.linuxbrew/bin:/run/user/1000/fnm_multishells/2757_1656512621701/bin:/home/str1ke/.rbenv/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/str1ke/.spicetify'
+export BASHDOTDIR="/home/str1ke/.dotfiles"
+# i3
+# i3-gaps
+# lemonbar
+# polybar
+
+# i3-gaps-dock
+# i3-gaps-dock-themes
+# i3-gaps-dock-themes-dark
+# i3-gaps-dock-themes-light
+
+# The function will not be run in future, but you can run
+# it yourself as follows:
+#   autoload -Uz zsh-newuser-install
+#   zsh-newuser-install -f
+
+# The code added to ~/.zshrc is marked by the lines
+# # Lines configured by zsh-newuser-install
+# # End of lines configured by zsh-newuser-install
+# You should not edit anything between these lines if you intend to
+# run zsh-newuser-install again.  You may, however, edit any other part
+# of the file.
