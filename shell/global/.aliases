@@ -60,7 +60,10 @@ if ! is-executable code && is-executable code-insiders; then
 fi
 
 # bat
-alias bat="\bat --theme=GitHub"
+# alias bat="\bat --theme=GitHub"
+
+# cat
+alias cat="cat -s"
 
 # APT (Advanced Packaging Tool)
 alias apti="sudo apt-get install"
@@ -233,12 +236,12 @@ alias starwars="telnet towel.blinkenlights.nl"
 # ----------------------------
 alias quit="exit"
 
+# Clear
+alias clr="clear"
 # Clear and list directories
 alias cls="clear;ls"
-
 # Clear shell and list directories (full)
 alias cla="clear;la"
-
 # Clear shell and show tasks (taskbook)
 alias ctb="clear;tb"
 
