@@ -124,6 +124,22 @@ function dataurl() {
 	echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')";
 }
 
+# Redefine "command_not_found_handle"
+command_not_found_handle () { 
+    if [ -x /usr/lib/command-not-found ]; then
+        /usr/lib/command-not-found -- "$1";
+        return $?;
+    else
+        if [ -x /usr/share/command-not-found/command-not-found ]; then
+            /usr/share/command-not-found/command-not-found -- "$1";
+            return $?;
+        else
+            printf "%s: command not found\n" "$1" 1>&2;
+            return 127;
+        fi;
+    fi
+}
+
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
 	local port="${1:-8000}";
@@ -203,6 +219,31 @@ function unidecode() {
 # Query Wikipedia via console over DNS
 function mwiki() {
 	dig +short txt "$*".wp.dg.cx
+}
+
+# Symlink .desktop file to ~/Desktop
+function addDesktop() {
+	if [ -f "$1" ]; then
+		case $1 in
+			*.desktop) ln -s -i "$PWD/$1" "$HOME/Desktop/$1" ;;
+			*) echo "Please provide a .desktop file" ;;
+		esac
+	else
+		echo "Please provide a .desktop file"
+	fi
+}
+
+# Symlink given binary to ~/.local/bin/
+function addLocalBin() {
+	if [ -f "$1" ]; then
+		if [ -x "$1" ]; then
+			ln -s -i "$PWD/$1" "$HOME/.local/bin/$(basename $1)"
+		else
+			echo "Please provide an executable file"
+		fi
+	else
+		echo "Please provide an executable file"
+	fi
 }
 
 # Extract archives - use: extract <file>
