@@ -14,7 +14,7 @@ if tput setaf 1 &> /dev/null; then
 	reset=$(tput sgr0);
 
 	chalkblue=$(tput setaf 111);
-    	lightblue=$(tput setaf 117);
+    lightblue=$(tput setaf 117);
 
     # Solarized colors, taken from http://git.io/solarized-colors.
 	black=$(tput setaf 0);
@@ -113,14 +113,27 @@ else
 	userStyle="${chalkblue}";
 fi;
 
-# Highlight the hostname when connected via SSH.
 if [[ "${SSH_TTY}" ]]; then
+	# Highlight the hostname when connected via SSH
 	hostStyle="${bold}${red}";
+
+	# Highlight and bold the user name when logged in as root.
+	if [[ "${USER}" == "root" ]]; then
+		userStyle="${bold}${cyan}";
+	else
+		userStyle="${bold}${chalkblue}";
+	fi;
 else
 	hostStyle="${blue}";
+	# Highlight the user name when logged in as root.
+	if [[ "${USER}" == "root" ]]; then
+		userStyle="${cyan}";
+	else
+		userStyle="${chalkblue}";
+	fi;
 fi;
 
-# Check if current user isn't properly
+# Check if current user isn't properly set in the environment.
 if [ "${USER}" = "I have no name!" ]; then
     export USER='str1ke';
 fi
@@ -135,6 +148,26 @@ export NO_PROMPT_HOST=1;
 # character="➜"
 character="❯"
 
+# dir="$PWD"
+
+# Check if working path is longer than 70 characters
+# if [ ${#dir} -gt 70 ]; then
+#     dir="...${dir: -70}"
+# fi
+
+# Working on something that'll shorten directory when directory is longer than x characters
+# work_dir() {
+# 	local dir="$@";
+
+# 	# if [ ${#dir} -gt 30 ]; then
+# 	# 	# echo GREATER THAN 10 LOSER HAHAHAHAHHA
+# 	# 	echo "../$(basename $PWD)";
+# 	# else
+# 	# 	echo "\w";
+# 	# fi
+# 	echo -e "\w ${#dir}";
+# }
+
 # Set PS1 Variable for Prompt
 PS1="\[\033]0;\W\007\]"
 PS1+="\[${bold}\]";
@@ -147,6 +180,7 @@ else
 fi;
 
 PS1+=" ";
+# PS1+="\[${dirStyle}\]$(work_dir $PWD)";
 PS1+="\[${dirStyle}\]\w";
 PS1+="\[${white}\]\$(prompt_git) ";
 PS1+="\[${white}\]${character} \[${reset}\]";
