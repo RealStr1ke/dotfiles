@@ -51,7 +51,7 @@ else
 	mkdir -p "$TARGET"
 	eval "$CMD"
 	echo "Downloaded .files from RealStr1ke/dotfiles!"
-	touch "$HOME/.dotfiles/system/.extra"
+	touch "$HOME/.dotfiles/shell/global/.extra"
 	cd "$TARGET"
 fi
 
