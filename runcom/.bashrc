@@ -10,4 +10,3 @@ do
     source "$HOME/.dotfiles/shell/global/$DOTFILE"
 done
 unset DOTFILE
-export PATH=$PATH:/home/str1ke/.spicetify
