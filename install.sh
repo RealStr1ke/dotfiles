@@ -37,6 +37,7 @@ fi
 
 if [ -z "$CMD" ]; then
 	echo "No git, curl or wget available. Aborting."
+	exit
 else
 	if ! is::gitpod; then
 		while true; do
