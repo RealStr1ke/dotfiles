@@ -119,7 +119,7 @@ alias ld="ls -ld */"
 
 # Directory shortcuts
 alias desktop="cd ~/Desktop"
-alias dotfiles="cd $DOTFILES"
+alias dotfiles="cd ~/.dotfiles"
 alias projects="cd ~/Projects"
 alias drives="cd /media/$USER/"
 alias documents="cd ~/Documents"
@@ -127,7 +127,7 @@ alias downloads="cd ~/Downloads"
 
 # File shortcuts
 alias hosts="sudo nano /etc/hosts"
-alias notes="sudo nano ~/notes.md"
+alias notes="nano ~/notes.md"
 
 # Grep Coloring
 alias grep="grep --color=auto"
@@ -267,7 +267,9 @@ alias dpath="printf %s "$PATH" | awk -v RS=: -v ORS=: '!arr[$0]++'"
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 # Lock the screen (when going AFK)
-alias afk="i3lock -c 000000"
+# alias afk="i3lock -c 000000"
+# alias afk="gnome-screensaver-command -l"
+alias afk="xdg-screensaver lock"
 
 # Open hosts file with nano
 alias hosts='sudo nano /etc/hosts'

@@ -14,6 +14,29 @@ function prepend-path() {
   [ -d $1 ] && PATH="$1:$PATH"
 }
 
+# Add to notes file
+
+function addNote() {
+	if [ -z "$*" ]; then
+		echo "Usage: addNote <note>"
+		return 1
+	else 
+		echo "$*" >> "$HOME/notes.md"
+	fi
+}
+
+# Compile and run C/C++ program with clang
+# Executable file is created in ~/.local/tmp and removed after program exit
+function cmc() {
+	local curdir=$(pwd)
+	local dirname=$(dirname $1)
+	local filename=$(basename $1)
+	filename="${filename%.*}"
+	clang -o "$HOME/.local/tmp/$filename" "$1"
+	"$HOME/.local/tmp/$filename"
+	rm "$HOME/.local/tmp/$filename"
+}
+
 # Demonstrate tput color combinations.
 function tput_colors() {
 	for fg_color in {0..7}; do
@@ -30,6 +53,16 @@ function tput_colors() {
 # Markdown
 function md() {
 	pandoc $1 | lynx -stdin -dump
+}
+
+# Print current directory name
+function pwdn() {
+	echo $(basename $(pwd))
+}
+
+# Terminal resize
+function resize() {
+	printf '\e[8;%d;%dt' $1 $2
 }
 
 # Table of colors
