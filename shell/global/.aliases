@@ -244,6 +244,8 @@ alias cls="clear;ls"
 alias cla="clear;la"
 # Clear shell and show tasks (taskbook)
 alias ctb="clear;tb"
+# Clear shell and return to home directory
+alias clh="cd;clear"
 
 # Decimal 2 Hexadecimal
 # alias dec2hex="od -v -t x1"
