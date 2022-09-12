@@ -1,25 +1,43 @@
 #!/usr/bin/env bash
 
+# rbenv
 if is-executable rbenv; then
 	eval "$(rbenv init -)"
 fi
 
+# Homebrew
 if is-executable brew; then
 	eval "$(brew shellenv)"
 fi
 
+# TheFuck
 if is-executable thefuck; then
 	eval $(thefuck --alias)
 	eval $(thefuck --alias fix)
 fi
-# starship init $(ps -o args= -p $$)
+
+# Spotify TUI
+# if is-executable spt; then
+# 	# eval $(spt --completions $(basename $(ps -o args= -p $$)))
+# 	eval $(spt --completions bash)
+# fi
+
+# Starship
+# if is-executable starship; then
+# 	eval $(starship init $(ps -o args= -p $$))
+# fi
+
+# FNM
 if is-executable fnm; then
 	eval "$(fnm env 2> /dev/null)"
 fi
 
+# pyenv
 if is-executable pyenv; then
 	eval "$(pyenv init -)" &>/dev/null
 fi
+
+# Fasd
 # https://github.com/clvv/fasd#install
 if is-executable fasd; then
 	fasd_cache="$HOME/.fasd-init-bash"

@@ -129,6 +129,19 @@ alias downloads="cd ~/Downloads"
 alias hosts="sudo nano /etc/hosts"
 alias notes="nano ~/notes.md"
 
+# VS Code Dotfile shortcut
+if ! is-executable code && is-executable code-insiders; then
+    alias df-vscode="code-insiders ~/.dotfiles"
+else
+    alias df-vscode="code ~/.dotfiles"
+fi
+
+# Dotfile shortcuts
+alias dots-alias="nano ~/.dotfiles/shell/global/.aliases"
+alias dots-funcs="nano ~/.dotfiles/shell/global/.functions"
+alias dots-path="nano ~/.dotfiles/shell/global/.path"
+alias dots-env="nano ~/.dotfiles/shell/global/.env"
+
 # Grep Coloring
 alias grep="grep --color=auto"
 alias egrep="egrep --color=auto"

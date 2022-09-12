@@ -1,4 +1,65 @@
 # CAVA Configuration
 
+[general]
 # Framerate
-; framerate = 120
+framerate = 60
+
+# Manual sensitivity in %. If autosens is enabled, this will only be the initial value.
+# 200 means double height. Accepts only non-negative values.
+sensitivity = 1
+
+# 'autosens' will attempt to decrease sensitivity if the bars peak. 1 = on, 0 = off
+autosens = 1
+
+[color]
+
+# Colors can be one of seven predefined: black, blue, cyan, green, magenta, red, white, yellow.
+# Or defined by hex code '#xxxxxx' (hex code must be within ''). User defined colors requires
+# a terminal that can change color definitions such as Gnome-terminal or rxvt.
+# default is to keep current terminal color
+; background = default
+; foreground = default
+
+# SDL only support hex code colors, these are the default:
+; background = '#111111'
+; foreground = '#33cccc'
+
+
+# Gradient mode, only hex defined colors are supported,
+# background must also be defined in hex  or remain commented out. 1 = on, 0 = off.
+# You can define as many as 8 different colors. They range from bottom to top of screen
+gradient = 1
+gradient_count = 8
+
+gradient_color_1 = '#d9aefa'
+gradient_color_2 = '#d09ffa'
+gradient_color_3 = '#c791fa'
+gradient_color_4 = '#bd82fa'
+gradient_color_5 = '#b373fa'
+gradient_color_6 = '#a864fa'
+gradient_color_7 = '#9c54f9'
+gradient_color_8 = '#9043f9'
+
+# gradient_color_1 = '#0ad1ee'
+# gradient_color_2 = '#09bcf0'
+# gradient_color_3 = '#08a7f3'
+# gradient_color_4 = '#0791f5'
+# gradient_color_5 = '#067af7'
+# gradient_color_6 = '#0462f9'
+# gradient_color_7 = '#034afc'
+# gradient_color_8 = '#0332fd'
+
+# gradient_color_1 = '#59cc33'
+# gradient_color_2 = '#80cc33'
+# gradient_color_3 = '#a6cc33'
+# gradient_color_4 = '#cccc33'
+# gradient_color_5 = '#cca633'
+# gradient_color_6 = '#cc8033'
+# gradient_color_7 = '#cc5933'
+# gradient_color_8 = '#cc3333'
+
+[smoothing]
+
+# Disables or enables the so-called "Monstercat smoothing" with or without "waves". Set to 0 to disable.
+monstercat = 1
+waves = 1
