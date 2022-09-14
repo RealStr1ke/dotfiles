@@ -2,14 +2,14 @@
 
 [general]
 # Framerate
-framerate = 60
+# framerate = 60
 
 # Manual sensitivity in %. If autosens is enabled, this will only be the initial value.
 # 200 means double height. Accepts only non-negative values.
 sensitivity = 1
 
 # 'autosens' will attempt to decrease sensitivity if the bars peak. 1 = on, 0 = off
-autosens = 1
+# autosens = 1
 
 [color]
 
@@ -17,12 +17,12 @@ autosens = 1
 # Or defined by hex code '#xxxxxx' (hex code must be within ''). User defined colors requires
 # a terminal that can change color definitions such as Gnome-terminal or rxvt.
 # default is to keep current terminal color
-; background = default
-; foreground = default
+# background = default
+# foreground = default
 
 # SDL only support hex code colors, these are the default:
-; background = '#111111'
-; foreground = '#33cccc'
+# background = '#111111'
+# foreground = '#33cccc'
 
 
 # Gradient mode, only hex defined colors are supported,
@@ -31,6 +31,7 @@ autosens = 1
 gradient = 1
 gradient_count = 8
 
+# Purple
 gradient_color_1 = '#d9aefa'
 gradient_color_2 = '#d09ffa'
 gradient_color_3 = '#c791fa'
@@ -40,6 +41,7 @@ gradient_color_6 = '#a864fa'
 gradient_color_7 = '#9c54f9'
 gradient_color_8 = '#9043f9'
 
+# Blue
 # gradient_color_1 = '#0ad1ee'
 # gradient_color_2 = '#09bcf0'
 # gradient_color_3 = '#08a7f3'
@@ -49,6 +51,7 @@ gradient_color_8 = '#9043f9'
 # gradient_color_7 = '#034afc'
 # gradient_color_8 = '#0332fd'
 
+# Green to Yellow to Red
 # gradient_color_1 = '#59cc33'
 # gradient_color_2 = '#80cc33'
 # gradient_color_3 = '#a6cc33'
