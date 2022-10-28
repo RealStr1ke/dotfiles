@@ -51,3 +51,4 @@ dunst &
 # bash ~/.config/polybar/launch.sh --shades &
 nitrogen --restore &
 sxhkd &
+spotifyd &
