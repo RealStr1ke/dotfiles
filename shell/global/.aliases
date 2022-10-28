@@ -45,6 +45,9 @@ alias bi='brew install'
 # Yarn
 alias yi='yarn install'
 
+# nano
+alias sano="sudo nano"
+
 # npm
 alias ni="npm install"
 alias nu="npm uninstall"
@@ -247,7 +250,11 @@ alias starwars="telnet towel.blinkenlights.nl"
 # ----------------------------
 # |      Miscellaneous       |
 # ----------------------------
+# Alias for `exit` command
 alias quit="exit"
+
+# Alias for `neofetch` command
+alias nf="neofetch"
 
 # Clear
 alias clr="clear"

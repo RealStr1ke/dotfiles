@@ -42,6 +42,9 @@ if is-executable "npm"; then
 	# PATH="$(npm bin):$PATH"
 fi
 
+# Adding Rust's Cargo Binaries
+PATH="$HOME/.cargo/bin:$PATH"
+
 # Remove duplicate PATH entries because why not
 # PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
 PATH=$(echo $PATH | awk -v RS=: -v ORS=: '!($0 in a) {a[$0]; print}')
