@@ -1,3 +1,5 @@
 .extra
 backup/
 node_modules/
+
+ignore/*
