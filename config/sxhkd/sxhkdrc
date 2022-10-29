@@ -36,10 +36,12 @@ super + shift + r
 
 # Brightness
 XF86MonBrightnessUp
-	xbacklight -inc 10
+	sudo brightnessctl set +5%
+#	xbacklight -inc 10
 
 XF86MonBrightnessDown
-	xbacklight -dec 10
+	sudo brightnessctl set 5%-
+#	xbacklight -dec 10
 
 # Volume
 XF86AudioRaiseVolume
