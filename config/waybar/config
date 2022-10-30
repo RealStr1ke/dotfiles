@@ -34,10 +34,6 @@
         "on-click": "wofi --show drun",
         "on-click-right": "killall wofi"
     },
-    "hyprland/window": {
-        "format": "{}",
-        "separate-outputs": true
-    },
     /*
     "mpd": {
         "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
@@ -79,8 +75,9 @@
     },
     "clock": {
         "timezone": "America/Montreal",
+        "format": "  {:%A, %B %d, %Y (%V) | %r}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "interval": 1
     },
     "cpu": {
         "format": "{usage}% ",
@@ -159,9 +156,9 @@
     "custom/music": {
         "format": "  {}",
         "escape": true,
-        "interval": 5,
-        "tooltip": false,
-        "exec": "playerctl metadata --format='{{ title }}'",
+        "interval": 2,
+        "tooltip": true,
+        "exec": "playerctl metadata --format='{{ title }} | {{ artist }}'",
         "on-click": "playerctl play-pause",
         "max-length": 50
     },
