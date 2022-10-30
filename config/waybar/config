@@ -8,7 +8,8 @@
     // Choose the order of the modules
     "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk"],
     "modules-center": [ "clock" ],
-    "modules-right": [ "custom/music", "pulseaudio", "network", "backlight", "battery", "tray" ],
+    "modules-right": [ "custom/music", "pulseaudio", "network", "backlight", "battery", "tray", "custom/launcher" ],
+    
     // Modules configuration
     "wlr/workspaces": {
         "format": "{icon} {name}",
@@ -22,11 +23,16 @@
     "custom/music": {
         "format": "  {}",
         "escape": true,
-        "interval": 5,
-        "tooltip": false,
+        "interval": 1,
+        "tooltip": true,
         "exec": "playerctl metadata --format='{{ title }}'",
         "on-click": "playerctl play-pause",
         "max-length": 50
+    },
+    "custom/launcher": {
+        "format": "",
+        "on-click": "wofi --show drun",
+        "on-click-right": "killall wofi"
     },
     "hyprland/window": {
         "format": "{}",

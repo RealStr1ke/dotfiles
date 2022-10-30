@@ -37,7 +37,7 @@
 	border-radius: 1rem;
 }
 
-#custom-music, #tray, #backlight, #clock, #battery, #pulseaudio, #network, #cpu, #memory, #disk, #temperature {
+#custom-music, #custom-launcher, #tray, #backlight, #clock, #battery, #pulseaudio, #network, #cpu, #memory, #disk, #temperature {
     background-color: @surface0;
 	border-radius: 1rem;
 	padding: 0.5rem 1rem;
@@ -84,7 +84,11 @@
     margin-left: 1rem;
 }
 
-#tray {
+#custom-launcher {
+    color: @mauve;
     margin-right: 1rem;
+}
+
+#tray {
     border-radius: 1rem;
 }
