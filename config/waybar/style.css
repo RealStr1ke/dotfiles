@@ -76,12 +76,12 @@
 
 #pulseaudio {
 	color: @red;
-    margin-left: 1rem;
 }
 
 #custom-music {
     color: @mauve;
     border-radius: 1rem;
+    margin-left: 1rem;
 }
 
 #tray {
