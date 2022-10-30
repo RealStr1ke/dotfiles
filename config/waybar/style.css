@@ -39,13 +39,10 @@
 
 #custom-music, #custom-launcher, #tray, #backlight, #clock, #battery, #pulseaudio, #network, #cpu, #memory, #disk, #temperature {
     background-color: @surface0;
+    color: @text;
 	border-radius: 1rem;
 	padding: 0.5rem 1rem;
 	margin: 5px 0;
-}
-
-#clock {
-    color: @lavender;
 }
 
 #cpu, #memory, #disk, #temperature {
@@ -85,7 +82,6 @@
 }
 
 #custom-launcher {
-    color: @mauve;
     margin-right: 1rem;
 }
 
