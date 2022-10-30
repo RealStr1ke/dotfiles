@@ -8,7 +8,7 @@
     // Choose the order of the modules
     "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk"],
     "modules-center": [ "clock" ],
-    "modules-right": [ "pulseaudio", "network", "backlight", "battery", "tray" ],
+    "modules-right": [ "custom/music", "pulseaudio", "network", "backlight", "battery", "tray" ],
     // Modules configuration
     "wlr/workspaces": {
         "format": "{icon} {name}",
@@ -18,6 +18,15 @@
         },
         "on-scroll-up": "hyprctl dispatch workspace e+1",
         "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+    "custom/music": {
+        "format": "  {}",
+        "escape": true,
+        "interval": 5,
+        "tooltip": false,
+        "exec": "playerctl metadata --format='{{ title }}'",
+        "on-click": "playerctl play-pause",
+        "max-length": 50
     },
     "hyprland/window": {
         "format": "{}",
