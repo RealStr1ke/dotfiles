@@ -59,7 +59,7 @@ fi
 # Installation
 echo "Installing .files from RealStr1ke/dotfiles..."
 
-# Dotfiles
+# Runcom files
 for DOTFILE in `find $HOME/.dotfiles/runcom -type f -name ".*" -printf "%f\n"`
 do
     echo "Creating symlink to $DOTFILE (runcom) in home directory."
@@ -71,7 +71,9 @@ do
 	[ -f "$HOME/.dotfiles/runcom/$DOTFILE" ] && ln -sf "$HOME/.dotfiles/runcom/$DOTFILE" "$HOME/$DOTFILE"
 done
 
-# Configuration files
+
+# Configuration files/directories
+echo "Installing .files from RealStr1ke/dotfiles..."
 for CONFIG in `find $HOME/.dotfiles/config -name ".*" -printf "%f\n"`
 do
     echo "Creating symlink to $CONFIG (runcom) in home directory."
@@ -79,11 +81,10 @@ do
 		[[ -d "$HOME/.dotfiles/backup/config" ]] || mkdir -p "$HOME/.dotfiles/backup/config"
 		echo "$CONFIG already exists in the home directory, creating backup at $HOME/.dotfiles/backup/$CONFIG"
 		cp -r "$HOME/$CONFIG" "$HOME/.dotfiles/backup/$CONFIG"
+		rm -r "$HOME/$CONFIG"
 	fi
 	[ -f "$HOME/.dotfiles/runcom/$DOTFILE" ] && ln -sf "$HOME/.dotfiles/runcom/$DOTFILE" "$HOME/$DOTFILE"
 done
-
-echo "Installing .files from RealStr1ke/dotfiles..."
 
 # Homebrew Installation
 if is::gitpod; then
