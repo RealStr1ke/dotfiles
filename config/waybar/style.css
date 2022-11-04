@@ -37,7 +37,7 @@
 	border-radius: 1rem;
 }
 
-#custom-music, #custom-launcher, #tray, #backlight, #clock, #battery, #pulseaudio, #network, #cpu, #memory, #disk, #temperature {
+#custom-music, #window, #custom-launcher, #tray, #backlight, #clock, #battery, #pulseaudio, #network, #cpu, #memory, #disk, #temperature {
     background-color: @surface0;
     color: @text;
 	border-radius: 1rem;
