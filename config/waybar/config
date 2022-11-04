@@ -6,7 +6,7 @@
     "spacing": 15, // Gaps between modules (8px)
 
     // Choose the order of the modules
-    "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk"],
+    "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk", "hyprland/window"],
     "modules-center": [ "clock" ],
     "modules-right": [ "custom/music", "pulseaudio", "network", "backlight", "battery", "tray", "custom/launcher" ],
     
@@ -83,17 +83,20 @@
     "cpu": {
         "format": "{usage}% ",
         "tooltip": true,
-        "on-click": "gnome-system-monitor"
+        "on-click": "gnome-system-monitor",
+        "interval": 1
     },
     "disk": {
         "format": "{used}/{total} ", 
         "tooltip": true,
-        "on-click": "baobab"
+        "on-click": "baobab",
+        "interval": 1
     },
     "memory": {
         "format": "{}% ",
         "tooltip": true,
-        "on-click": "gnome-system-monitor"
+        "on-click": "gnome-system-monitor",
+        "interval": 1
     },
     "temperature": {
         // "thermal-zone": 2,
@@ -103,14 +106,16 @@
         "format": "{temperatureC}°C {icon}",
         "format-icons": ["" , "", ""],
         "tooltip": true,
-        "on-click": "gnome-system-monitor"
+        "on-click": "gnome-system-monitor",
+        "interval": 1
     },
     "backlight": {
         // "device": "acpi_video1",
         "format": "{percent}% {icon}",
         "format-icons": ["", ""],
         "on-scroll-up": "sudo brightnessctl set +5%",
-        "on-scroll-down": "sudo brightnessctl set 5%-"
+        "on-scroll-down": "sudo brightnessctl set 5%-",
+        "interval": 1
     },
     "battery": {
         "states": {
