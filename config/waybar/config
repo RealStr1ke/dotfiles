@@ -26,7 +26,7 @@
         "escape": true,
         "interval": 1,
         "tooltip": true,
-        "exec": "playerctl metadata --format='{{ title }}'",
+        "exec": "playerctl metadata --format='{{ title }} | {{ artist }}'",
         "on-click": "playerctl play-pause",
         "max-length": 50
     },
@@ -161,15 +161,6 @@
             "default": ["", "", " "]
         },
         "on-click": "pavucontrol"
-    },
-    "custom/music": {
-        "format": "  {}",
-        "escape": true,
-        "interval": 2,
-        "tooltip": true,
-        "exec": "playerctl metadata --format='{{ title }} | {{ artist }}'",
-        "on-click": "playerctl play-pause",
-        "max-length": 50
     },
 }
 
