@@ -116,8 +116,8 @@
         // "device": "acpi_video1",
         "format": "{percent}% {icon}",
         "format-icons": ["", ""],
-        "on-scroll-up": "sudo brightnessctl set +5%",
-        "on-scroll-down": "sudo brightnessctl set 5%-",
+        "on-scroll-up": "light -A 5",
+        "on-scroll-down": "light -U 5",
         "interval": 1
     },
     "battery": {
