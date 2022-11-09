@@ -20,15 +20,31 @@ else
     ((FLATPAK = FLATPAK - 5))
 fi
 
-# Calculate total number of updates
-COUNT=$((OFFICIAL+FLATPAK+AUR))
+# Case/switch for each service updates
+case $1 in
+    aur) echo "$AUR";;
+    official) echo "$OFFICIAL";;
+    flatpak) echo "$FLATPAK";;
+esac
 
-# If there are updates, the script will output the following:  # Updates
-# If there are no updates, the script will output nothing.
+# If the parameter is "update", update all services
+if [ "$1" = "update" ]; then
+    kitty -- 'paru -Syu --noconfirm && flatpak update -y'
+fi
 
-if [[ "$COUNT" = "0" ]]
-then
-    echo ""
-else
-    echo " $COUNT Updates"
+# If there aren't any parameters, return the total number of updates
+if [ "$1" = "" ]; then
+    # Calculate total number of updates
+    COUNT=$((OFFICIAL+FLATPAK+AUR))
+
+    # If there are updates, the script will output the following:  # Updates
+    # If there are no updates, the script will output nothing.
+
+    if [[ "$COUNT" = "0" ]]
+    then
+        echo ""
+    else
+        echo " $COUNT Updates"
+    fi
+    exit 0
 fi
