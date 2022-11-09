@@ -24,7 +24,6 @@
 #workspaces button {
     color: @lavender;
     border-radius: 1rem;
-
 }
 
 #workspaces button.active {
@@ -37,7 +36,20 @@
 	border-radius: 1rem;
 }
 
-#custom-music, #window, #custom-launcher, #tray, #backlight, #clock, #battery, #pulseaudio, #network, #cpu, #memory, #disk, #temperature {
+#window,
+#tray,
+#backlight,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#custom-music,
+#custom-launcher,
+#custom-updates {
     background-color: @surface0;
     color: @text;
 	border-radius: 1rem;
