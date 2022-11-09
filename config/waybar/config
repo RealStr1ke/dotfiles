@@ -6,7 +6,7 @@
     "spacing": 15, // Gaps between modules (8px)
 
     // Choose the order of the modules
-    "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk" ],
+    "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk", "custom/updates" ],
     "modules-center": [ "clock" ],
     "modules-right": [ "custom/music", "pulseaudio", "network", "backlight", "battery", "tray", "custom/launcher" ],
     
@@ -21,6 +21,11 @@
         "on-scroll-down": "hyprctl dispatch workspace e-1",
         "on-click": "activate"
     },
+    "custom/updates": {
+        "format": "{}",
+        "exec": "~/.config/waybar/scripts/updates.sh",
+        "interval": 60,
+    },
     "custom/music": {
         "format": "  {}",
         "escape": true,
@@ -28,7 +33,7 @@
         "tooltip": true,
         "exec": "playerctl metadata --format='{{ title }} | {{ artist }}'",
         "on-click": "playerctl play-pause",
-        "max-length": 50
+        "max-length": 35
     },
     "custom/launcher": {
         "format": "",
@@ -141,7 +146,9 @@
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        // "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": " {bandwidthUpBytes} |  {bandwidthDownBytes}",
+        "interval": 1
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
