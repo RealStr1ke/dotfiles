@@ -21,7 +21,8 @@ mailspring &
 
 # Policy Authentication Agent 
 # /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
-lxpolkit &
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# lxpolkit &
 
 # Bluetooth Utilities
 # /usr/lib/bluetooth/mpris-proxy &

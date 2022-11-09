@@ -25,6 +25,9 @@
         "format": "{}",
         "exec": "~/.config/waybar/scripts/updates.sh",
         "interval": 60,
+        "tooltip": true,
+        // "tooltip-format": "{}",
+        // "exec-tooltip": "~/.config/waybar/scripts/updates.sh tooltip"
     },
     "custom/music": {
         "format": "  {}",
