@@ -25,4 +25,5 @@ lxpolkit &
 
 # Bluetooth Utilities
 # /usr/lib/bluetooth/mpris-proxy &
+mpris-proxy &
 blueman-applet &
