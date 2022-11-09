@@ -71,26 +71,33 @@ do
 	[ -f "$HOME/.dotfiles/runcom/$DOTFILE" ] && ln -sf "$HOME/.dotfiles/runcom/$DOTFILE" "$HOME/$DOTFILE"
 done
 
-
-# Configuration files/directories
-echo "Installing .files from RealStr1ke/dotfiles..."
-for CONFIG in `find $HOME/.dotfiles/config -name ".*" -printf "%f\n"`
+# Symlink .config directories
+for CONFIG in `find $HOME/.dotfiles/config -type d -printf "%f\n"`
 do
-    echo "Creating symlink to $CONFIG (runcom) in home directory."
-	if [ -f "$HOME/$CONFIG" ]; then
+	echo "Creating symlink to $CONFIG (config) in home directory."
+	if [ -d "$HOME/.config/$CONFIG" ]; then
 		[[ -d "$HOME/.dotfiles/backup/config" ]] || mkdir -p "$HOME/.dotfiles/backup/config"
 		echo "$CONFIG already exists in the home directory, creating backup at $HOME/.dotfiles/backup/$CONFIG"
-		cp -r "$HOME/$CONFIG" "$HOME/.dotfiles/backup/$CONFIG"
-		rm -r "$HOME/$CONFIG"
+		cp -r "$HOME/.config/$CONFIG" "$HOME/.dotfiles/backup/$CONFIG"
+		rm -r "$HOME/.config/$CONFIG"
 	fi
-	[ -f "$HOME/.dotfiles/runcom/$DOTFILE" ] && ln -sf "$HOME/.dotfiles/runcom/$DOTFILE" "$HOME/$DOTFILE"
+	[ -d "$HOME/.dotfiles/config/$CONFIG" ] && ln -sf "$HOME/.dotfiles/config/$CONFIG" "$HOME/.config/$CONFIG"
 done
 
 # Homebrew Installation
 if is::gitpod; then
 	echo "Gitpod detected, not installing Homebrew (or Linuxbrew)."
 else
-	NONINTERACTIVE=1 /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	# Prompt for Homebrew installation
+	while true; do
+		read -p "Do you wish to install Homebrew? (y/n) " yn
+		case $yn in
+			[Yy]* ) echo "Installing Homebrew..."; NONINTERACTIVE=1 /usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; break;;
+			[Nn]* ) echo "Skipping Homebrew installation."; exit;;
+			* ) echo "Please answer yes or no.";;
+		esac
+	done
+	
 fi
 
 # https://www.gnu.org/gnu/linux-and-gnu.en.html
