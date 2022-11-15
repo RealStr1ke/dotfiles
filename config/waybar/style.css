@@ -49,7 +49,8 @@
 #temperature,
 #custom-music,
 #custom-launcher,
-#custom-updates {
+#custom-updates,
+#custom-nordvpn {
     background-color: @surface0;
     color: @text;
 	border-radius: 1rem;
@@ -80,6 +81,10 @@
 
 #network {
 	color: @peach;
+    padding-right: 1.25rem;
+}
+
+#custom-nordvpn {
     padding-right: 1.25rem;
 }
 
