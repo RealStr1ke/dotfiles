@@ -1,0 +1,1 @@
+LD_PRELOAD="/usr/lib/spotify-adblock.so $HOME/.local/src/spotifywm/spotifywm.so" spotify

@@ -1,1 +1,0 @@
-LD_PRELOAD=$HOME/.local/src/spotifywm/spotifywm.so spotify
