@@ -8,7 +8,7 @@
     // Choose the order of the modules
     "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk", "custom/updates" ],
     "modules-center": [ "clock" ],
-    "modules-right": [ "custom/music", "pulseaudio", "network", "backlight", "battery", "tray", "custom/launcher" ],
+    "modules-right": [ "custom/music", "pulseaudio", "network", "backlight", "battery", "tray", "custom/nordvpn", "custom/launcher" ],
     
     // Modules configuration
     "wlr/workspaces": {
@@ -40,8 +40,13 @@
     },
     "custom/launcher": {
         "format": "",
-        "on-click": "wofi --show drun",
-        "on-click-right": "killall wofi"
+        "on-click": "rofi -show drun",
+        "on-click-right": "killall rofi"
+    },
+    "custom/nordvpn": {
+        "format": "嬨",
+        "on-click": "~/.config/rofi/scripts/nordvpn.sh",
+        "on-click-right": "nordvpn disconnect"
     },
     "hyprland/window": {
         "format": "{}",
