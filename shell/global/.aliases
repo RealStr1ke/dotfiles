@@ -81,7 +81,12 @@ alias pacs="pacman -Ss"
 alias pacu="sudo pacman -Syu"
 
 # Paru (AUR Helper)
-alias paru="paru --needed --noconfirm"
+# alias paru="paru --needed --noconfirm"
+alias pari="paru --needed --noconfirm -S"
+alias parr="paru --noconfirm -R"
+alias parus="paru -Ss"
+alias paruu="paru --needed --noconfirm -Syu"
+
 
 # Docker
 alias docker="sudo docker"
