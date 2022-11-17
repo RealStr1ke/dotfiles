@@ -5,7 +5,7 @@ copyq &
 nm-applet &
 
 # Discord
-discord &
+# discord &
 
 # Notification Daemon
 dunst &
@@ -14,7 +14,7 @@ dunst &
 spotifyd &
 
 # Mail Client (mailspring)
-mailspring &
+# mailspring &
 
 # Waybar
 ~/.config/waybar/launch.sh &
@@ -28,3 +28,7 @@ lxpolkit &
 # /usr/lib/bluetooth/mpris-proxy &
 mpris-proxy &
 blueman-applet &
+blueman-tray &
+
+# Swayidle (GitHub Copilot made this so idk)
+# swayidle -w timeout 300 'swaylock -f -i /home/alex/Pictures/Wallpapers/lockscreen.png' resume 'swaymsg "output * dpms off"' timeout 600 'swaymsg "output * dpms on"' resume 'swaymsg "output * dpms off"' before-sleep 'swaylock -f -i /home/alex/Pictures/Wallpapers/lockscreen.png'
