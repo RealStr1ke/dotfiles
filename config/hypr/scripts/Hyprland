@@ -8,7 +8,11 @@
 export XDG_SESSION_TYPE=wayland
 export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_DESKTOP=sway
-export XCURSOR_SIZE=24
+
+# = Cursor Settings ===
+# export XCURSOR_PATH=/usr/share/icons:$HOME/.local/share/icons:$HOME/.icons
+# export XCURSOR_THEME=BreezeX-Dark
+# export XCURSOR_SIZE=36
 
 # === Start Hyprland ===
 exec Hyprland
