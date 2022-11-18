@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+# Custom script for screenshotting w/ Hyprland
+
+# If parameter 1 is "flameshot", then run flameshot gui, otherwise use grim and/or slurp
+if [ "$1" = "flameshot" ]; then
+    export XDG_CURRENT_DESKTOP=sway
+    flameshot gui --clipboard --path ~/Pictures/Screenshots
+else
+    # Get the current date and time
+    DATE="$(date +%Y-%m-%d=)"
+    TIME="$(date +%H:%M:%S)"
+
+    # If parameter 1 is "select", then run grim + slurp, otherwise use grim
+    if [ "$1" = "select" ]; then
+        grim -g "$(slurp)" "$HOME/Pictures/Screenshots/Screenshot from $DATE $TIME.png"
+    else
+        grim "$HOME/Pictures/Screenshots/Screenshot from $DATE $TIME.png"
+    fi
+
+    # Copy the screenshot to the clipboard
+    wl-copy < "$HOME/Pictures/Screenshots/Screenshot from $DATE $TIME.png"
+
+    # Notify the user that the screenshot was taken (set screenshot as icon)
+    notify-send "Screenshot Taken!" "Saved to ~/Pictures/Screenshots" -i "~/Pictures/Screenshots/Screenshot from $DATE $TIME.png"
+fi
