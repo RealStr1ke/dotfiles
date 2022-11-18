@@ -2,3 +2,4 @@
 backup/
 node_modules/
 ignore/*
+config/gtk*/servers
