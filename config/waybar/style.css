@@ -50,7 +50,8 @@
 #custom-music,
 #custom-launcher,
 #custom-updates,
-#custom-nordvpn {
+#custom-nordvpn,
+#custom-power {
     background-color: @surface0;
     color: @text;
 	border-radius: 1rem;
@@ -98,8 +99,9 @@
     margin-left: 1rem;
 }
 
-#custom-launcher {
+#custom-power {
     margin-right: 1rem;
+    padding-right: 1.20rem;
 }
 
 #tray {
