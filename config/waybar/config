@@ -45,7 +45,7 @@
     "custom/launcher": {
         "format": "",
         "on-click": "rofi -show drun",
-        "on-click-right": "killall rofi"
+        "on-click-right": "rofi -show run"
     },
     "custom/nordvpn": {
         "format": "嬨",
