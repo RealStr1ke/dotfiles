@@ -40,6 +40,8 @@
         "tooltip": true,
         "exec": "playerctl metadata --format='{{ title }} | {{ artist }}'",
         "on-click": "playerctl play-pause",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
         "max-length": 35
     },
     "custom/launcher": {
