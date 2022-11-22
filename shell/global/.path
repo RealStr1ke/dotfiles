@@ -20,6 +20,15 @@ if [ -d "$HOME/.spicetify" ]; then
 	PATH="$PATH:$HOME/.spicetify"
 fi
 
+# Go binaries
+# If go is executable, add $GOPATH/bin to PATH
+if is-executable "go"; then
+	export GOMODCACHE="$HOME/.local/src/go/pkg/mod"
+	export GOPATH="$HOME/.local/src/go"
+	export GOBIN="$HOME/.local/src/go/bin"
+	PATH="$(go env GOBIN):$PATH"
+fi
+
 # Dotfile Binaries
 PATH="$HOME/.dotfiles/bin/main:$PATH";
 PATH="$HOME/.dotfiles/bin/fun:$PATH";
