@@ -357,7 +357,7 @@ function spdl() {
     if [ "$#" = "0" ]; then
         spotdl -h
     else
-        spotdl "$*" --path-template '{album}/{title}.{ext}'
+        spotdl "$*" --output '{album}/{title}.{ext}'
     fi
 }
 
