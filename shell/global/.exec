@@ -3,4 +3,4 @@
 # neofetch
 # neowofetch
 # hyfetch
-pfetch
+PF_INFO="ascii os host de uptime pkgs memory" pfetch
