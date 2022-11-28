@@ -1,5 +1,6 @@
 # [RealStr1ke](https://github.com/RealStr1ke)'s dotfiles
 
+![I use Catppuccin btw](assets/images/catppuccin.svg)
 ## Welcome `~`
 
 **Hi! Welcome to my mildly amusing dotfiles. I guess I kinda ~~wasted~~ spent a lot of time on these, but here they are. Have fun and rob what you want lol.**
