@@ -11,10 +11,10 @@ if is-executable brew; then
 fi
 
 # TheFuck
-if is-executable thefuck; then
-	eval $(thefuck --alias)
-	eval $(thefuck --alias fix)
-fi
+# if is-executable thefuck; then
+# 	eval $(thefuck --alias)
+# 	eval $(thefuck --alias fix)
+# fi
 
 # Spotify TUI
 # if is-executable spt; then
