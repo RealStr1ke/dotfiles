@@ -280,6 +280,10 @@ alias ctb="clear;tb"
 # Clear shell and return to home directory
 alias clh="cd;clear"
 
+# Reset shell
+alias rst="reset;pfetch"
+alias rsh="reset;cd;pfetch"
+
 # Decimal 2 Hexadecimal
 # alias dec2hex="od -v -t x1"
 alias dec2hex='printf "%x\n" $1'
