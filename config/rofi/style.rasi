@@ -67,7 +67,7 @@ mainbox {
 imagebox {
     padding:                     20px;
     background-color:            transparent;
-    background-image:            url("~/.dotfiles/assets/wallpapers/neon_city.png", height);
+    background-image:            url("~/.dotfiles/assets/wallpapers/Tokyo Street/TokyoStreet-Night.png", height);
     orientation:                 vertical;
     children:                    [ "inputbar", "dummy", "mode-switcher" ];
 }
@@ -95,10 +95,10 @@ inputbar {
     children:                    [ "textbox-prompt-colon", "entry", "prompt" ];
 }
 prompt {
-    background-color:            @selected;
+    background-color:            @active;
     text-color:                  @bg-col;
     padding:                     5px;
-    border-radius:               3px;
+    border-radius:               10px;
 
 }
 textbox-prompt-colon {
@@ -120,7 +120,7 @@ entry {
 }
 
 /*****----- Mode Switcher -----*****/
-mode-switcher{
+mode-switcher {
     enabled:                     true;
     spacing:                     20px;
     background-color:            transparent;
@@ -130,13 +130,11 @@ button {
     padding:                     15px;
     border-radius:               10px;
     background-color:            @bg-col;
-    border:                      2px;
-    border-color:                @fg-col;
     text-color:                  inherit;
     cursor:                      pointer;
 }
 button selected {
-    background-color:            @selected;
+    background-color:            @active;
     text-color:                  @foreground;
 }
 
@@ -182,7 +180,7 @@ element normal.active {
     text-color:                  @foreground;
 }
 element selected.normal {
-    background-color:            @selected;
+    background-color:            @active;
     text-color:                  @foreground;
 }
 element selected.urgent {
