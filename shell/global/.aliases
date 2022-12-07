@@ -68,6 +68,9 @@ fi
 # cat
 alias cat="cat -s"
 
+# pfetch
+alias pfetch="PF_INFO=\"ascii os host de uptime pkgs memory\" pfetch"
+
 # APT (Advanced Packaging Tool)
 alias apti="sudo apt-get install"
 alias aptr="sudo apt-get remove"
