@@ -44,7 +44,7 @@ if [ "$1" = "" ]; then
     then
         echo ""
     else
-        echo " $COUNT Updates"
+        echo " $COUNT"
     fi
     exit 0
 fi
