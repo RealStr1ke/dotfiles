@@ -93,12 +93,13 @@
         }
     },
     "tray": {
-        "icon-size": 20,
+        "icon-size": 15,
         "spacing": 15
     },
     "clock": {
         "timezone": "America/Montreal",
         "format": "  {:%A, %B %d, %Y (%V) | %r}",
+        "format-alt": "  {:%a, %b %d, %Y | %I:%M %p}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "interval": 1
     },
@@ -141,8 +142,8 @@
     },
     "battery": {
         "states": {
-            // "good": 95,
-            "warning": 30,
+            "good": 100,
+            "warning": 40,
             "critical": 15
         },
         "format": "{capacity}% {icon}",
