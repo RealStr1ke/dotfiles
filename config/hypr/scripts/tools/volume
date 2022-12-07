@@ -1,0 +1,135 @@
+#!/usr/bin/env bash
+
+# This script is used to control the volume of the system.
+# It is usually called by the volume widget in the status bar
+# but can also be called by the user manually.
+# Uses pactl to control the volume.
+
+# Function to get the current volume
+function get_volume() {
+    # Get the volume (omit the trailing %)
+    volume=$(amixer get Master | tail -n1 | awk -F ' ' '{print $5}' | tr -d '[]')
+    volume=${volume::-1}
+
+    # Return the volume
+    echo $volume
+}
+
+# Function to set the volume
+function set_volume() {
+    # Get the volume from the first argument
+    volume=$1
+
+    # Set the volume
+    pactl set-sink-volume @DEFAULT_SINK@ $volume%
+
+    # Return the volume
+    echo $volume
+}
+
+# Function to increase the volume
+function increase_volume() {
+    # Increase the volume by 5%
+    pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+    # Get the current volume
+    volume=$(get_volume)
+
+    # Return the volume
+    echo $volume
+}
+
+# Function to decrease the volume
+function decrease_volume() {
+    # Decrease the volume by 5%
+    pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+    # Get the current volume
+    volume=$(get_volume)
+
+    # Return the volume
+    echo $volume
+}
+
+# Function to toggle the mute status
+function toggle_mute() {
+    # Get the current mute status
+    mute=$(pactl list sinks | grep "Mute:" | awk '{print $2}')
+
+    # Toggle the mute status
+    if [ $mute = "yes" ]; then
+        pactl set-sink-mute @DEFAULT_SINK@ 0
+    else
+        pactl set-sink-mute @DEFAULT_SINK@ 1
+    fi
+}
+
+# Function to call wob with the current volume
+function wob_volume() {
+    # If function is called with an argument, then use that as the volume
+    if [ $# -eq 1 ]; then
+        volume=$1
+    else
+        # Get the current volume
+        volume=$(get_volume)
+    fi
+
+    # Call wob with the current volume
+    echo $volume > /tmp/wobpipe
+}
+
+# Get the first argument
+arg=$1
+
+# If the first argument is "set", then set the volume to the second argument
+if [[ $arg = "set" ]]; then
+    # Get the second argument
+    volume=$2
+
+    # Set the volume
+    set_volume $volume
+
+    # Call wob with the current volume
+    wob_volume
+
+    # Exit the script
+    exit 0
+fi
+
+# If the first argument is "+", "inc", or "increase", then increase the volume
+if [[ $arg = "+" ]] || [[ $arg = "inc" ]] || [[ $arg = "increase" ]]; then
+    # Increase the volume
+    increase_volume
+
+    # Call wob with the current volume
+    wob_volume
+
+    # Exit the script
+    exit 0
+fi
+
+# If the first argument is "-", "dec", or "decrease", then decrease the volume
+if [[ $arg = "-" ]] || [[ $arg = "dec" ]] || [[ $arg = "decrease" ]]; then
+    # Decrease the volume
+    decrease_volume
+
+    # Call wob with the current volume
+    wob_volume
+
+    # Exit the script
+    exit 0
+fi
+
+# If the first argument is "mute", then toggle the mute status
+if [[ $arg = "mute" ]]; then
+    # Toggle the mute status
+    toggle_mute
+
+    # Call wob with the current volume
+    wob_volume
+
+    # Exit the script
+    exit 0
+fi
+
+

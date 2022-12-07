@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+
+# This script is used to control the brightness of the system.
+
+# Function to get the current brightness
+function get_brightness() {
+    # Get the brightness
+    brightness=$(light)
+
+    # Return the brightness
+    echo $brightness
+}
+
+# Function to set the brightness
+function set_brightness() {
+    # Get the brightness from the first argument
+    brightness=$1
+
+    # Set the brightness
+    light -S $brightness
+
+    # Return the brightness
+    echo $brightness
+}
+
+# Function to increase the brightness
+function increase_brightness() {
+    # Increase the brightness by 5%
+    light -A 5
+
+    # Get the current brightness
+    brightness=$(get_brightness)
+
+    # Return the brightness
+    echo $brightness
+}
+
+# Function to decrease the brightness
+function decrease_brightness() {
+    # Decrease the brightness by 5%
+    light -U 5
+
+    # Get the current brightness
+    brightness=$(get_brightness)
+
+    # Return the brightness
+    echo $brightness
+}
+
+# Function to call wob to display the brightness
+function display_brightness() {
+    # Get the brightness
+    brightness=$(get_brightness)
+
+    # Display the brightness
+    echo $brightness > /tmp/wobpipe
+}
+
+# Get the first argument
+arg=$1
+
+# If the first argument is "set", then set the brightness to the second argument
+if [[ $arg = "set" ]]; then
+    # Get the second argument
+    brightness=$2
+
+    # Set the brightness
+    set_brightness $brightness
+
+    # Display the brightness
+    display_brightness
+
+    # Exit the script
+    exit 0
+fi
+
+# If the first argument is "+", "inc", or "increase", then increase the brightness
+if [[ $arg = "+" ]] || [[ $arg = "inc" ]] || [[ $arg = "increase" ]]; then
+    # Increase the brightness
+    increase_brightness
+
+    # Display the brightness
+    display_brightness
+
+    # Exit the script
+    exit 0
+fi
+
+# If the first argument is "-", "dec", or "decrease", then decrease the brightness
+if [[ $arg = "-" ]] || [[ $arg = "dec" ]] || [[ $arg = "decrease" ]]; then
+    # Decrease the brightness
+    decrease_brightness
+
+    # Display the brightness
+    display_brightness
+
+    # Exit the script
+    exit 0
+fi
+
