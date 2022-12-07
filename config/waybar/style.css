@@ -1,5 +1,7 @@
 @import "catppuccin/mocha.css";
 
+/* =============================== */
+/* Universal Styling */
 * {
     border: none;
     border-radius: 0;
@@ -7,35 +9,52 @@
     font-size: 14px;
     min-height: 0;
 }
+/* =============================== */
 
+
+/* =============================== */
+/* Bar Styling */
 #waybar {
     background: transparent;
     color: @text;
     margin: 5px 0;
 }
+/* =============================== */
 
+
+/* =============================== */
+/* Workspaces */
 #workspaces {
 	border-radius: 1rem;
     margin: 5px;
-	background-color: @surface0;
+	/*background-color: @surface0;*/
 	margin-left: 1rem;
 }
 
 #workspaces button {
-    color: @lavender;
+    background-color: @surface0;
+    color: @mauve;
     border-radius: 1rem;
+    margin: 0px 5px;
+    padding: 0px 10px;
+    transition: all 0.5s cubic-bezier(0.33, 1.0, 0.68, 1.0); /* easeInOutCubic */
 }
 
 #workspaces button.active {
-    color: @sky;
+    color: @lavender;
     border-radius: 1rem;
+    padding: 0rem 1rem;
 }
 
 #workspaces button:hover {
-	color: @sapphire;
+	color: @lavender;
 	border-radius: 1rem;
 }
+/* =============================== */
 
+
+/* =============================== */
+/* Main Modules */
 #window,
 #tray,
 #backlight,
@@ -43,6 +62,7 @@
 #battery,
 #pulseaudio,
 #network,
+#mpd,
 #cpu,
 #memory,
 #disk,
@@ -58,52 +78,103 @@
 	padding: 0.5rem 1rem;
 	margin: 5px 0;
 }
+/* =============================== */
 
-#cpu, #memory, #disk, #temperature {
-    color: @lavender;
+
+/* =============================== */
+/* System Monitoring Modules */
+#cpu, #memory, #temperature {
+    color: @blue;
 }
 
+#disk {
+    color: @peach;
+}
+/* =============================== */
+
+
+/* =============================== */
+/* Clock Module */
+#clock {
+    color: @flamingo;
+}
+/* =============================== */
+
+
+/* =============================== */
+/* Battery Module */
 #battery {
     color: @green;
 }
-
 #battery.charging {
     color: @green;
 }
-
 #battery.warning:not(.charging) {
+    color: @maroon;
+}
+#battery.critical:not(.charging) {
     color: @red;
 }
+/* =============================== */
 
+
+/* =============================== */
+/* Backlight Module */
 #backlight {
-    color: @yellow;
+    color: @teal;
     padding-right: 1.25rem;
 }
+/* =============================== */
 
+
+/* =============================== */
+/* Network Module */
 #network {
-	color: @peach;
+	color: @blue;
     padding-right: 1.25rem;
 }
+/* =============================== */
 
-#custom-nordvpn {
-    padding-right: 1.25rem;
-}
 
+/* =============================== */
+/* PulseAudio Module */
 #pulseaudio {
-	color: @red;
+	color: @mauve;
+    padding-right: 1.20rem;
+}
+/* =============================== */
+
+/* =============================== */
+/* |       Custom Modules        | */
+/* =============================== */
+/* NordVPN Module */
+#custom-nordvpn {
+    color: @mauve;
+    padding-right: 1.25rem;
 }
 
+/* Music/PlayerCTL Module */
 #custom-music {
     color: @mauve;
     border-radius: 1rem;
     margin-left: 1rem;
 }
 
+/* Launcher Module */
+#custom-launcher {
+    color: @mauve;
+    border-radius: 1rem;
+}
+
+/* Updates Module */
+#custom-updates {
+    color: @sky;
+}
+
+/* Powermenu Module */
 #custom-power {
+    color: @mauve;
     margin-right: 1rem;
     padding-right: 1.20rem;
 }
-
-#tray {
-    border-radius: 1rem;
-}
+/* =============================== */
