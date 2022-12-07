@@ -41,6 +41,7 @@ spotifyd &
 
 # Music Player Daemon (MPD)
 mpd --stdout --verbose &
+
 # Wob
 function wbs() {
     # Create pipe file if it doesn't exist
@@ -50,7 +51,17 @@ function wbs() {
     tail -f /tmp/wobpipe | wob
 }
 
-wbs &
+# Check every 5 seconds if wob is running
+while true; do
+    # Check if wob is running
+    if ! pgrep -x "wob" > /dev/null; then
+        # Start wob
+        wbs &
+    fi
+
+    # Wait 5 seconds
+    sleep 5
+done &
 
 # XDG Desktop Portal (Wayland)
 function xdph() {
