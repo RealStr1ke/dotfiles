@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# A script that manages wallpapers on Hyprland
+# Uses swww as a daemon
+
+# Start swww if it hasn't already started
+swww query || swww init
+
+# Set directory for wallpapers
+wallDir="$HOME/.dotfiles/assets/wallpapers/catppuccin"
+
+# Initialize wallpaper variable
+wallpaper=""
+
+# Set a fallback wallpaper
+fallback="$wallDir/cat-sound.png"
+
+# If there are no parameters, set a fallback wallpaper
+if [ -z "$1" ]; then
+    wallpaper="$fallback"
+fi
+
+# If the first parameter is "random", set a random wallpaper
+if [ "$1" = "random" ]; then
+    wallpaper="$wallDir/$(ls $wallDir | shuf -n1)"
+fi
+
+# If the first parameter is "set", set the second parameter as the wallpaper
+# Make sure the second parameter is a valid file and a valid image
+if [ "$1" = "set" ]; then
+    if [ -f "$2" ] && file "$2" | grep -q "image data"; then
+        wallpaper="$2"
+    else
+        wallpaper="$fallback"
+    fi
+fi
+
+# If the wallpaper variable is still empty, set a fallback wallpaper
+if [ -z "$wallpaper" ]; then
+    wallpaper="$fallback"
+fi
+
+# Set the wallpaper
+swww img "$wallpaper"
