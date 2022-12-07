@@ -17,7 +17,7 @@ autosens = 1
 
 # The number of bars (0-200). 0 sets it to auto (fill up console).
 # Bars' width and space between bars in number of characters.
-bars = 12
+bars = 0
 bar_width = 6
 bar_spacing = 1
 
