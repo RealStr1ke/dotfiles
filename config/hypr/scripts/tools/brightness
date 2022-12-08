@@ -52,6 +52,9 @@ function display_brightness() {
     # Get the brightness
     brightness=$(get_brightness)
 
+    # Omit decimal places
+    brightness=${brightness%.*}
+
     # Display the brightness
     echo $brightness > /tmp/wobpipe
 }
