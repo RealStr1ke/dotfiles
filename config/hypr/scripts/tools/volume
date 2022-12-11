@@ -7,9 +7,8 @@
 
 # Function to get the current volume
 function get_volume() {
-    # Get the volume (omit the trailing %)
-    volume=$(amixer get Master | tail -n1 | awk -F ' ' '{print $5}' | tr -d '[]')
-    volume=${volume::-1}
+    # Get the volume from the current sink
+    volume=$(pamixer --get-volume)
 
     # Return the volume
     echo $volume
@@ -56,8 +55,13 @@ function toggle_mute() {
     # Get the current mute status
     mute=$(pactl list sinks | grep "Mute:" | awk '{print $2}')
 
+    # Omit the first 3 words in $mute
+    mute=${mute:9}
+
+    echo $mute
+
     # Toggle the mute status
-    if [ $mute = "yes" ]; then
+    if [[ $mute = "yes" ]]; then
         pactl set-sink-mute @DEFAULT_SINK@ 0
     else
         pactl set-sink-mute @DEFAULT_SINK@ 1
