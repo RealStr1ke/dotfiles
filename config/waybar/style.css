@@ -71,6 +71,7 @@
 #custom-launcher,
 #custom-updates,
 #custom-nordvpn,
+#custom-notifications,
 #custom-power {
     background-color: @surface0;
     color: @text;
@@ -176,5 +177,12 @@
     color: @mauve;
     margin-right: 1rem;
     padding-right: 1.20rem;
+}
+
+/* Notifications Module */
+#custom-notifications {
+    color: @mauve;
+    border-radius: 1rem;
+    padding-right: 1.25rem;
 }
 /* =============================== */
