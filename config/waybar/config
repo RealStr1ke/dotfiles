@@ -8,7 +8,7 @@
     // Choose the order of the modules
     "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk", "custom/updates" ],
     "modules-center": [ "clock" ],
-    "modules-right": [ "custom/music", "pulseaudio", "network", "backlight", "battery", "tray", "custom/launcher", "custom/power" ],
+    "modules-right": [ "custom/music", "pulseaudio", "network", "backlight", "battery", "tray", "custom/notifications", "custom/launcher", "custom/power" ],
     
     // Modules configuration
     "wlr/workspaces": {
@@ -28,6 +28,26 @@
         "tooltip": true,
         // "tooltip-format": "{}",
         // "exec-tooltip": "~/.config/waybar/scripts/updates.sh tooltip"
+    },
+    // "custom/notifications": {
+    //     "format": "",
+    //     "on-click": "~/.config/hypr/scripts/tools/notif panel",
+    // },
+    "custom/notifications": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+          "notification": "<span foreground='red'><sup></sup></span>",
+          "none": "",
+          "dnd-notification": "<span foreground='red'><sup></sup></span>",
+          "dnd-none": ""
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
     },
     "custom/power": {
         "format": "",
