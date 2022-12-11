@@ -33,14 +33,14 @@ blueman-tray &
 # NetworkManager Applet 
 nm-applet &
 
-# Notification Daemon
-dunst &
-
 # Spotify Daemon
 spotifyd &
 
 # Music Player Daemon (MPD)
 mpd --stdout --verbose &
+
+# Notification Daemon
+swaync &
 
 # Wob
 function wbs() {
