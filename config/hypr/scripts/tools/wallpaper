@@ -28,7 +28,7 @@ fi
 # If the first parameter is "set", set the second parameter as the wallpaper
 # Make sure the second parameter is a valid file and a valid image
 if [ "$1" = "set" ]; then
-    if [ -f "$2" ] && file "$2" | grep -q "image data"; then
+    if [ -f "$2" ] && file "$2" | grep "image data"; then
         wallpaper="$2"
     else
         wallpaper="$fallback"
