@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+
+# This script is used to lock the screen.
+
+# Colors
+alpha="00000000"
+# Set Catppuccin Mocha colors
+# Taken from https://github.com/catppuccin/catppuccin
+
+base="1e1e2e"
+mantle="181825"
+crust="11111b"
+
+text="cdd6f4"
+subtext0="a6adc8"
+subtext1="bac2de"
+
+surface0="313244"
+surface1="45475a"
+surface2="585b70"
+
+overlay0="6c7086"
+overlay1="7f849c"
+overlay2="9399b2"
+
+rosewater="f5e0dc"
+flamingo="f2cdcd"
+pink="f5c2e7"
+mauve="cba6f7"
+red="f38ba8"
+maroon="eba0ac"
+peach="fab387"
+yellow="f9e2af"
+green="a6e3a1"
+teal="94e2d5"
+sky="89dceb"
+sapphire="74c7ec"
+lavender="b4befe"
+blue="89b4fa"
+
+# Swaylock
+swaylock -f \
+    `# General` \
+    `#--clock` \
+    --indicator \
+    --ignore-empty-password \
+    --show-failed-attempts \
+    --hide-keyboard-layout \
+    --indicator-caps-lock \
+    \
+    `# Appearance` \
+    --color ${base}E6 \
+    \
+    `# Backspace Key` \
+    --font 'Caskaydia Cove Nerd Font' \
+    --font-size 18 \
+    \
+	--key-hl-color ${lavender} \
+	--caps-lock-key-hl-color ${blue} \
+	--bs-hl-color ${red} \
+	--caps-lock-bs-hl-color ${red} \
+	\
+	`# Indicator` \
+	--indicator-radius 120 \
+	--indicator-thickness 10 \
+	\
+	`# Inside Circle Colors` \
+	--inside-color ${alpha} \
+	--inside-clear-color ${alpha} \
+	--inside-caps-lock-color ${alpha} \
+	--inside-ver-color ${blue} \
+	--inside-wrong-color ${red} \
+	\
+	`# Layout Colors` \
+	--layout-bg-color ${cyan} \
+	--layout-border-color ${cyan} \
+	--layout-text-color ${base} \
+	\
+	`# Line Colors` \
+	--line-color ${base} \
+	--line-clear-color ${red} \
+	--line-caps-lock-color ${base} \
+	--line-ver-color ${base} \
+	--line-wrong-color ${base} \
+	\
+	`# Ring Colors` \
+	--ring-color ${cyan} \
+	--ring-clear-color ${base} \
+	--ring-caps-lock-color ${mauve} \
+	--ring-ver-color ${blue} \
+	--ring-wrong-color ${red} \
+	\
+	`# Separator Color` \
+	--separator-color ${base} \
+	\
+	`# Text Colors` \
+	--text-color ${text} \
+	--text-clear-color ${text} \
+	--text-caps-lock-color ${text} \
+	--text-ver-color ${base} \
+	--text-wrong-color ${base} \
+    \
+    `# Effects` \
+    --screenshots \
+    --effect-blur 8x8
