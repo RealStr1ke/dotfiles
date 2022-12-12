@@ -52,19 +52,19 @@ function decrease_volume() {
 
 # Function to toggle the mute status
 function toggle_mute() {
+    # Toggle mute
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+
     # Get the current mute status
     mute=$(pactl list sinks | grep "Mute:" | awk '{print $2}')
 
     # Omit the first 3 words in $mute
     mute=${mute:9}
-
-    echo $mute
-
-    # Toggle the mute status
+    
     if [[ $mute = "yes" ]]; then
-        pactl set-sink-mute @DEFAULT_SINK@ 0
+        wob_volume 0
     else
-        pactl set-sink-mute @DEFAULT_SINK@ 1
+        wob_volume
     fi
 }
 
@@ -130,7 +130,7 @@ if [[ $arg = "mute" ]]; then
     toggle_mute
 
     # Call wob with the current volume
-    wob_volume
+    wob_volume 0
 
     # Exit the script
     exit 0
