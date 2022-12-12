@@ -41,7 +41,7 @@ blue="89b4fa"
 # Swaylock
 swaylock -f \
     `# General` \
-    `#--clock` \
+    --clock \
     --indicator \
     --ignore-empty-password \
     --show-failed-attempts \
@@ -53,9 +53,9 @@ swaylock -f \
     \
     `# Backspace Key` \
     --font 'Caskaydia Cove Nerd Font' \
-    --font-size 18 \
+    --font-size 46 \
     \
-	--key-hl-color ${lavender} \
+	--key-hl-color ${mauve} \
 	--caps-lock-key-hl-color ${blue} \
 	--bs-hl-color ${red} \
 	--caps-lock-bs-hl-color ${red} \
