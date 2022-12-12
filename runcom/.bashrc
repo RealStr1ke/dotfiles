@@ -10,4 +10,4 @@ do
     source "$HOME/.dotfiles/shell/global/$DOTFILE"
 done
 unset DOTFILE
-[ -f "/home/str1ke/.ghcup/env" ] && source "/home/str1ke/.ghcup/env" # ghcup-env
+# [ -f "/home/str1ke/.ghcup/env" ] && source "/home/str1ke/.ghcup/env" # ghcup-env
