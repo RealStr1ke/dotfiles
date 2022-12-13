@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # This script is used to lock the screen.
+# swaylock formatting originally made by @adi1090x
 
 # Colors
 alpha="00000000"
@@ -65,7 +66,7 @@ swaylock -f \
 	--indicator-thickness 10 \
 	\
 	`# Inside Circle Colors` \
-	--inside-color ${alpha} \
+	--inside-color ${base} \
 	--inside-clear-color ${alpha} \
 	--inside-caps-lock-color ${alpha} \
 	--inside-ver-color ${blue} \
