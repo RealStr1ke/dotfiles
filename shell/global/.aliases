@@ -48,6 +48,9 @@ alias yi='yarn install'
 # nano
 alias sano="sudo nano"
 
+# kitty
+alias icat="kitty +kitten icat --align left"
+
 # npm
 alias ni="npm install"
 alias nu="npm uninstall"
