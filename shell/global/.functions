@@ -357,10 +357,10 @@ function spdl() {
     if [ "$#" = "0" ]; then
         spotdl -h
     else
-        spotdl "$*" --output '{album}/{title}'
+        spotdl "$*" --output '{album-artist}/{album}/{title}'
     fi
 }
-
+    
 # Call from a local repo to open the repository on github/bitbucket in browser
 # Modified version of https://github.com/zeke/ghwd
 function repo() {
