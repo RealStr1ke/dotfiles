@@ -7,8 +7,8 @@
 swww query || swww init
 
 # Set directory for wallpapers
-# wallDir="$HOME/.dotfiles/assets/wallpapers/catppuccin"
-wallDir="$HOME/.dotfiles/assets/wallpapers/discord-snowsgiving"
+wallDir="$HOME/.dotfiles/assets/wallpapers/catppuccin"
+# wallDir="$HOME/.dotfiles/assets/wallpapers/discord-snowsgiving"
 
 # Initialize wallpaper variable
 wallpaper=""
