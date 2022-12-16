@@ -72,7 +72,8 @@
 #custom-updates,
 #custom-nordvpn,
 #custom-notifications,
-#custom-power {
+#custom-power,
+#custom-weather {
     background-color: @surface0;
     color: @text;
 	border-radius: 1rem;
