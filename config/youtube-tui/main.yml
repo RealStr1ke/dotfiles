@@ -7,8 +7,8 @@ refresh_after_modifying_search_filters: true
 image_index: 4
 provider: YouTube
 env:
-  download-path: '''~/Downloads/%(title)s-%(id)s.%(ext)s'''
-  browser: firefox
-  youtube-downloader: yt-dlp
   terminal-emulator: kitty -e
+  youtube-downloader: yt-dlp
+  download-path: '''~/Downloads/%(title)s-%(id)s.%(ext)s'''
   video-player: mpv
+  browser: firefox
