@@ -29,13 +29,13 @@ elif [[ "$1" == '--hibernate' ]]; then
 		exit
     fi
 elif [[ "$1" == '--lock' ]]; then
-	~/.config/hypr/scripts/lockscreen
+	~/.config/hypr/scripts/tools/lock
 elif [[ "$1" == '--suspend' ]]; then
 	cdialog
 	if [[ "$?" == 0 ]]; then
 		mpc -q pause
 		amixer set Master mute
-		~/.config/hypr/scripts/lockscreen
+		~/.config/hypr/scripts/tools/lock
 		systemctl suspend
     else
 		exit
