@@ -2,6 +2,9 @@
 # |        Applications          |
 # ================================
 
+# Waybar
+~/.config/waybar/launch.sh &
+
 # Clipboard Manager (copyq)
 copyq &
 
@@ -10,9 +13,6 @@ copyq &
 
 # Mail Client (mailspring)
 # mailspring &
-
-# Waybar
-~/.config/waybar/launch.sh &
 
 
 # ================================
@@ -83,6 +83,12 @@ function xdph() {
 }
 
 xdph &
+
+# Wayland Display Manager (WDM)
+wdm &
+
+# WLSunset
+wlsunset -S 7:00 -s 19:00 -t 4500 -T 7500 &
 
 # Swayidle (GitHub Copilot made this so idk)
 # swayidle -w timeout 300 'swaylock -f -i /home/alex/Pictures/Wallpapers/lockscreen.png' resume 'swaymsg "output * dpms off"' timeout 600 'swaymsg "output * dpms on"' resume 'swaymsg "output * dpms off"' before-sleep 'swaylock -f -i /home/alex/Pictures/Wallpapers/lockscreen.png'
