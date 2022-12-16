@@ -6,7 +6,7 @@
     "spacing": 15, // Gaps between modules (8px)
 
     // Choose the order of the modules
-    "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk", "custom/updates" ],
+    "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk", "custom/updates", "custom/weather" ],
     "modules-center": [ "clock" ],
     "modules-right": [ "custom/music", "pulseaudio", "network", "backlight", "battery", "tray", "custom/notifications", "custom/launcher", "custom/power" ],
     
@@ -21,6 +21,13 @@
         "on-scroll-down": "hyprctl dispatch workspace e-1",
         "on-click": "activate"
     },
+    "custom/weather" : {
+        "tooltip" : true,
+        "format" : "{}",
+        "interval" : 30,
+        "exec" : "~/.config/waybar/scripts/wttr.py",
+        "return-type" : "json"
+    },
     "custom/updates": {
         "format": "{}",
         "exec": "~/.config/waybar/scripts/updates.sh",
@@ -29,10 +36,6 @@
         // "tooltip-format": "{}",
         // "exec-tooltip": "~/.config/waybar/scripts/updates.sh tooltip"
     },
-    // "custom/notifications": {
-    //     "format": "",
-    //     "on-click": "~/.config/hypr/scripts/tools/notif panel",
-    // },
     "custom/notifications": {
         "tooltip": false,
         "format": "{icon}",
