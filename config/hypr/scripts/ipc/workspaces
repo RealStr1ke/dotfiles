@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# This script manages workspace keybinds per monitor.
+# Works only with Hyprland.
+
+function handle {
+    if [[ ${1:0:10} == "focusedmon" ]]; then
+        if [[ ${1:12:4} == "DP-2" ]]; then
+            hyprctl keyword general:gaps_out 20
+
+            # Set workspace keybinds for DP-2
+            # For numbers 1-9, set keybinds for workspaces 11-19
+            for i in {1..9}; do
+                hyprctl keyword bind = SUPER,${i},workspace,1${i}
+                hyprctl keyword bind = SUPER_SHIFT,${i},movetoworkspace,1${i}
+            done
+            notify-send "DP-2"
+        else
+            hyprctl keyword general:gaps_out 25
+            # Set workspace keybinds for eDP-1
+            # For numbers 1-9, set keybinds for workspaces 1-9
+            for i in {1..9}; do
+                hyprctl keyword bind = SUPER,${i},workspace,${i}
+                hyprctl keyword bind = SUPER_SHIFT,${i},movetoworkspace,${i}
+            done
+            notify-send "eDP-1"
+        fi
+    fi
+}
+
+socat - UNIX-CONNECT:/tmp/hypr/$(echo $HYPRLAND_INSTANCE_SIGNATURE)/.socket2.sock | while read line; do handle $line; done
