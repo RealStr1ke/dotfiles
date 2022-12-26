@@ -38,8 +38,8 @@ PATH="$HOME/.local/bin:$PATH";
 PATH="$HOME/bin:$PATH";
 
 # Use project specific binaries before global ones
-PATH="node_modules/.bin:$PATH";
-PATH="vendor/bin:$PATH";
+# PATH="node_modules/.bin:$PATH";
+# PATH="vendor/bin:$PATH";
 
 # Use current directory's binaries over global ones
 # PATH="bin:$PATH"
