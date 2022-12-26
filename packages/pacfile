@@ -403,6 +403,7 @@ partclone
 parted
 partimage
 paru
+parui-git
 patch
 pavucontrol
 perl-text-iconv
