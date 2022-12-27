@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# This script launches Cantata with custom enc variables
+QT_QPA_PLATFORMTHEME=qt5ct cantata
