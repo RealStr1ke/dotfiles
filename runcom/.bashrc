@@ -3,6 +3,7 @@
 
 # Add dotfile binaries to PATH before sourcing dotfiles
 PATH="$HOME/.dotfiles/bin/main:$PATH";
+PATH="$HOME/.dotfiles/bin/apps:$PATH";
 PATH="$HOME/.dotfiles/bin/fun:$PATH";
 
 for DOTFILE in `find $HOME/.dotfiles/shell/global -type f -name ".*" -printf "%f\n"`

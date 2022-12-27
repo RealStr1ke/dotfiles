@@ -31,6 +31,7 @@ fi
 
 # Dotfile Binaries
 PATH="$HOME/.dotfiles/bin/main:$PATH";
+PATH="$HOME/.dotfiles/bin/apps:$PATH";
 PATH="$HOME/.dotfiles/bin/fun:$PATH";
 
 # Main Binaries
