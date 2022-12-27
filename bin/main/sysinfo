@@ -28,13 +28,13 @@ EMPTY=┄
 name=$USER
 host=`hostname`
 battery=/sys/class/power_supply/BAT0
-distro="Ubuntu"
+distro="Arch"
 kernel=`uname -r | sed 's/ARCH/0x0/'`
-# pkgs=`yay -Qqs | wc -l`
-pkgs=`apt list 2>/dev/null | wc -l`
-colors='blaquemagick'
-font='hack'
-wm='windowchef'
+pkgs=`paru -Qqs | wc -l`
+# pkgs=`apt list 2>/dev/null | wc -l`
+colors='catppuccin-mocha'
+font='caskaydia cove'
+wm='hyprland'
 
 #█▓▒░ progress bar
 draw()
