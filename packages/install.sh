@@ -87,7 +87,7 @@ fi
 
 # Arch Linux packages
 if [[ "$OS" == "arch" ]]; then
-	echo "Arch Linux has been detected (bts I use Arch)."
+	echo "Arch Linux has been detected (btw I use Arch)."
 	if ! is-executable paru; then
 		echo "Paru is not installed."
 		while true; do
