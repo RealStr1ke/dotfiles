@@ -47,3 +47,13 @@ if is-executable fasd; then
 	. "$fasd_cache"
 	unset fasd_cache
 fi
+
+# find-the-command
+# If the OS is Linux and the distro is Arch,
+# then source the find-the-command script with given parameters and current shell.
+if [[ "$OSTYPE" == "linux-gnu" ]] && [[ -f "/etc/arch-release" ]]; then
+	# If shell is Bash, then source bash script
+	if [[ "$SHELL" == "/bin/bash" ]]; then
+		source /usr/share/doc/find-the-command/ftc.bash quiet su noupdate noprompt
+	fi
+fi
