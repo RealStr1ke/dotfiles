@@ -53,7 +53,7 @@ if is-executable npm; then
 	while true; do
 		read -p "Do you wish to install NPM packages? (y/n) " yn
 		case $yn in
-			[Yy]* ) echo "Installing NPM packages..."; npm install -g $(sed ':a;N;$!ba;s/\n/ /g' npmfile); break;;
+			[Yy]* ) echo "Installing NPM packages..."; sudo npm install -g $(echo $(cat npmfile)); break;;
 			[Nn]* ) echo "Skipping NPM package installation."; break;;
 			* ) echo "Please answer yes or no.";;
 		esac
