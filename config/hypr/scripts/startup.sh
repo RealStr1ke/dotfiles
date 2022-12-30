@@ -12,7 +12,7 @@ copyq &
 # discord &
 
 # Mail Client (mailspring)
-# mailspring &
+mailspring --background &
 
 
 # ================================
