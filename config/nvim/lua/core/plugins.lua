@@ -118,6 +118,9 @@ return packer.startup(function(use)
     }
   }
 
+  -- GitHub Copilot
+  use { "github/copilot.vim" }
+
   -- Miscellaneous
   use { "moll/vim-bbye" }
   use { "nvim-lua/plenary.nvim" }
