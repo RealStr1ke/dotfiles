@@ -68,7 +68,7 @@
   :exclusive true
   :stacking "fg"
   :windowtype "dock"
-  :focusable true
+  :focusable false
   :geometry (geometry :x "0%"
                       :y "0%"
                       :width "90%"
