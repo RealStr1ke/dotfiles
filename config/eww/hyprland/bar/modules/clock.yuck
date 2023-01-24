@@ -1,0 +1,26 @@
+;; =========================
+;; |         Clock         |
+;; =========================
+
+
+;; Variables
+
+(defpoll clock
+    :interval "1s"
+    "date +\"  %A, %B %d, %Y (%V) | %r\""
+)
+
+(defpoll clock_alt
+    :interval "1s"
+    "date +\"  %a, %b %d, %Y | %I:%M %p\""
+)
+
+
+;; Main Widget
+(defwidget clock []
+    (box 
+        :orientation "horizontal"
+        :halign "center"
+    "HI"
+    )
+)
