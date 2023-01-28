@@ -25,15 +25,38 @@ function addNote() {
 	fi
 }
 
-# Compile and run C/C++ program with clang
+# Compile and run C/C++ program with clang(++)
 # Executable file is created in ~/.local/tmp and removed after program exit
 function cmc() {
 	local curdir=$(pwd)
 	local dirname=$(dirname $1)
 	local filename=$(basename $1)
+	extension="${filename##*.}"
 	filename="${filename%.*}"
-	clang -o "$HOME/.local/tmp/$filename" "$1"
+
+	# Print Debug Info
+	echo "==== START DEBUG ===="
+	echo "Current Directory: $curdir"
+	echo "File Directory: $dirname"
+	echo "File Name: $filename"
+	echo "File Extension: $extension"
+	echo "==== END DEBUG ===="
+
+
+	# If file is a C or C++ program, use clang or clang++, respectively
+	if [ "$extension" = "cpp" ]; then
+		clang++ -o "$HOME/.local/tmp/$filename" "$1"
+	elif [ "$extension" = "c" ]; then
+		clang -o "$HOME/.local/tmp/$filename" "$1"
+	fi
+
+	# Run executable
+	echo "==== START OUTPUT ===="
 	"$HOME/.local/tmp/$filename"
+	echo ""
+	echo "==== END OUTPUT ===="
+
+	# Remove executable
 	rm "$HOME/.local/tmp/$filename"
 }
 
