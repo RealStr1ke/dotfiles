@@ -1,0 +1,22 @@
+;; =========================
+;; |        Updates        |
+;; =========================
+
+
+;; Variables
+
+(defpoll updates 
+    :interval "5m" 
+    "~/.config/waybar/scripts/updates.sh"
+)
+
+
+;; Main Widget
+(defwidget updates []
+    (box 
+        :orientation "horizontal"
+        :halign "center"
+
+        updates
+    )
+)
