@@ -2,6 +2,3 @@
 (include "bar/bar.yuck")
 (include "dashboard/dash.yuck")
 
-
-;; Variables
-(defpoll monitors :interval "1m" "hyprctl monitors -j | jq -rc '[ .[].id ] | sort_by( . )'")

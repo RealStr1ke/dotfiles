@@ -5,12 +5,12 @@
 
 ;; Variables
 
-(defpoll clock
+(defpoll date_time
     :interval "1s"
     "date +\"  %A, %B %d, %Y (%V) | %r\""
 )
 
-(defpoll clock_alt
+(defpoll date_time_alt
     :interval "1s"
     "date +\"  %a, %b %d, %Y | %I:%M %p\""
 )
@@ -21,6 +21,8 @@
     (box 
         :orientation "horizontal"
         :halign "center"
-    "HI"
+        :class "bar.clock"
+
+        date_time
     )
 )

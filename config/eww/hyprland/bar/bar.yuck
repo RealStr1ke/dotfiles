@@ -1,5 +1,9 @@
 ;; Modules
 (include "bar/modules/clock.yuck")
+(include "bar/modules/workspaces.yuck")
+(include "bar/modules/updates.yuck")
+
+
 
 ;; Main Bar
 (defwindow bar0
@@ -7,14 +11,13 @@
     :exclusive true
     :focusable false
     :geometry (geometry 
-        :x "0%"
-        :y "20px"
-        :width "90%"
-        :height "1%"
+        :width "100%"
+        :height "25px"
         :anchor "top center"
     )
     :stacking "fg"
-;    :windowtype "dock"
+    :windowtype "dock"
+    :class "bar"
 
     (bar_layout)
 )
@@ -24,14 +27,13 @@
     :exclusive true
     :focusable false
     :geometry (geometry 
-        :x "15px"
-        :y "0px"
-        :width "99%"
+        :width "100%"
         :height "25px"
         :anchor "top center"
     )
     :stacking "fg"
     :windowtype "dock"
+    :class "bar"
 
     (bar_layout)
 )
@@ -55,7 +57,7 @@
         :halign "start"
         :class "bar_left"
 
-        (clock)
+        (workspaces)
     )
 )
 
@@ -77,6 +79,6 @@
         :halign "end"
         :class "bar_right"
 
-        (clock)
+        (updates)
     )
 )
