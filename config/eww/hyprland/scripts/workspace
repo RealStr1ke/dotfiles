@@ -1,75 +1,111 @@
-#! /bin/bash
+#!/usr/bin/env node
 
-#define icons for workspaces 1-9
-# ic=(0     輸  " " " " )
-# ic=(0 1 2 3 4 5 6 7 8 9)
-# ic=(0 一 二 三 四 五 六 七 八 九 〇)
-ic=(0 一 二 三 四 五 六 七 八 九)
+const { exec, execSync, spawn, spawnSync } = require("child_process");
 
-#initial check for occupied workspaces
-for num in $(hyprctl workspaces | grep ID | awk '{print $3}'); do 
-  export o"$num"="$num"
-done
- 
-#initial check for focused workspace
-for num in $(hyprctl monitors | grep -B 4 "focused: yes" | awk 'NR==1{print $3}'); do 
-  export f"$num"="$num"
-  export fnum=f"$num"
-  export mon=$(hyprctl monitors | grep -B 2 "\($num\)" | awk 'NR==1{print $2}')
-done
+const icons = ["一", "二", "三", "四", "五", "六", "七", "八", "九"];
 
-workspaces() {
-  if [[ ${1:0:9} == "workspace" ]] && [[ ${1:11} != "special" ]]; then #set focused workspace
-    unset -v "$fnum" 
-    num=${1:11}
-    export f"$num"="$num"
-    export fnum=f"$num"
+let occupiedWorkspaces = execSync("hyprctl workspaces -j | jq -rc '[ .[].id ] | sort_by( . )'").toString();
+occupiedWorkspaces = JSON.parse(occupiedWorkspaces);
 
-  elif [[ ${1:0:10} == "focusedmon" ]]; then #set focused workspace following monitor focus change
-    unset -v "$fnum"
-    string=${1:12}
-    num=${string##*,}
-    export mon=${string/,*/}
-    export f"$num"="$num"
-    export fnum=f"$num"
+let focusedMonitor = execSync("hyprctl monitors -j | jq -rc '[ .[].focused ] | index(true)'").toString().replace(/\n$/, '');
+focusedMonitor = parseInt(focusedMonitor);
 
-  elif [[ ${1:0:13} == "moveworkspace" ]] && [[ ${1##*,} == "$mon" ]]; then #Set focused workspace following swapactiveworkspace
-    unset -v "$fnum"
-    string=${1:15}
-    num=${string/,*/}
-    export f"$num"="$num"
-    export fnum=f"$num"
+let focusedWorkspace = execSync("hyprctl monitors -j | jq -rc '[ .[].activeWorkspace.id ]'").toString().replace(/\n$/, '');
+focusedWorkspace = JSON.parse(focusedWorkspace)[focusedMonitor];
 
-  elif [[ ${1:0:15} == "createworkspace" ]]; then #set Occupied workspace
-    num=${1:17}
-    export o"$num"="$num"
-    export onum=o"$num"
+let monitors = execSync("hyprctl monitors -j | jq -rc '[ .[].id ] | sort_by( . )'").toString();
+monitors = JSON.parse(monitors);
 
-  elif [[ ${1:0:16} == "destroyworkspace" ]]; then #unset unoccupied workspace
-    num=${1:18}
-    unset -v o"$num"
-  fi
-}
-module() {
-  # Output EWW Widget
-  echo 	"(eventbox :onscroll \"echo {} | sed -e 's/up/e+1/g' -e 's/down/e-1/g' | xargs hyprctl dispatch workspace\" \
-            (box	:class \"works\"	:orientation \"h\" :spacing 5 :space-evenly \"false\" :valign \"center\"	\
-                (button :onclick \"~/.config/hypr/scripts/tools/workspaces 1\" :class \"ws-btn 0$o1$f1\" \"${ic[1]}\") \
-                (button :onclick \"~/.config/hypr/scripts/tools/workspaces 2\'\" :class \"ws-btn 0$o2$f2\" \"${ic[2]}\") \
-                (button :onclick \"~/.config/hypr/scripts/tools/workspaces 3\'\" :class \"ws-btn 0$o3$f3\" \"${ic[3]}\") \
-                (button :onclick \"~/.config/hypr/scripts/tools/workspaces 4\'\" :class \"ws-btn 0$o4$f4\" \"${ic[4]}\") \
-                (button :onclick \"~/.config/hypr/scripts/tools/workspaces 5\'\" :class \"ws-btn 0$o5$f5\" \"${ic[5]}\") \
-                (button :onclick \"~/.config/hypr/scripts/tools/workspaces 6\'\" :class \"ws-btn 0$o6$f6\" \"${ic[6]}\") \
-                (button :onclick \"~/.config/hypr/scripts/tools/workspaces 7\'\" :class \"ws-btn 0$o7$f7\" \"${ic[7]}\") \
-                (button :onclick \"~/.config/hypr/scripts/tools/workspaces 8\'\" :class \"ws-btn 0$o8$f8\" \"${ic[8]}\") \
-                (button :onclick \"~/.config/hypr/scripts/tools/workspaces 9\'\" :class \"ws-btn 0$o9$f9\" \"${ic[9]}\") \
-            )\
-          )"
+// Occupied and focused workspaces
+let o1 = 0, o2 = 0, o3 = 0, o4 = 0, o5 = 0, o6 = 0, o7 = 0, o8 = 0, o9 = 0;
+let f1 = 0, f2 = 0, f3 = 0, f4 = 0, f5 = 0, f6 = 0, f7 = 0, f8 = 0, f9 = 0;
+
+// Workspace ranges based on focused monitor
+let wsMin = focusedMonitor * 10 + 1;
+let wsMax = focusedMonitor * 10 + 9;
+
+// Set occupied and focused workspaces
+for (let i = 0; i < occupiedWorkspaces.length; i++) {
+    // Check if workspace is in range
+    // console.log(`${occupiedWorkspaces[i]}: ${occupiedWorkspaces[i] >= wsMin && occupiedWorkspaces[i] <= wsMax}`)
+    if (occupiedWorkspaces[i] >= wsMin && occupiedWorkspaces[i] <= wsMax) {
+        
+        // Set occupied workspace
+        switch (occupiedWorkspaces[i]) {
+            case wsMin:
+                o1 = 1;
+                break;
+            case wsMin + 1:
+                o2 = 1;
+                break;
+            case wsMin + 2:
+                o3 = 1;
+                break;
+            case wsMin + 3:
+                o4 = 1;
+                break;
+            case wsMin + 4:
+                o5 = 1;
+                break;
+            case wsMin + 5:
+                o6 = 1;
+                break;
+            case wsMin + 6:
+                o7 = 1;
+                break;
+            case wsMin + 7:
+                o8 = 1;
+                break;
+            case wsMin + 8:
+                o9 = 1;
+                break;
+        }
+    }
 }
 
-module
+// Set focused workspace
+switch (focusedWorkspace) {
+    case wsMin:
+        f1 = 1;
+        break;
+    case wsMin + 1:
+        f2 = 1;
+        break;
+    case wsMin + 2:
+        f3 = 1;
+        break;
+    case wsMin + 3:
+        f4 = 1;
+        break;
+    case wsMin + 4:
+        f5 = 1;
+        break;
+    case wsMin + 5:
+        f6 = 1;
+        break;
+    case wsMin + 6:
+        f7 = 1;
+        break;
+    case wsMin + 7:
+        f8 = 1;
+        break;
+    case wsMin + 8:
+        f9 = 1;
+        break;
+}
 
-socat -u UNIX-CONNECT:/tmp/hypr/"$HYPRLAND_INSTANCE_SIGNATURE"/.socket2.sock - | while read -r event; do 
-workspaces "$event"
-module
-done
+console.log([
+    `(eventbox :onscroll "echo {} | sed -e 's/up/e+1/g' -e 's/down/e-1/g' | xargs hyprctl dispatch workspace"`,
+    `    (box	:class "works"	:orientation "h" :spacing 5 :space-evenly "false" :valign "center"`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 1" :class "ws-btn 0${o1}${f1}" "${icons[1 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 2" :class "ws-btn 0${o2}${f2}" "${icons[2 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 3" :class "ws-btn 0${o3}${f3}" "${icons[3 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 4" :class "ws-btn 0${o4}${f4}" "${icons[4 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 5" :class "ws-btn 0${o5}${f5}" "${icons[5 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 6" :class "ws-btn 0${o6}${f6}" "${icons[6 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 7" :class "ws-btn 0${o7}${f7}" "${icons[7 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 8" :class "ws-btn 0${o8}${f8}" "${icons[8 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 9" :class "ws-btn 0${o9}${f9}" "${icons[9 - 1]}")`,
+    `    )`,
+    `)`
+].join("\n"));
