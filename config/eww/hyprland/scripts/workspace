@@ -52,7 +52,7 @@ workspaces() {
 }
 module() {
   # Output EWW Widget
-  echo 	"(eventbox :onscroll \"echo {} | sed -e 's/up/-1/g' -e 's/down/+1/g' | xargs hyprctl dispatch workspace\" \
+  echo 	"(eventbox :onscroll \"echo {} | sed -e 's/up/e+1/g' -e 's/down/e-1/g' | xargs hyprctl dispatch workspace\" \
             (box	:class \"works\"	:orientation \"h\" :spacing 5 :space-evenly \"false\" :valign \"center\"	\
                 (button :onclick \"~/.config/hypr/scripts/tools/workspaces 1\" :class \"ws-btn 0$o1$f1\" \"${ic[1]}\") \
                 (button :onclick \"~/.config/hypr/scripts/tools/workspaces 2\'\" :class \"ws-btn 0$o2$f2\" \"${ic[2]}\") \
