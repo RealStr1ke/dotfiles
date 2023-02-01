@@ -13,9 +13,10 @@
 
 ;; Main Widget
 (defwidget updates []
-    (box 
+    (button 
         :orientation "horizontal"
         :halign "center"
+        :class "mod_updates"
 
         updates
     )
