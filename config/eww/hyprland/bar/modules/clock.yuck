@@ -21,8 +21,10 @@
     (box 
         :orientation "horizontal"
         :halign "center"
-        :class "bar.clock"
+        :class "module"
 
-        date_time
+        (label
+            :text date_time
+          :class "mod_clock" )
     )
 )

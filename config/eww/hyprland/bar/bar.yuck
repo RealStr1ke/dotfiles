@@ -17,7 +17,6 @@
     )
     :stacking "fg"
     :windowtype "dock"
-    :class "bar"
 
     (bar_layout)
 )
@@ -33,7 +32,6 @@
     )
     :stacking "fg"
     :windowtype "dock"
-    :class "bar"
 
     (bar_layout)
 )
@@ -41,7 +39,7 @@
 ;; Bar Layout
 (defwidget bar_layout []
     (centerbox 
-        :class "bar_class"
+        :class "bar"
         :orientation "h"
 
         (left)
