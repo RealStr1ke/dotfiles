@@ -11,7 +11,7 @@
     :exclusive true
     :focusable false
     :geometry (geometry 
-        :width "100%"
+        :width "98%"
         :height "25px"
         :anchor "top center"
     )
@@ -26,7 +26,7 @@
     :exclusive true
     :focusable false
     :geometry (geometry 
-        :width "100%"
+        :width "99%"
         :height "25px"
         :anchor "top center"
     )
