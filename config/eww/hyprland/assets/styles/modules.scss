@@ -4,9 +4,9 @@
     background-color: $base;
     color: $text;
     margin: 5px 0;
-    padding: 0px 5px;
+    padding: 0px 10px;
     border: 1px solid $blue;
-    border-radius: 5px;
+    border-radius: 18px;
 }
 
 .bar_left {
@@ -29,6 +29,24 @@
     border-radius: 5px;
 }
 
+
+// Workspaces Module
 .ws-btn {
-    margin: 0px 7px 0px 0px;
+    font-size: 24px;
+    margin: 0px 7px 3px 0px;
+}
+
+// Unoccupied
+.000 {
+    color: $overlay1
+}
+
+// Occupied
+.010 {
+    color: $lavender
+}
+
+// Focused
+.011 {
+    color: $red
 }
