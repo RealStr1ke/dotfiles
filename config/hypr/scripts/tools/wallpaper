@@ -6,15 +6,25 @@
 # Start swww if it hasn't already started
 swww query || swww init
 
+# Make a function to set the wallpaper
+function setWallpaper() {
+    # Set the wallpaper
+    swww img "$1" \
+        --transition-type grow \
+        --transition-duration 2.5 \
+        --transition-step 255 \
+        --transition-bezier 0.32,0.0,0.67,0.0 # easeInCubic
+    #   --transition-bezier 0.05,0.25,0.1,0.8
+}
+
 # Set directory for wallpapers
-wallDir="$HOME/.dotfiles/assets/wallpapers/catppuccin"
-# wallDir="$HOME/.dotfiles/assets/wallpapers/discord-snowsgiving"
+wallDir="$HOME/.dotfiles/assets/wallpapers/current"
 
 # Initialize wallpaper variable
 wallpaper=""
 
 # Set a fallback wallpaper
-fallback="$HOME/.dotfiles/assets/wallpapers/catppuccin/cat-sound.png"
+fallback="$HOME/.dotfiles/assets/wallpapers/collection/catppuccin/cat-sound.png"
 
 # If there are no parameters, set a fallback wallpaper
 if [ -z "$1" ]; then
@@ -41,10 +51,14 @@ if [ -z "$wallpaper" ]; then
     wallpaper="$fallback"
 fi
 
-# Set the wallpaper
-swww img "$wallpaper" \
-    --transition-type grow \
-    --transition-duration 2.5 \
-    --transition-step 255 \
-    --transition-bezier 0.32,0.0,0.67,0.0 # easeInCubic
-#   --transition-bezier 0.05,0.25,0.1,0.8
+# If the parameter is "shuffle", shuffle the wallpapers in the directory every minutes
+if [ "$1" = "shuffle" ]; then
+    while true; do
+        wallpaper="$wallDir/$(ls $wallDir | shuf -n1)"
+        setWallpaper "$wallpaper"
+        sleep 60
+    done
+else
+    # Set the wallpaper
+    setWallpaper "$wallpaper"
+fi
