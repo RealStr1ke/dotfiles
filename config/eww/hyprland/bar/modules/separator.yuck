@@ -1,0 +1,13 @@
+(defwidget separator []
+    (box
+       :class "module"
+       :vexpand "false"
+       :hexpand "false"
+       :valign "center"
+       (label
+          :class "separator"
+          :valign "center"
+          :text "|"
+       )
+    )
+)

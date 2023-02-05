@@ -1,12 +1,14 @@
+// ================================
+// |         Bar Styling          |
+// ================================
 
-// Bar Styling
 .bar {
     background-color: $base;
     color: $text;
     margin: 5px 0;
     padding: 0px 10px;
     border: 1px solid $blue;
-    border-radius: 18px;
+    border-radius: 12px;
 }
 
 .bar_left {
@@ -21,7 +23,11 @@
     
 }
 
-// Module Styling
+// ================================
+// |           Modules            |
+// ================================
+
+// ======= Clock Module =======
 .mod_clock {
     color: $text;
     margin: 5px 0;
@@ -30,23 +36,36 @@
 }
 
 
-// Workspaces Module
+// ======= Workspaces Module =======
 .ws-btn {
     font-size: 24px;
     margin: 0px 7px 3px 0px;
+    font-weight: bold;
 }
-
 // Unoccupied
 .000 {
     color: $overlay1
 }
-
 // Occupied
 .010 {
     color: $lavender
 }
-
 // Focused
 .011 {
     color: $red
+}
+
+// ======= Separator Module =======
+.separator {
+    color: $text;
+    font-size: 24px;
+    margin: 0px 8px 0px 8px;
+}
+
+// ======= Launcher Module =======
+.launcher {
+    
+}
+.launcher_icon {
+    margin-left: 12px;
 }
