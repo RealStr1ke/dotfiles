@@ -7,7 +7,7 @@
     color: $text;
     margin: 5px 0;
     padding: 0px 10px;
-    border: 1px solid $blue;
+    border: 1px solid $crust;
     border-radius: 12px;
 }
 
@@ -33,6 +33,7 @@
     margin: 5px 0;
     padding: 5px;
     border-radius: 5px;
+    font-size: 18px;
 }
 
 
@@ -56,16 +57,103 @@
 }
 
 // ======= Separator Module =======
-.separator {
-    color: $text;
+.mod_separator {
+    color: $overlay1;
     font-size: 24px;
-    margin: 0px 8px 0px 8px;
+    margin: 0px 8px;
 }
 
 // ======= Launcher Module =======
-.launcher {
+.mod_launcher {
     
 }
-.launcher_icon {
+.mod_launcher_icon {
     margin-left: 12px;
+}
+
+// ======= Powermenu Module =======
+.mod_powermenu {
+    color: $text;
+    font-size: 18px;
+    margin-right: 12px;
+}
+
+// .mod_brightness_bar trough highlight {
+//     background-image: linear-gradient(to right, $yellow 30%, $white 50%, $yellow 100% *50);
+//     border-radius: 10px;
+// }
+
+
+// ======= System Modules =======
+.mod_memory {
+    background-color: $base;
+    border-radius: 16px;
+    margin: 0px 5px 0px 3px;
+}
+
+.mod_battery {
+    background-color: $base;
+    border-radius: 16px;
+    margin: 0px 10px 0px 5px;
+}
+
+.mod_cpu {
+    background-color: $base;
+    border-radius: 16px;
+    margin: 0px 10px 0px 5px;
+}
+
+.mod_battery_bar {
+    color: $green;
+    background-color: $base;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.mod_memory_bar {
+    color: $red;
+    background-color: $base;
+    border-radius: 10px;
+    padding: 0px 8px;
+}
+
+.mod_cpu_bar {
+    color: $lavender;
+    background-color: $base;
+    border-radius: 10px;
+    padding: 0px 8px;
+}
+
+.mod_memory_icon {
+    color: $red;
+}
+
+.mod_battery_icon {
+    color: $green;
+}
+
+.mod_cpu_icon {
+    color: $lavender;
+}
+
+.mod_memory_icon,
+.mod_battery_icon,
+.mod_cpu_icon, {
+    font-size: 12;
+    margin: 8px;
+}
+
+// ======= Network Module =======
+.mod_wifi_icon {
+    font-size: 18;
+    margin: 10px;
+    padding: 0px 4px;
+}
+
+.mod_wifi_essid {
+    font-size: 18;
+    font-weight: bold;
+    color: $mauve;
+    margin: 0px 0px 0px 5px;
+    padding: 0px 4px;
 }

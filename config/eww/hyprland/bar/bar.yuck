@@ -2,9 +2,12 @@
 (include "bar/modules/clock.yuck")
 (include "bar/modules/workspaces.yuck")
 (include "bar/modules/updates.yuck")
-(include "bar/modules/separator.yuck")
 (include "bar/modules/launcher.yuck")
-
+(include "bar/modules/powermenu.yuck")
+(include "bar/modules/brightness.yuck")
+(include "bar/modules/format.yuck")
+(include "bar/modules/wifi.yuck")
+(include "bar/modules/system.yuck")
 
 
 ;; Main Bar
@@ -58,7 +61,7 @@
         :class "bar_left"
 
         (launcher)
-        (separator)
+        (gap)
         (workspaces)
     )
 )
@@ -81,6 +84,11 @@
         :halign "end"
         :class "bar_right"
 
-        (updates)
+        (wifi)
+        (separator)
+        (memory) 
+        (cpu) 
+        (separator)
+        (powermenu)
     )
 )
