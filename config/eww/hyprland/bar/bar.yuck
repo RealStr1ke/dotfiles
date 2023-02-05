@@ -2,6 +2,8 @@
 (include "bar/modules/clock.yuck")
 (include "bar/modules/workspaces.yuck")
 (include "bar/modules/updates.yuck")
+(include "bar/modules/separator.yuck")
+(include "bar/modules/launcher.yuck")
 
 
 
@@ -55,6 +57,8 @@
         :halign "start"
         :class "bar_left"
 
+        (launcher)
+        (separator)
         (workspaces)
     )
 )

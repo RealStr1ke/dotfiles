@@ -1,0 +1,15 @@
+(defwidget launcher []
+    (box
+        :class "launcher"
+        :orientation "h"
+        (button
+            :onclick "~/.dotfiles/config/rofi/launcher.sh drun"
+            :onrightclick "~/.dotfiles/config/rofi/launcher.sh run"
+            (image
+                :class "launcher-icon"
+                :path "assets/images/hyprland-logo.png"
+                :image-width 24
+            )
+        )
+    )
+)
