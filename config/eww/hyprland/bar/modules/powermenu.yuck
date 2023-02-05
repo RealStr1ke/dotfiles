@@ -1,0 +1,14 @@
+(defwidget powermenu []
+    (box
+        :class "mod_powermenu"
+        :orientation "h"
+        (button
+            :onclick "~/.config/wlogout/launch.sh"
+            (label
+                :class "separator"
+                :valign "center"
+                :text ""
+            )
+        )
+    )
+)

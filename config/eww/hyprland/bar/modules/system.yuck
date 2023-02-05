@@ -1,0 +1,59 @@
+(defpoll cpu_usage 
+    :interval "1s" 
+    "scripts/cpu"
+)
+; 
+(defwidget battery []
+    (box
+        :class "mod_battery"
+        :vexpand "false"
+        :hexpand "false"
+        (circular-progress
+            :value {EWW_BATTERY["BAT0"].capacity}
+            :class "mod_battery_bar"
+            :thickness 8
+        )
+    )
+)
+  
+(defwidget memory []
+    (box
+        :class "mod_memory"
+        :vexpand "false"
+        :hexpand "false"
+        (circular-progress
+            :value {EWW_RAM.used_mem_perc}
+            :class "mod_memory_bar"
+            :thickness 4
+            (button
+                :on-click "gnome-system-monitor"
+                :class "mod_memory_icon"
+                :tooltip "using ${EWW_RAM.used_mem_perc}% ram"
+                :show_truncated false
+                :wrap false
+                ""
+            )
+        )
+    )
+)
+
+(defwidget cpu []
+    (box
+        :class "mod_cpu"
+        :vexpand "false"
+        :hexpand "false"
+        (circular-progress
+            :value cpu_usage
+            :class "mod_cpu_bar"
+            :thickness 4
+            (button
+                :on-click "gnome-system-monitor"
+                :class "mod_cpu_icon"
+                :tooltip "using ${cpu_usage}% cpu"
+                :show_truncated false
+                :wrap false
+                ""
+            )
+        )
+    )
+)

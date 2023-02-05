@@ -1,0 +1,22 @@
+(defwidget separator []
+      (box
+         :class "module"
+         :vexpand "false"
+         :hexpand "false"
+         :valign "center"
+         (label
+            :class "mod_separator"
+            :valign "center"
+            :text "|"
+         )
+      )
+)
+
+(defwidget gap []
+   (box
+       :orientation "h"
+       :hexpand "false"
+       :visible "true"
+       :width "14"
+   )
+)

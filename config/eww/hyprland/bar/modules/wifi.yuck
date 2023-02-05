@@ -1,0 +1,29 @@
+(defvar wifi_rev false)
+
+(defpoll COL_WLAN :interval "5s" "scripts/wifi --COL")
+(defpoll ESSID_WLAN :interval "5s" "scripts/wifi --ESSID")
+(defpoll WLAN_ICON :interval "5s" "scripts/wifi --ICON")
+
+(defwidget wifi []
+    (eventbox
+        :onhover "${EWW_CMD} update wifi_rev=true"
+        :onhoverlost "${EWW_CMD} update wifi_rev=false"
+        (box
+            :vexpand "false"
+            :hexpand "false"
+            :space-evenly "false"
+            :class "mod_wifi_icon"
+            (revealer
+                :transition "slideright"
+                :reveal wifi_rev
+                :duration "350ms"
+                (label
+                    :class "mod_wifi_essid"
+                    :text ESSID_WLAN
+                )
+            )
+
+            WLAN_ICON
+        )
+    )
+)

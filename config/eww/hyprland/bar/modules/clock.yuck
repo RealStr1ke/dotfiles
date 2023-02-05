@@ -25,6 +25,7 @@
 
         (label
             :text date_time
-          :class "mod_clock" )
+            :class "mod_clock" 
+        )
     )
 )
