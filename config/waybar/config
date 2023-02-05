@@ -6,9 +6,9 @@
     "spacing": 15, // Gaps between modules (8px)
 
     // Choose the order of the modules
-    "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk", "custom/updates", "custom/weather" ],
+    "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk", "custom/updates" ],
     "modules-center": [ "clock" ],
-    "modules-right": [ "pulseaudio", "network", "backlight", "battery", "tray", "custom/notifications", "custom/power" ],
+    "modules-right": [ "custom/weather", "pulseaudio", "network", "backlight", "battery", "tray", "custom/notifications", "custom/power" ],
     
     // Modules configuration
     "wlr/workspaces": {
