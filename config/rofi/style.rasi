@@ -69,7 +69,7 @@ mainbox {
 imagebox {
     padding:                     20px;
     background-color:            transparent;
-    background-image:            url("~/.dotfiles/assets/wallpapers/Tokyo Street/TokyoStreet-Night-Blur.png", height);
+    background-image:            url("~/.dotfiles/assets/wallpapers/collection/tokyo-street/TokyoStreet-Night-Blur.png", height);
     orientation:                 vertical;
     children:                    [ "inputbar", "dummy", "mode-switcher" ];
 }
