@@ -27,8 +27,28 @@ function print_help() {
     echo -e "        ${white}${bold}stop:${normal}${white} Stop the eww daemon"
     echo -e "        ${white}${bold}reload:${normal}${white} Reload the eww daemon"
     echo ""
-    echo -e "    ${white}${bold}Example:${normal}${white} $0 --wm bspwm start"
+    echo -e "    ${white}${bold}Example:${normal}${white} $0 --wm hyprland start"
 
 }
 
-print_help
+# Start the eww daemon for Hyprland
+function hyprland() {
+    EWW="eww -c $HOME/.config/eww/hyprland/"
+    NB_MONITORS=($(hyprctl monitors -j | jq -r '.[] | .id'))
+    for id in "${NB_MONITORS[@]}"; do
+        bar="bar$id"
+        ${EWW} open "$bar"
+    done
+}
+
+# Start the eww daemon for bspwm
+function bspwm() {
+    echo "BWPWM has not been implemented yet"
+}
+
+# If no arguments are given, print the help message
+if [[ $# -eq 0 ]]; then
+    print_help
+    exit 1
+fi
+
