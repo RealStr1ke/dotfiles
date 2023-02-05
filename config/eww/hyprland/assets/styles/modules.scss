@@ -3,11 +3,11 @@
 // ================================
 
 .bar {
-    background-color: $base;
+    background-color: $mantle;
     color: $text;
     margin: 5px 0;
     padding: 0px 10px;
-    border: 1px solid $crust;
+    // border: 1px solid $crust;
     border-radius: 12px;
 }
 
@@ -27,13 +27,14 @@
 // |           Modules            |
 // ================================
 
-// ======= Clock Module =======
-.mod_clock {
+// ======= Date Module =======
+.mod_date {
     color: $text;
     margin: 5px 0;
     padding: 5px;
+    font-weight: bold;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 
@@ -45,20 +46,20 @@
 }
 // Unoccupied
 .000 {
-    color: $overlay1
+    color: $overlay1;
 }
 // Occupied
 .010 {
-    color: $lavender
+    color: $text;
 }
 // Focused
 .011 {
-    color: $red
+    color: $mauve;
 }
 
 // ======= Separator Module =======
 .mod_separator {
-    color: $overlay1;
+    color: $surface2;
     font-size: 24px;
     margin: 0px 8px;
 }
@@ -67,14 +68,15 @@
 .mod_launcher {
     
 }
+
 .mod_launcher_icon {
     margin-left: 12px;
 }
 
 // ======= Powermenu Module =======
 .mod_powermenu {
-    color: $text;
-    font-size: 18px;
+    color: $red;
+    font-size: 22px;
     margin-right: 12px;
 }
 
@@ -86,42 +88,42 @@
 
 // ======= System Modules =======
 .mod_memory {
-    background-color: $base;
+    background-color: $mantle;
     border-radius: 16px;
-    margin: 0px 5px 0px 3px;
+    margin: 0px 6px;
 }
 
 .mod_battery {
-    background-color: $base;
+    background-color: $mantle;
     border-radius: 16px;
-    margin: 0px 10px 0px 5px;
+    margin: 0px 6px;
 }
 
 .mod_cpu {
-    background-color: $base;
+    background-color: $mantle;
     border-radius: 16px;
-    margin: 0px 10px 0px 5px;
+    margin: 0px 6px;
 }
 
 .mod_battery_bar {
     color: $green;
     background-color: $base;
     border-radius: 10px;
-    padding: 4px;
+    padding: 0px 4px;
 }
 
 .mod_memory_bar {
     color: $red;
     background-color: $base;
     border-radius: 10px;
-    padding: 0px 8px;
+    padding: 0px 4px;
 }
 
 .mod_cpu_bar {
     color: $lavender;
     background-color: $base;
     border-radius: 10px;
-    padding: 0px 8px;
+    padding: 0px 4px;
 }
 
 .mod_memory_icon {
@@ -139,11 +141,13 @@
 .mod_memory_icon,
 .mod_battery_icon,
 .mod_cpu_icon, {
-    font-size: 12;
+    font-size: 12px;
     margin: 8px;
 }
 
+
 // ======= Network Module =======
+
 .mod_wifi_icon {
     font-size: 18;
     margin: 10px;
@@ -151,9 +155,36 @@
 }
 
 .mod_wifi_essid {
-    font-size: 18;
+    font-size: 18px;
     font-weight: bold;
     color: $mauve;
     margin: 0px 0px 0px 5px;
     padding: 0px 4px;
+}
+
+
+// ======= Volume Module =======
+
+.mod_volume_bar trough highlight {
+    background-image: linear-gradient(to right, $teal 30%, $green 50%, $teal 100% *50);
+    border-radius: 10px;
+}
+
+.mod_volume_icon {
+    font-size: 22px;
+    color: $text;
+    margin: 0px 10px 0px 5px;
+}
+
+// ======= Clock  Module =======
+.mod_clock {
+    color: $text;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.mod_clock_date {
+    color: $text;
+    padding-left: 8px;
+    font-size: 20px;
 }
