@@ -5,27 +5,73 @@
 
 ;; Variables
 
-(defpoll date_time
+(defpoll date_long
     :interval "1s"
-    "date +\"  %A, %B %d, %Y (%V) | %r\""
+    "date +\"%A, %B %d, %Y (%V)\""
 )
 
-(defpoll date_time_alt
+(defpoll date_short
     :interval "1s"
-    "date +\"  %a, %b %d, %Y | %I:%M %p\""
+    "date +\"%a, %b %d, %Y\""
 )
+
+(defpoll clock_short
+    :interval "1s"
+    "date +\"%I:%M %p\""
+)
+
+(defpoll clock_long
+    :interval "1s"
+    "date +\"%I:%M:%S\""
+)
+
+(defpoll am_pm
+    :interval "1s"
+    "date +\"%p\""
+)
+
+(defvar time_rev false)
 
 
 ;; Main Widget
-(defwidget clock []
+(defwidget date []
     (box 
         :orientation "horizontal"
         :halign "center"
         :class "module"
 
         (label
-            :text date_time
-            :class "mod_clock" 
+            :text date_long
+            :class "mod_date" 
+        )
+    )
+)
+
+(defwidget clock []
+    (eventbox
+        :onhover "${EWW_CMD} update time_rev=true"
+        :onhoverlost "${EWW_CMD} update time_rev=false"
+        (box 
+            :halign "center"
+            :space-evenly "false"
+            :orientation "h"
+            :spacing "0"
+            :class "module"
+    
+            (label
+                :text "${clock_long} ${am_pm}"
+                :class "mod_clock" 
+            )
+
+            (revealer
+                :transition "slideleft"
+                :reveal time_rev
+                :duration "350ms"
+                (label
+                    :class "mod_clock_date"
+                    :text date_short
+                )
+            )
         )
     )
 )

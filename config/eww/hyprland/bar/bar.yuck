@@ -8,6 +8,7 @@
 (include "bar/modules/format.yuck")
 (include "bar/modules/wifi.yuck")
 (include "bar/modules/system.yuck")
+(include "bar/modules/volume.yuck")
 
 
 ;; Main Bar
@@ -61,7 +62,7 @@
         :class "bar_left"
 
         (launcher)
-        (gap)
+        (separator)
         (workspaces)
     )
 )
@@ -73,7 +74,7 @@
         :halign "center"
         :class "bar_center"
 
-        (clock)
+        (date)
     )
 )
 
@@ -84,10 +85,13 @@
         :halign "end"
         :class "bar_right"
 
+        (volume)
         (wifi)
         (separator)
         (memory) 
         (cpu) 
+        (separator)
+        (clock)
         (separator)
         (powermenu)
     )

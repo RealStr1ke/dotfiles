@@ -1,0 +1,32 @@
+(defpoll volume_percent :interval "1s"  "~/.config/hypr/scripts/tools/volume get")
+(defpoll volume_icon :interval "1s"  "~/.config/hypr/scripts/tools/volume icon")
+(defvar vol_reveal false)
+
+(defwidget volume []
+    (eventbox
+        :onhover "${EWW_CMD} update vol_reveal=true"
+        :onhoverlost "${EWW_CMD} update vol_reveal=false"
+        (box
+            :class "mod_volume_icon"
+            :space-evenly "false"
+            :orientation "h"
+            :spacing "3"
+            (revealer
+                :transition "slideright"
+                :reveal vol_reveal
+                :duration "350ms"
+                (scale
+                    :class "mod_volume_bar"
+                    :value volume_percent
+                    :orientation "h"
+                    :tooltip "${volume_percent}%"
+                    :max 100
+                    :min 0
+                    :onchange "amixer -D pulse sset Master {}%" 
+                )
+            )
+            
+            volume_icon
+        )
+    )
+)
