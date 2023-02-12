@@ -7,9 +7,27 @@
     // "exclusive": false,
 
     // Choose the order of the modules
-    "modules-left": [ "wlr/workspaces",  "cpu", "memory", "temperature", "disk", "custom/updates" ],
-    "modules-center": [ "clock" ],
-    "modules-right": [ "custom/weather", "pulseaudio", "network", "backlight", "battery", "tray", "custom/notifications", "custom/power" ],
+    "modules-left": [ 
+        "wlr/workspaces", 
+        "cpu", 
+        "memory", 
+        "temperature", 
+        "disk", 
+        "custom/updates" 
+    ],
+    "modules-center": [ 
+        "clock"
+     ],
+    "modules-right": [ 
+        "custom/weather", 
+        "pulseaudio", 
+        "network", 
+        "backlight", 
+        "battery", 
+        "tray", 
+        "custom/notifications", 
+        "custom/power"
+    ],
     
     // Modules configuration
     "wlr/workspaces": {
