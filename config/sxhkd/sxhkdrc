@@ -14,7 +14,7 @@ super + e
 
 # Browser
 super + b
-	firefox
+	firefox-developer-edition
 
 # Code Editor
 super + i
@@ -152,5 +152,5 @@ super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # Lock Screen
-super + shift + esc
+super + shift + l
 	betterlockscreen -l dimblur
