@@ -9,7 +9,7 @@
 copyq &
 
 # Discord
-# discord &
+discord --start-minimized &
 
 # Mail Client (mailspring)
 mailspring --background &
@@ -88,7 +88,7 @@ xdph &
 wdm &
 
 # WLSunset
-wlsunset -S 7:00 -s 19:00 -t 4500 -T 7500 &
+wlsunset -S 8:00 -s 18:00 -t 4500 -T 7500 &
 
 # Swayidle (GitHub Copilot made this so idk)
 # swayidle -w timeout 300 'swaylock -f -i /home/alex/Pictures/Wallpapers/lockscreen.png' resume 'swaymsg "output * dpms off"' timeout 600 'swaymsg "output * dpms on"' resume 'swaymsg "output * dpms off"' before-sleep 'swaylock -f -i /home/alex/Pictures/Wallpapers/lockscreen.png'
