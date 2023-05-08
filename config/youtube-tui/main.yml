@@ -1,3 +1,4 @@
+mouse_support: true
 invidious_instance: https://vid.puffyan.us
 max_watch_history: 500
 allow_unicode: true
@@ -8,7 +9,7 @@ image_index: 4
 provider: YouTube
 env:
   terminal-emulator: kitty -e
-  youtube-downloader: yt-dlp
   download-path: '''~/Downloads/%(title)s-%(id)s.%(ext)s'''
+  youtube-downloader: yt-dlp
   video-player: mpv
   browser: firefox
