@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 # This script is used to create a new Hyprland instance.
+# This wrapper is now deprecated due to Hyprland supporting environment variables
+# in the hyprland.conf file and this script may be removed in the future.
 
 # === Environment Variables ===
 export XDG_CURRENT_DESKTOP=Hyprland
