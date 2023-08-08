@@ -39,8 +39,9 @@ packer.init {
 
 -- Install your plugins here
 return packer.startup(function(use)
-  -- Load impatient.nvim before any other plugins
-  use { "lewis6991/impatient.nvim", config = "require('configs.impatient')" }
+  -- DEPRECATED - Load impatient.nvim before any other plugins
+  -- use { "lewis6991/impatient.nvim", config = "require('configs.impatient')" }
+  vim.loader.enable()
 
   -- Allow packer to manage itself
   use { "wbthomason/packer.nvim" }
@@ -55,7 +56,7 @@ return packer.startup(function(use)
   use { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" }
 
   -- LSP
-  -- use { "williamboman/nvim-lsp-installer" } -- simple to use language server installer
+  use { "williamboman/nvim-lsp-installer" } -- simple to use language server installer
   use { "hrsh7th/cmp-nvim-lsp", after = "nvim-cmp" }
   use { "neovim/nvim-lspconfig", after = "cmp-nvim-lsp" }
   use { "williamboman/mason.nvim", after = "nvim-lspconfig", config = "require('mason').setup()" }
@@ -101,9 +102,9 @@ return packer.startup(function(use)
   
   
   -- DAP
-  use { "mfussenegger/nvim-dap", config = "require('configs.dap')" }
-  use { "rcarriga/nvim-dap-ui", after = "nvim-dap" }
-  use { "ravenxrz/DAPInstall.nvim", after = "nvim-dap" }
+  -- use { "mfussenegger/nvim-dap", config = "require('configs.dap')" }
+  -- use { "rcarriga/nvim-dap-ui", after = "nvim-dap" }
+  -- use { "ravenxrz/DAPInstall.nvim", after = "nvim-dap" }
 
   -- Snippets
   use { "L3MON4D3/LuaSnip" }
@@ -124,12 +125,12 @@ return packer.startup(function(use)
   -- Miscellaneous
   use { "moll/vim-bbye" }
   use { "nvim-lua/plenary.nvim" }
-  use { "kyazdani42/nvim-web-devicons" }
+  -- use { "kyazdani42/nvim-web-devicons" }
   use { "JoosepAlviste/nvim-ts-context-commentstring" }
   use { "windwp/nvim-autopairs", config = "require('configs.autopairs')" }
   use { "numToStr/Comment.nvim", config = "require('configs.comment')" }
   use { "lukas-reineke/indent-blankline.nvim", config = "require('configs.indentline')" }
-  use { "akinsho/bufferline.nvim", config = "require('configs.bufferline')" }
+  -- use { "akinsho/bufferline.nvim", config = "require('configs.bufferline')" }
   use { "akinsho/toggleterm.nvim", config = "require('configs.toggleterm')" }
   use { "ahmedkhalf/project.nvim", config = "require('configs.project')" }
 
