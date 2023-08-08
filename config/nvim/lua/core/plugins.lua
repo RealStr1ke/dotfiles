@@ -124,6 +124,7 @@ return packer.startup(function(use)
 
   -- Miscellaneous
   use { "moll/vim-bbye" }
+  use { "voldikss/vim-floaterm" }
   use { "nvim-lua/plenary.nvim" }
   -- use { "kyazdani42/nvim-web-devicons" }
   use { "JoosepAlviste/nvim-ts-context-commentstring" }
