@@ -78,11 +78,15 @@ return packer.startup(function(use)
   use { "goolord/alpha-nvim", config = "require('configs.alpha')" }
 
   -- Lualine
-  use { "nvim-lualine/lualine.nvim", config = "require('configs.lualine')" }
+  -- use { "nvim-lualine/lualine.nvim", config = "require('configs.lualine')" }
 
   -- Git
   use { "lewis6991/gitsigns.nvim", config = "require('configs.gitsigns')" }
 
+  -- Tabline
+  -- use { "romgrk/barbar.nvim" }
+  use { "rebelot/heirline.nvim" }
+  
   -- Colorshemes
   use { "navarasu/onedark.nvim" }
   use { "sainnhe/edge" }
@@ -102,9 +106,9 @@ return packer.startup(function(use)
   
   
   -- DAP
-  -- use { "mfussenegger/nvim-dap", config = "require('configs.dap')" }
-  -- use { "rcarriga/nvim-dap-ui", after = "nvim-dap" }
-  -- use { "ravenxrz/DAPInstall.nvim", after = "nvim-dap" }
+  use { "mfussenegger/nvim-dap", config = "require('configs.dap')" }
+  use { "rcarriga/nvim-dap-ui", after = "nvim-dap" }
+  use { "ravenxrz/DAPInstall.nvim", after = "nvim-dap" }
 
   -- Snippets
   use { "L3MON4D3/LuaSnip" }
