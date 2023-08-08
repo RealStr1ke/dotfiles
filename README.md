@@ -5,6 +5,7 @@
 
 **Hi! Welcome to my mildly amusing dotfiles. I guess I kinda ~~wasted~~ spent a lot of time on these, but here they are. Have fun and rob what you want lol.**
 
+**[TO-DO](TODO.md)**
 ## Installation
 
 I recommend using the `install.sh` script to install these dotfiles.
