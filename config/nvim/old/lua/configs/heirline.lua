@@ -1184,7 +1184,7 @@ vim.api.nvim_create_autocmd({ "VimEnter", "UIEnter", "BufAdd", "BufDelete" }, {
                 dupes[name] = true
             end
         end
-        require'heirline'.tabline.dupes = dupes
+        require("heirline").tabline.dupes = dupes
     end,
 })
 
