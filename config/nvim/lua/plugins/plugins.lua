@@ -1,3 +1,9 @@
+-- Main Plugin List
+
+-- Disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 return {
     -- Plugins
     spec = {
@@ -13,6 +19,9 @@ return {
             cmd = "StartupTime",
         },
 
+        -- Devicons
+        { "nvim-tree/nvim-web-devicons" },
+
         -- Completion w/ sources
         {
             "hrsh7th/nvim-cmp",
@@ -25,7 +34,17 @@ return {
         { "hrsh7th/cmp-omni" },
         { "hrsh7th/cmp-emoji" },
         { "hrsh7th/cmp-nvim-lua" },
+
+        -- Snippets
+        {
+            "L3MON4D3/LuaSnip",
+            -- follow latest release.
+            -- version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+            -- install jsregexp (optional!).
+            build = "make install_jsregexp"
+        },
         { "saadparwaiz1/cmp_luasnip" },
+        { "rafamadriz/friendly-snippets" },
 
         -- LSP
         { "williamboman/nvim-lsp-installer" },
@@ -41,6 +60,25 @@ return {
         { "jose-elias-alvarez/null-ls.nvim" },
         { "RRethy/vim-illuminate" },
 
+        -- Which Key (key bindings)
+        {
+            "folke/which-key.nvim",
+            lazy = true,
+            init = function()
+                vim.o.timeout = true
+                vim.o.timeoutlen = 300
+            end,
+            opts = {}
+        },
+
+        -- Sidebar
+        {
+            "sidebar-nvim/sidebar.nvim",
+            config = function()
+                require("plugins.configs.sidebar")
+            end
+        },
+
         -- Diagnostics
         {
             "folke/trouble.nvim",
@@ -53,10 +91,6 @@ return {
                 require(plugins.trouble)
             end,
         },
-
-        -- Snippets
-        { "L3MON4D3/LuaSnip" },
-        { "rafamadriz/friendly-snippets" },
 
         -- Treesitter
         {
@@ -85,8 +119,39 @@ return {
             end,
         },
 
-        -- Tabline
-        { "romgrk/barbar.nvim" },
+        -- Status Lines
+        -- { "romgrk/barbar.nvim" }, -- Barlines
+        { 
+            "nvim-lualine/lualine.nvim",
+            dependencies = {
+                {
+                    "nvim-tree/nvim-web-devicons",
+                    optional = true
+                }
+            },
+            config = function()
+                require("plugins.configs.lualine")
+            end
+        },
+        {
+            "akinsho/bufferline.nvim",
+            version = "*",
+            dependencies = {
+                { 
+                    "nvim-tree/nvim-web-devicons",
+                    optional = true
+                },
+            },
+            config = function()
+                require("plugins.configs.bufferline")
+            end
+        },
+        -- { 
+        --     "rebelot/heirline.nvim",
+        --     config = function()
+        --         require("plugins.configs.heirline")
+        --     end
+        -- },
 
         -- Git
         {
@@ -95,9 +160,6 @@ return {
                 require("plugins.configs.gitsigns")
             end,
         },
-
-        -- Heirline
-        -- { "rebelot/heirline.nvim" },
 
         -- Colorschemes
         { "navarasu/onedark.nvim" },
@@ -126,25 +188,55 @@ return {
         { "rcarriga/nvim-dap-ui" },
         { "ravenxrz/DAPInstall.nvim" },
 
-        -- File tree
-        -- { "nvim-tree/nvim-web-devicons" },
+        -- File tree,
         {
             "nvim-tree/nvim-tree.lua",
             dependencies = {
-                { "nvim-tree/nvim-web-devicons" },
+                { 
+                    "nvim-tree/nvim-web-devicons",
+                    optional = true
+                },
             },
             config = function()
                 require("plugins.configs.nvim-tree")
             end,
         },
+        -- {
+        --     "nvim-neo-tree/neo-tree.nvim",
+        --     branch = "v3.x",
+        --     dependencies = {
+        --         "nvim-lua/plenary.nvim",
+        --         "nvim-tree/nvim-web-devicons",
+        --         "MunifTanjim/nui.nvim",
+        --     }
+        -- },
+        {
+            "prichrd/netrw.nvim",
+            config = function()
+                require("plugins.configs.netrw")
+            end
+        },
+
 
         -- GitHub Copilot
-        { "github/copilot.vim" },
+        -- { "github/copilot.vim" },
+        { 
+            "zbirenbaum/copilot.lua",
+            lazy = true,
+            cmd = "Copilot",
+            -- build = ":Copilot auth",
+            opts = {},
+        },
 
         -- Miscellaneous
         { "moll/vim-bbye" },
         { "voldikss/vim-floaterm" },
+        { "tpope/vim-repeat" },
         { "JoosepAlviste/nvim-ts-context-commentstring" },
+        -- { 
+        --     "echasnovski/mini.nvim", 
+        --     version = false 
+        -- },
         {
             "windwp/nvim-autopairs",
             config = function()
@@ -163,12 +255,26 @@ return {
                 require("plugins.configs.indentline")
             end,
         },
-        -- {
-        --     "akinsho/bufferline.nvim",
-        --     config = function()
-        --         require("plugins.configs.bufferline")
-        --     end
-        -- },
+        {
+            "ggandor/leap.nvim",
+            config = function()
+                require("plugins.configs.leap")
+            end,
+        },
+        {
+            "folke/flash.nvim",
+            lazy = true,
+            ---@type Flash.Config
+            opts = {},
+            -- stylua: ignore
+            keys = {
+                { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+                { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+                { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+                { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+                { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+            },
+        },
         {
             "akinsho/toggleterm.nvim",
             config = function()

@@ -13,7 +13,23 @@ function M.tokyonight()
     -- vim.cmd('hi VertSplit guifg=' .. require'colors'.get_color('Visual', 'bg')) -- .. ' guibg=' .. get_color('StatusLine', 'bg'))
 end
 
+function M.catppuccin()
+    local status_ok, catppuccin = pcall(require, "catppuccin")
+    if not status_ok then
+        return
+    end
+    catppuccin.setup({
+        flavour = "mocha", -- latte, frappe, macchiato, mocha
+        background = { -- :h background
+            light = "latte",
+            dark = "mocha",
+        },
+    })
+    vim.cmd("colorscheme catppuccin")
+end
+
 M.defaults()
-M.tokyonight()
+M.catppuccin()
+-- M.tokyonight()
 
 return M
