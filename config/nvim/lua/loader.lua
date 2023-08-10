@@ -19,6 +19,9 @@ require("core.autocmds")
 -- Appearance
 require("core.appearance")
 
+-- Diagnostics
+require("core.diagnostics")
+
 -- Keymaps
 require("core.keymaps")
 
