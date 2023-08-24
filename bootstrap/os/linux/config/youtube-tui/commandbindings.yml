@@ -1,0 +1,94 @@
+global:
+  'y':
+    0: cp ${url}
+  'c':
+    2: cp ${url}
+  'f':
+    2: run ${browser} '${url}'
+search:
+  'a':
+    2: parrun ${terminal-emulator} mpv '${hover-url}' --no-video
+  'p':
+    2: parrun mpv '${hover-url}'
+  'A':
+    1: parrun ${terminal-emulator} mpv '${hover-url}' --no-video --loop-playlist=inf --shuffle
+  ' ':
+    0: parrun mpv '${hover-url}'
+popular:
+  'a':
+    2: parrun ${terminal-emulator} mpv '${hover-url}' --no-video
+  'p':
+    2: parrun mpv '${hover-url}'
+  ' ':
+    0: parrun mpv '${hover-url}'
+  'A':
+    1: parrun ${terminal-emulator} mpv '${hover-url}' --no-video --loop-playlist=inf --shuffle
+trending:
+  ' ':
+    0: parrun mpv '${hover-url}'
+  'A':
+    1: parrun ${terminal-emulator} mpv '${hover-url}' --no-video --loop-playlist=inf --shuffle
+  'p':
+    2: parrun mpv '${hover-url}'
+  'a':
+    2: parrun ${terminal-emulator} mpv '${hover-url}' --no-video
+video:
+  ' ':
+    0: parrun mpv '${embed-url}'
+playlist:
+  'A':
+    1: parrun ${terminal-emulator} mpv '${hover-url}' --no-video --loop-playlist=inf --shuffle
+  'p':
+    2: parrun mpv '${hover-url}'
+  'a':
+    2: parrun ${terminal-emulator} mpv '${hover-url}' --no-video
+  ' ':
+    0: parrun mpv '${hover-url}'
+channel_main: {}
+channel_videos:
+  'A':
+    1: parrun ${terminal-emulator} mpv '${hover-url}' --no-video --loop-playlist=inf --shuffle
+  'a':
+    2: parrun ${terminal-emulator} mpv '${hover-url}' --no-video
+  'p':
+    2: parrun mpv '${hover-url}'
+  ' ':
+    0: parrun mpv '${hover-url}'
+channel_playlists:
+  'a':
+    2: parrun ${terminal-emulator} mpv '${hover-url}' --no-video
+  'A':
+    1: parrun ${terminal-emulator} mpv '${hover-url}' --no-video --loop-playlist=inf --shuffle
+  ' ':
+    0: parrun mpv '${hover-url}'
+  'p':
+    2: parrun mpv '${hover-url}'
+watchhistory:
+  'p':
+    2: parrun mpv '${hover-url}'
+  ' ':
+    0: parrun mpv '${hover-url}'
+  'a':
+    2: parrun ${terminal-emulator} mpv '${hover-url}' --no-video
+  'A':
+    1: parrun ${terminal-emulator} mpv '${hover-url}' --no-video --loop-playlist=inf --shuffle
+feed:
+  'P':
+    1: parrun ${terminal-emulator} mpv '${hover-channel-url}/videos' --no-video --loop-playlist=inf --shuffle
+  'A':
+    1: parrun ${terminal-emulator} mpv '${hover-channel-url}/videos' --no-video --loop-playlist=inf --shuffle
+  ' ':
+    0: parrun mpv '${hover-url}'
+  'a':
+    2: parrun ${terminal-emulator} mpv '${hover-video-url}' --no-video
+  'p':
+    2: parrun mpv '${hover-video-url}'
+library:
+  ' ':
+    0: parrun mpv '${hover-url}'
+  'a':
+    2: parrun ${terminal-emulator} mpv '${hover-url}' --no-video
+  'A':
+    1: parrun ${terminal-emulator} mpv '${hover-url}' --no-video --loop-playlist=inf --shuffle
+  'p':
+    2: parrun mpv '${hover-url}'

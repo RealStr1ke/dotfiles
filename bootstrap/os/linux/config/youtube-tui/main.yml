@@ -1,15 +1,24 @@
 mouse_support: true
 invidious_instance: https://vid.puffyan.us
-max_watch_history: 500
+write_config: Try
+max_watch_history: 50
 allow_unicode: true
 message_bar_default: All good :)
 images: Sixels
 refresh_after_modifying_search_filters: true
+syncing:
+  download_images: true
+  sync_channel_info: true
+  sync_channel_cooldown_secs: 86400
+  sync_videos_cooldown_secs: 600
 image_index: 4
 provider: YouTube
+shell: sh
+legacy_input_handling: false
 env:
-  terminal-emulator: kitty -e
-  download-path: '''~/Downloads/%(title)s-%(id)s.%(ext)s'''
-  youtube-downloader: yt-dlp
+  terminal-emulator: konsole -e
+  download-path: ~/Downloads/%(title)s-%(id)s.%(ext)s
   video-player: mpv
+  save-path: ~/.local/share/youtube-tui/saved/
+  youtube-downloader: yt-dlp
   browser: firefox

@@ -1,3 +1,4 @@
+launch_command: loadpage library ;; flush ;; history clear ;; key Esc 0 ;; key Up 0 ;; key Up 0 ;; key Left 0 ;; key Enter 0
 video:
 - Play video: ${video-player} ${embed-url}
 - Play audio: ${terminal-emulator} ${video-player} ${embed-url} --no-video
@@ -6,6 +7,18 @@ video:
 - Download video (webm): ${terminal-emulator} ${youtube-downloader} -o ${download-path} ${embed-url}
 - Download audio (opus): ${terminal-emulator} ${youtube-downloader} -o ${download-path} ${embed-url} -x
 - 'Mode: ${provider}': '%switch-provider%'
+saved_video:
+- Reload updated video: run rm '~/.cache/youtube-tui/info/${id}.json' ;; video ${id}
+- '[Offline] Play saved file': parrun ${video-player} ${save-path}*${id}* --force-window
+- '[Offline] Play saved file (audio)': parrun ${terminal-emulator} ${video-player} ${save-path}*${id}* --no-video
+- '[Offline] Play saved file (audio loop)': parrun ${terminal-emulator} ${video-player} ${save-path}*${id}* --no-video --loop
+- View channel: channel ${channel-id}
+- Subscribe to channel: sync ${channel-id}
+- Open in browser: parrun ${browser} '${url}'
+- Toggle bookmark: togglemark ${id}
+- Redownload video to library: bookmark ${id} ;; run rm ${save-path}*${id}*.* ;; parrun ${terminal-emulator} ${youtube-downloader} ${embed-url} -o '${save-path}%(title)s[%(id)s].%(ext)s'
+- Redownload audio to library: bookmark ${id} ;; run rm ${save-path}*${id}*.* ;; parrun ${terminal-emulator} ${youtube-downloader} ${embed-url} -x -o '${save-path}%(title)s[%(id)s].%(ext)s'
+- Delete saved file: run rm ${save-path}*${id}*.*
 playlist:
 - Switch view: '%switch-view%'
 - Play all videos: ${video-player} ${all-videos}
@@ -16,3 +29,16 @@ playlist:
 - Download all video (webm): ${terminal-emulator} ${youtube-downloader} -o ${download-path} ${all-videos}
 - Download all audio (opus): ${terminal-emulator} ${youtube-downloader} -o ${download-path} ${all-videos} -x
 - 'Mode: ${provider}': '%switch-provider%'
+saved_playlist:
+- Switch view: '%switch-view%'
+- Reload updated playlist: run rm ~/.cache/youtube-tui/info/${id}.json ;; reload
+- '[Offline] Play all (videos)': parrun ${terminal-emulator} bash -c '${video-player} ${save-path}*${id}*/* --force-window'
+- '[Offline] Play all (audio)': parrun ${terminal-emulator} bash -c '${video-player} ${save-path}*${id}*/* --no-video'
+- '[Offline] Shuffle play all (audio loop)': parrun ${terminal-emulator} bash -c '${video-player} ${save-path}*${id}*/* --no-video --loop-playlist=inf --shuffle'
+- View channel: channel ${channel-id}
+- Subscribe to channel: sync ${channel-id}
+- Open in browser: parrun ${browser} '${url}'
+- Toggle bookmark: togglemark ${id}
+- Redownload playlist videos to library: bookmark ${id} ;; run rm -rf ${save-path}*${id}* ;; parrun ${terminal-emulator} bash -c "${youtube-downloader} ${all-videos} -o '"'${save-path}${title}[${id}]/%(title)s[%(id)s].%(ext)s'"'"
+- Redownload playlist audio to library: bookmark ${id} ;; run rm -rf ${save-path}*${id}* ;; parrun ${terminal-emulator} bash -c "${youtube-downloader} ${all-videos} -x -o '"'${save-path}${title}[${id}]/%(title)s[%(id)s].%(ext)s'"'"
+- Delete saved files: run rm -rf ${save-path}*${id}*
