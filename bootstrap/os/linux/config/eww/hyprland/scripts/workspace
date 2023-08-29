@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { exec, execSync, spawn, spawnSync } = require("child_process");
+const { execSync } = require("child_process");
 
 const icons = ["一", "二", "三", "四", "五", "六", "七", "八", "九"];
 
@@ -13,8 +13,8 @@ focusedMonitor = parseInt(focusedMonitor);
 let focusedWorkspace = execSync("hyprctl monitors -j | jq -rc '[ .[].activeWorkspace.id ]'").toString().replace(/\n$/, '');
 focusedWorkspace = JSON.parse(focusedWorkspace)[focusedMonitor];
 
-let monitors = execSync("hyprctl monitors -j | jq -rc '[ .[].id ] | sort_by( . )'").toString();
-monitors = JSON.parse(monitors);
+// let monitors = execSync("hyprctl monitors -j | jq -rc '[ .[].id ] | sort_by( . )'").toString();
+// monitors = JSON.parse(monitors);
 
 // Occupied and focused workspaces
 let o1 = 0, o2 = 0, o3 = 0, o4 = 0, o5 = 0, o6 = 0, o7 = 0, o8 = 0, o9 = 0;
@@ -94,18 +94,43 @@ switch (focusedWorkspace) {
         break;
 }
 
+// Set workspace state
+// Try to use classes like "active" and "occupied" instead of binary states
+// Convert from the binary state to the class state (focused, occupied, active)
+// 000 is unoccupied and unfocused (unoccupied)
+// 010 is occupied and unfocused (occupied)
+// 011 is occupied and focused (focused)
+let ws1 = `0${o1}${f1}`;
+let ws2 = `0${o2}${f2}`;
+let ws3 = `0${o3}${f3}`;
+let ws4 = `0${o4}${f4}`;
+let ws5 = `0${o5}${f5}`;
+let ws6 = `0${o6}${f6}`;
+let ws7 = `0${o7}${f7}`;
+let ws8 = `0${o8}${f8}`;
+let ws9 = `0${o9}${f9}`;
+let workspaceStates = [ws1, ws2, ws3, ws4, ws5, ws6, ws7, ws8, ws9];
+
+for (let i = 0; i < 9; i++) {
+    if (workspaceStates[i] === "000") workspaceStates[i] = "unoccupied";
+    else if (workspaceStates[i] === "010") workspaceStates[i] = "occupied";
+    else if (workspaceStates[i] === "011") workspaceStates[i] = "focused";
+}
+
+
+
 console.log([
     `(eventbox :onscroll "echo {} | sed -e 's/up/e+1/g' -e 's/down/e-1/g' | xargs hyprctl dispatch workspace"`,
     `    (box	:class "works"	:orientation "h" :spacing 5 :space-evenly "false" :valign "center"`,
-    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 1" :class "ws-btn 0${o1}${f1}" "${icons[1 - 1]}")`,
-    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 2" :class "ws-btn 0${o2}${f2}" "${icons[2 - 1]}")`,
-    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 3" :class "ws-btn 0${o3}${f3}" "${icons[3 - 1]}")`,
-    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 4" :class "ws-btn 0${o4}${f4}" "${icons[4 - 1]}")`,
-    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 5" :class "ws-btn 0${o5}${f5}" "${icons[5 - 1]}")`,
-    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 6" :class "ws-btn 0${o6}${f6}" "${icons[6 - 1]}")`,
-    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 7" :class "ws-btn 0${o7}${f7}" "${icons[7 - 1]}")`,
-    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 8" :class "ws-btn 0${o8}${f8}" "${icons[8 - 1]}")`,
-    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 9" :class "ws-btn 0${o9}${f9}" "${icons[9 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 1" :class "ws-btn ${workspaceStates[0]}" "${icons[1 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 2" :class "ws-btn ${workspaceStates[1]}" "${icons[2 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 3" :class "ws-btn ${workspaceStates[2]}" "${icons[3 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 4" :class "ws-btn ${workspaceStates[3]}" "${icons[4 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 5" :class "ws-btn ${workspaceStates[4]}" "${icons[5 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 6" :class "ws-btn ${workspaceStates[5]}" "${icons[6 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 7" :class "ws-btn ${workspaceStates[6]}" "${icons[7 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 8" :class "ws-btn ${workspaceStates[7]}" "${icons[8 - 1]}")`,
+    `        (button :onclick "~/.config/hypr/scripts/tools/workspaces workspace 9" :class "ws-btn ${workspaceStates[8]}" "${icons[9 - 1]}")`,
     `    )`,
     `)`
 ].join("\n"));

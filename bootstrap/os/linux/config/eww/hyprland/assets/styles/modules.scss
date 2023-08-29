@@ -11,17 +11,17 @@
     border-radius: 12px;
 }
 
-.bar_left {
+// .bar_left {
+// 
+// }
 
-}
+// .bar_center {
+// 
+// }
 
-.bar_center {
-
-}
-
-.bar_right {
-    
-}
+// .bar_right {
+//  
+// }
 
 // ================================
 // |           Modules            |
@@ -44,16 +44,17 @@
     margin: 0px 7px 3px 0px;
     font-weight: bold;
 }
+
 // Unoccupied
-.000 {
+.unoccupied {
     color: $overlay1;
 }
 // Occupied
-.010 {
+.occupied {
     color: $text;
 }
 // Focused
-.011 {
+.focused {
     color: $mauve;
 }
 
@@ -65,9 +66,9 @@
 }
 
 // ======= Launcher Module =======
-.mod_launcher {
+// .mod_launcher {
     
-}
+// }
 
 .mod_launcher_icon {
     margin-left: 12px;
@@ -128,19 +129,18 @@
 
 .mod_memory_icon {
     color: $red;
+    font-size: 12px;
+    margin: 8px;
 }
 
 .mod_battery_icon {
     color: $green;
+    font-size: 12px;
+    margin: 8px;
 }
 
 .mod_cpu_icon {
     color: $lavender;
-}
-
-.mod_memory_icon,
-.mod_battery_icon,
-.mod_cpu_icon, {
     font-size: 12px;
     margin: 8px;
 }
