@@ -36,13 +36,13 @@ return {
         { "hrsh7th/cmp-nvim-lua" },
 
         -- Snippets
-        {
-            "L3MON4D3/LuaSnip",
-            -- follow latest release.
-            -- version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-            -- install jsregexp (optional!).
-            build = "make install_jsregexp"
-        },
+        -- {
+        --     "L3MON4D3/LuaSnip",
+        --     -- follow latest release.
+        --     -- version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        --     -- install jsregexp (optional!).
+        --     build = "make install_jsregexp"
+        -- },
         { "saadparwaiz1/cmp_luasnip" },
         { "rafamadriz/friendly-snippets" },
 
@@ -89,17 +89,6 @@ return {
             keys = "<leader>x",
             config = function()
                 require(plugins.trouble)
-            end,
-        },
-
-        -- Treesitter
-        {
-            "nvim-treesitter/nvim-treesitter",
-            cmd = {
-                "TSUpdate",
-            },
-            config = function()
-                require("plugins.configs.treesitter")
             end,
         },
 
@@ -188,34 +177,48 @@ return {
         { "rcarriga/nvim-dap-ui" },
         { "ravenxrz/DAPInstall.nvim" },
 
-        -- File tree,
+        -- Treesitter
         {
-            "nvim-tree/nvim-tree.lua",
-            dependencies = {
-                { 
-                    "nvim-tree/nvim-web-devicons",
-                    optional = true
-                },
+            "nvim-treesitter/nvim-treesitter",
+            cmd = {
+                "TSUpdate",
             },
             config = function()
-                require("plugins.configs.nvim-tree")
+                require("plugins.configs.treesitter")
+            end,
+        },
+
+        -- File tree
+        -- {
+        --     "nvim-tree/nvim-tree.lua",
+        --     dependencies = {
+        --         { 
+        --             "nvim-tree/nvim-web-devicons",
+        --             optional = true
+        --         },
+        --     },
+        --     config = function()
+        --         require("plugins.configs.nvim-tree")
+        --     end,
+        -- },
+        {
+            "nvim-neo-tree/neo-tree.nvim",
+            branch = "v3.x",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "nvim-tree/nvim-web-devicons",
+                "MunifTanjim/nui.nvim",
+            },
+            config = function()
+                require("plugins.configs.neo-tree")
             end,
         },
         -- {
-        --     "nvim-neo-tree/neo-tree.nvim",
-        --     branch = "v3.x",
-        --     dependencies = {
-        --         "nvim-lua/plenary.nvim",
-        --         "nvim-tree/nvim-web-devicons",
-        --         "MunifTanjim/nui.nvim",
-        --     }
+        --     "prichrd/netrw.nvim",
+        --     config = function()
+        --         require("plugins.configs.netrw")
+        --     end
         -- },
-        {
-            "prichrd/netrw.nvim",
-            config = function()
-                require("plugins.configs.netrw")
-            end
-        },
 
 
         -- GitHub Copilot
@@ -226,6 +229,26 @@ return {
             cmd = "Copilot",
             -- build = ":Copilot auth",
             opts = {},
+        },
+
+        -- Noice
+        {
+            "folke/noice.nvim",
+            event = "VeryLazy",
+            opts = {
+                -- add any options here
+            },
+            dependencies = {
+                -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+                "MunifTanjim/nui.nvim",
+                -- OPTIONAL:
+                --   `nvim-notify` is only needed, if you want to use the notification view.
+                --   If not available, we use `mini` as the fallback
+                "rcarriga/nvim-notify",
+            },
+            config = function()
+                require("plugins.configs.noice")
+            end,
         },
 
         -- Miscellaneous

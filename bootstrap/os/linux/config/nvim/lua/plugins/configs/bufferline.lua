@@ -18,7 +18,7 @@ bufferline.setup({
         tab_size = 21,
         indicator = {
             icon = '▎', -- this should be omitted if indicator style is not 'icon'
-            style = 'underline',
+            style = 'icon', -- could be "underline"
         },
 
         show_buffer_icons = true,
