@@ -10,6 +10,7 @@
 (include "bar/modules/system.yuck")
 (include "bar/modules/volume.yuck")
 (include "bar/modules/systray.yuck")
+(include "bar/modules/window.yuck")
 
 
 ;; Main Bar
@@ -75,7 +76,7 @@
         :halign "center"
         :class "bar_center"
 
-        (date)
+        (window)
     )
 )
 

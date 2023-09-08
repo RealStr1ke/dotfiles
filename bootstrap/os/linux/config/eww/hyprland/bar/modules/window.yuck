@@ -1,0 +1,16 @@
+(defpoll window :interval ".1s"  "scripts/window")
+
+(defwidget window []
+    (box 
+        :orientation "horizontal"
+        :halign "center"
+        :class "module"
+
+        (label
+            :text window
+            :class "mod_date" 
+        )
+    )
+)
+
+
