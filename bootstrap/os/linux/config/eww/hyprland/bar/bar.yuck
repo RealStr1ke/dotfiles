@@ -9,6 +9,7 @@
 (include "bar/modules/wifi.yuck")
 (include "bar/modules/system.yuck")
 (include "bar/modules/volume.yuck")
+(include "bar/modules/systray.yuck")
 
 
 ;; Main Bar
@@ -90,6 +91,8 @@
         (separator)
         (memory) 
         (cpu) 
+        (separator)
+        (tray)
         (separator)
         (clock)
         (separator)

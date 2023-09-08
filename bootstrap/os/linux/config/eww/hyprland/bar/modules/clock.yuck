@@ -6,27 +6,27 @@
 ;; Variables
 
 (defpoll date_long
-    :interval "1s"
+    :interval "10s"
     "date +\"%A, %B %d, %Y (%V)\""
 )
 
 (defpoll date_short
-    :interval "1s"
+    :interval "10s"
     "date +\"%a, %b %d, %Y\""
 )
 
 (defpoll clock_short
-    :interval "1s"
+    :interval ".5s"
     "date +\"%I:%M %p\""
 )
 
 (defpoll clock_long
-    :interval "1s"
+    :interval ".5s"
     "date +\"%I:%M:%S\""
 )
 
 (defpoll am_pm
-    :interval "1s"
+    :interval ".5s"
     "date +\"%p\""
 )
 
@@ -69,7 +69,7 @@
                 :duration "350ms"
                 (label
                     :class "mod_clock_date"
-                    :text date_short
+                    :text date_long
                 )
             )
         )

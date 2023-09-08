@@ -1,0 +1,1 @@
+hyprctl activewindow -j | jq -rc '.title'

@@ -1,23 +1,69 @@
 #!/bin/sh
 
-status=$(nmcli g | grep -oE "disconnected")
-essid=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d: -f2)
+status() {
+    status=$(nmcli g | grep -oE "disconnected")
+    echo "$status"
+}
 
-if [ $status ] ; then
-    icon="睊"
-    text=""
-    col="#575268"
+color() {
+    if [ $(status) ] ; then
+        echo "#575268"
+    else
+        echo "#a1bdce"
+    fi
+}
 
-else
-    icon=""
-    text="${essid}"
-    col="#a1bdce"
-fi
+icon() {
+    if [ $(status) ] ; then
+        icon="󰖪"
+    else
+        icon=""
+    fi
+    echo "$icon"
+}
 
+essid() {
+    essid=$(nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d: -f2)
+    echo "$essid"
+}
+
+format_speed() {
+    index=0
+    speed=$1
+    units=("B/s" "KB/s" "MB/s" "GB/s" "TB/s")
+    while ((speed > 1024)); do
+        speed=$(awk "BEGIN{printf \"%.2f\", ${speed}/1024}")
+        ((index++))
+    done 2>/dev/null
+    unit=${units[index]}
+    formatted_speed=$(awk "BEGIN{printf \"%.2f\", ${speed}}")
+    echo "${formatted_speed} ${unit}"
+}
+
+speed() {
+    output=$(awk '{if(l1){print $2-l1,$10-l2} else{l1=$2; l2=$10;}}' \
+        <(grep wlan0 /proc/net/dev) <(sleep 1; grep wlan0 /proc/net/dev))
+    case $1 in
+        download) echo $(echo $output | awk '{print $1}');;
+        upload) echo $(echo $output | awk '{print $2}');;
+        *) echo "Invalid argument";;
+    esac
+}
+
+wildcard() {
+    if [ $status ] ; then
+        echo "Disconnected"
+    else 
+        echo "$(icon)  $(text) ( $(format_speed $(download_speed)) |  $(format_speed $(upload_speed)))"
+    fi
+}
 
 case $1 in
-	--COL) echo $col;;
-	--ESSID) echo $text;;
-	--ICON) echo $icon;;
+    --COL) echo $(col);;
+    --ESSID) echo $(essid);;
+	--ICON) echo $(icon);;
+    --DOWNLOAD) echo $(format_speed $(speed download));;
+    --UPLOAD) echo $(format_speed $(speed upload));;
+    --STATUS) echo $(status);;
+    *) echo $(wildcard);;
 esac
-

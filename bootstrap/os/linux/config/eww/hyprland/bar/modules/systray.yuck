@@ -1,0 +1,6 @@
+(defwidget tray []
+    (systray 
+        :pack-direction "right"
+        :icon_size 18
+    )    
+)

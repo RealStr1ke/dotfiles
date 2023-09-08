@@ -1,5 +1,7 @@
 (defpoll workspace :interval ".1s"  "scripts/workspace")
 (defwidget workspaces []
-  (literal
-    :content workspace
-  :valign "center"))
+    (literal
+        :content workspace
+        :valign "center"
+    )
+)

@@ -1,0 +1,65 @@
+#!/bin/bash
+
+battery_info=$(upower -i /org/freedesktop/UPower/devices/battery_BAT1)
+
+# Extract battery details
+percentage() {
+    percentage=$(echo "$battery_info" | grep "percentage:" | awk '{print $2}' | tr -d '%')
+    echo "$percentage"
+}
+
+health() {
+    capacity_health=$(echo "$battery_info" | grep "capacity:" | awk '{print $2}' | tr -d '%')
+    echo "$capacity_health"
+}
+
+state() {
+    state=$(echo "$battery_info" | grep "state:" | awk '{print $2}')
+    echo "$state"
+}
+
+time_left() {
+    current_state = $(state)
+    if [ $state = "discharging" ]; then
+        time_left=$(echo "$battery_info" | grep "time to empty:" | awk '{print $4}')
+    else
+        time_left=$(echo "$battery_info" | grep "time to full:" | awk '{print $4}')
+    fi
+}
+
+rate() {
+    energy_rate=$(echo "$battery_info" | grep "energy-rate:" | awk '{print $2}')
+}
+
+charging_rate=$(echo "$battery_info" | grep "energy-rate:" | awk '{print $2}')
+
+# Format time to full/empty
+if [ $time_to_full = "unknown" ]; then
+    time_to_full="N/A"
+else
+    time_to_full="$((time_to_full / 60)) hrs $((time_to_full % 60)) mins"
+fi
+
+if [ $time_to_empty = "unknown" ]; then
+    time_to_empty="N/A"
+else
+    time_to_empty="$((time_to_empty / 60)) hrs $((time_to_empty % 60)) mins"
+fi
+
+# Format charging rate
+if [ "$charging_rate" = "-1" ]; then
+    charging_rate="N/A"
+elif [ "$charging_rate" != "0" ]; then
+    charging_rate="$charging_rate W"
+else
+    charging_rate="Discharging"
+fi
+
+# Print battery information
+echo "Battery Percentage: $percentage%"
+echo "Capacity Health: $capacity_health%"
+echo "Battery State: $state"
+echo "Time to Full: $time_to_full"
+echo "Time to Empty: $time_to_empty"
+echo "Charging Rate: $charging_rate"
+
