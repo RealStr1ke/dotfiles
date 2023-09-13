@@ -3,7 +3,10 @@
 # ================================
 
 # Waybar
-~/.config/waybar/launch.sh &
+# ~/.config/waybar/launch.sh &
+
+# Eww
+~/.config/eww/launch.sh start --WM hyprland
 
 # Clipboard Manager (copyq)
 copyq &
