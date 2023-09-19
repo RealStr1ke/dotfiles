@@ -6,7 +6,8 @@
 # ~/.config/waybar/launch.sh &
 
 # Eww
-~/.config/eww/launch.sh start --WM hyprland
+# ~/.config/eww/launch.sh start --WM hyprland
+eww open bar0 --config ~/.dotfiles/bootstrap/os/linux/config/eww/hyprland/
 
 # Clipboard Manager (copyq)
 copyq &
