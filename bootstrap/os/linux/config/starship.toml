@@ -1,0 +1,72 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Wait 10 milliseconds for starship to check files under the current directory.
+scan_timeout = 10
+
+format = '''
+$username$directory$git_branch$git_status
+└─$character
+'''
+# right_format = "$os$cmd_duration$sudo"
+
+[character] 
+# success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+format = "(bold white)❯ "
+# All right facing arrows: 
+[cmd_duration]
+min_time = 1000
+format = "[${duration}]($style)"
+disabled = true
+
+[directory]
+truncation_length = 0
+format = '[$home_symbol$path]($style)[$read_only]($read_only_style) '
+home_symbol = "~"
+style = 'bold 141'
+
+[git_branch]
+format = "[\\($symbol$branch\\)]($style) "
+symbol = " "
+style = 'bold 111'
+disabled = false
+
+[git_status]
+format ="([\\[$all_status$ahead_behind\\]]($style) )"
+style = 'bold 111'
+conflicted = '='
+ahead = '⇡'
+behind = '⇣'
+diverged = '⇕'
+up_to_date = '✓'
+untracked = '?'
+stashed = '$'
+modified = '!'
+staged = '+'
+renamed = '»'
+deleted = '✘'
+
+[os]
+format ="[$symbol]($style)"
+style = 'bold 141'
+disabled = false
+
+[sudo]
+format = "[$symbol]($style)"
+style = 'bold 111'
+symbol = '👩‍💻 '
+disabled = true
+
+[username]
+format = "[$user]($style) "
+style_user = "bold 141"
+style_root = "bold 111"
+disabled = false
+show_always = true
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
