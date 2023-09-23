@@ -7,16 +7,45 @@ add_newline = true
 # Wait 10 milliseconds for starship to check files under the current directory.
 scan_timeout = 10
 
+# format = '''
+# $username$hostname$directory$git_branch$git_status
+# └─$character
+# '''
 format = '''
-$username$directory$git_branch$git_status
-└─$character
+[┌──────────────────────󱐋](bold 141)
+[│](bold 141)$username$hostname$directory$git_branch$git_status
+[└─$character](bold 141)
 '''
-# right_format = "$os$cmd_duration$sudo"
+right_format = "$os$sudo$battery"
+
+
+# Main Modules
+
+[battery]
+full_symbol = '🔋 '
+charging_symbol = '󰂄 '
+discharging_symbol = '󱟤 '
+
+[[battery.display]]
+threshold = 10
+style = 'bold 124'
+[[battery.display]]
+threshold = 20
+style = 'bold 215'
+[[battery.display]]
+threshold = 30
+style = 'bold 214'
+[[battery.display]]
+threshold = 50
+style = 'bold 142'
+[[battery.display]]
+threshold = 100
+style = 'bold 114'
 
 [character] 
 # success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
 format = "(bold white)❯ "
-# All right facing arrows: 
+
 [cmd_duration]
 min_time = 1000
 format = "[${duration}]($style)"
@@ -26,6 +55,10 @@ disabled = true
 truncation_length = 0
 format = '[$home_symbol$path]($style)[$read_only]($read_only_style) '
 home_symbol = "~"
+style = 'bold 141'
+
+[fill]
+symbol = '─'
 style = 'bold 141'
 
 [git_branch]
@@ -49,16 +82,36 @@ staged = '+'
 renamed = '»'
 deleted = '✘'
 
+[hostname]
+ssh_only = false
+format = 'on [$hostname](bold 111) [$ssh_symbol](bold blue)'
+# trim_at = '.companyname.com'
+disabled = false
+
 [os]
 format ="[$symbol]($style)"
 style = 'bold 141'
 disabled = false
 
+[os.symbols]
+Android = " "
+Arch = "  "
+Artix = " "
+Debian = " "
+EndeavourOS = " "
+Fedora = " "
+Linux = ""
+NixOS = " "
+Raspbian = ""
+Ubuntu = " "
+Unknown = " "
+Windows = " "
+
 [sudo]
 format = "[$symbol]($style)"
 style = 'bold 111'
-symbol = '👩‍💻 '
-disabled = true
+symbol = ''
+disabled = false
 
 [username]
 format = "[$user]($style) "
