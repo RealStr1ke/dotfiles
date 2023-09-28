@@ -1,52 +1,60 @@
 
 .bar {
-    margin: 10px;
     box {
-        background-color: $base;
-        margin: 5px 25px;
-        border-radius: 12px;
+        background-color: $mantle;
+        margin: 3px 10px;
+        border-radius: 15px;
     }
 }
 
-.workspaces {
+.bar-workspaces {
     margin: 2px;
     button {
         background-color: transparent;
         font-size: 24px;
-        // color: #eee;
+        font-weight: bolder;
+        color: $overlay1;
         margin: 0px 6px;
 
         :hover {
             background-color: $mantle;
             color: #efefef;
         }
-        :active {
-            color: $red;
-        }
+    }
+
+    button.bw-unoccupied {
+        color: $overlay1;
+    }
+    button.bw-occupied {
+        color: $lavender;
+    }
+    button.bw-focused {
+        color: $mauve;
+        // padding: 0px 4px;
+        // border: 2px solid $mauve;
+        // border-radius: 5px;
     }
 }
 
-.workspaces button.focused {
-    border-bottom: 3px solid white;
-}
-
-.client-title {
+.bar-title {
     margin-left: 1em;
     color: $lavender;
+    font-size: 22px;
 }
 
-.notification image {
+.bar-notification image {
     color: yellow;
     margin-left: 1em;
 }
 
-.battery progressbar {
+.bar-battery progressbar {
     margin: 0 6px;
 }
 
-.clock {
+.bar-clock {
     margin: 0 6px;
     font-size: 1.1em;
+    font-size: 24px;
 }
 
 progress, highlight {
@@ -54,14 +62,14 @@ progress, highlight {
     min-height: 8px;
 }
 
-.systray {
+.bar-systray {
     background-color: $base;
-}
-.systray button {
-    background-color: $base;
-    margin: 0px;
-    padding: 5px;
-}
-.systray button:hover {
-    background-color: $mauve;
+    button {
+        background-color: $base;
+        margin: 0px;
+        padding: 5px;
+        :hover {
+            background-color: $mauve;
+        }
+    }
 }

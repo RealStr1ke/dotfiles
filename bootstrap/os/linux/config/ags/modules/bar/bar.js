@@ -1,4 +1,3 @@
-// importing
 const { Hyprland, Notifications, Mpris, Audio, Battery, SystemTray } = ags.Service;
 const { Widget } = ags;
 const { exec, execAsync } = ags.Utils;
@@ -8,57 +7,80 @@ const { Box, Button, Stack, Label, Icon, CenterBox, Window, Slider, ProgressBar 
 // so to make a reuseable widget, just make it a function
 // then you can use it by calling simply calling it
 
-
 function Workspaces() {
-    execAsync(`echo ${Hyprland} > /home/str1ke/tmp-hyprland-ags.txt`)
-    exec(`notify-send ${Hyprland}`)
     return Box({
-        className: 'workspaces',
+        className: 'bar-workspaces',
         connections: [[Hyprland, box => {
-            // const arr = Array.from({ length: 10 }, (_, i) => i + 1);
-            const icons = ["一", "二", "三", "四", "五", "六", "七", "八", "九"];
-            box.children = icons.map(i => Button({
-                onClicked: () => execAsync(`hyprctl dispatch workspace ${i}`),
-                child: Label({ label: `${i}` }),
-                className: Hyprland.active.workspace.id == i ? 'focused' : '',
-            }));
+            const array = Array.from({ length: 9 }, (_, i) => i + 1);
+            console.log(array)
+            box.children = array.map(i => {
+                const icons = ["一", "二", "三", "四", "五", "六", "七", "八", "九"];
+                return Button({
+                    onClicked: () => {
+                        try {
+                            exec(`bash -c "~/.config/hypr/scripts/tools/workspaces workspace ${i}"`);
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    },
+                    onScrollUp: () => {
+                        
+                    },
+                    child: Label({ label: `${icons[i - 1]}` }),
+                    connections: [[Hyprland, 
+                        btn => {
+                            const occupied = Hyprland.getWorkspace(i)?.windows > 0;
+                            if (Hyprland.active.workspace.id == i) {
+                                btn.toggleClassName('bw-focused', true);
+                                btn.toggleClassName('bw-occupied', true);
+                                console.log(`${i} is focused`)
+                            } else if ( Hyprland.getWorkspace(i)?.windows > 0) {
+                                btn.toggleClassName('bw-occupied', true);
+                                console.log(`${i} is occupied`);
+                            } else {
+                                btn.toggleClassName('bw-unoccupied', true);
+                                console.log(`${i} is unoccupied`);
+                            }
+                        }
+                    ]],
+                })
+            });
         }]],
     });
 }
 
 function ClientTitle() {
     return Label({
-        className: 'client-title',
+        className: 'bar-title',
         // an initial label value can be given but its pointless
         // because callbacks from connections are run on construction
         // so in this case this is redundant
         label: Hyprland.active.client.title || '',
         connections: [[Hyprland, label => {
-            label.label = Hyprland.active.client.title || '';
+            const title = exec(`bash -c "echo \\"${Hyprland.active.client.title || ''}\\" | cut -c1-50 | awk '{print (length($0) < 20) ? $0 : $0\\"...\\"}'"`)
+            label.label = title;
         }]],
     });
 }
 
 function Clock() {
     return Label({
-        className: 'clock',
+        className: 'bar-clock',
         connections: [
-            // this is bad practice, since exec() will block the main event loop
-            // in the case of a simple date its not really a problem
-            [1000, label => label.label = exec('date "+%H:%M:%S %b %e."')],
-    
-            // this is what you should do
-            [1000, label => execAsync(['date', '+%H:%M:%S %b %e.'])
-                .then(date => label.label = date).catch(console.error)],
-        ],
+            [ 
+                500, // Updates every 500ms
+                label => {
+                    return execAsync(['date', '+%I:%M:%S %p'])
+                    .then(date => label.label = date).catch(console.error);
+                }
+            ]
+        ]
     });
 }
 
-// we don't need dunst or any other notification daemon
-// because ags has a notification daemon built in
 function Notification() {
     return Box({
-        className: 'notification',
+        className: 'bar-notification',
         children: [
             Icon({
                 icon: 'preferences-system-notifications-symbolic',
@@ -77,14 +99,14 @@ function Notification() {
 
 function Spacer() {
     return Label({
-        className: 'spacer',
+        className: 'bar-spacer',
         label: "",
     });
 }
 
 function Media() {
     return Button({
-        className: 'media',
+        className: 'bar-media',
         onPrimaryClick: () => Mpris.getPlayer('')?.playPause(),
         onScrollUp: () => Mpris.getPlayer('')?.next(),
         onScrollDown: () => Mpris.getPlayer('')?.previous(),
@@ -95,7 +117,7 @@ function Media() {
                 if (mpris)
                     label.label = `${mpris.trackArtists.join(', ')} - ${mpris.trackTitle}`;
                 else
-                    label.label = 'Nothing is playing';
+                    label.label = '';
             }]],
         }),
     });
@@ -103,7 +125,7 @@ function Media() {
 
 function Volume() {
     return Box({
-        className: 'volume',
+        className: 'bar-volume',
         style: 'min-width: 180px',
         children: [
             Stack({
@@ -147,7 +169,7 @@ function Volume() {
 
 function BatteryLabel() {
     return Box({
-        className: 'battery',
+        className: 'bar-battery',
         children: [
             Icon({
                 connections: [[Battery, icon => {
@@ -169,7 +191,7 @@ function BatteryLabel() {
 
 function SysTray() {
     return Box({
-        className: 'systray',
+        className: 'bar-systray',
         connections: [[SystemTray, box => {
             box.children = SystemTray.items.map(item => Button({
                 child: Icon(),
@@ -188,7 +210,7 @@ function Left() {
     const left = Box({
         children: [
             Workspaces(),
-            ClientTitle(),
+            Media(),
         ],
     });
     return left;
@@ -197,8 +219,7 @@ function Left() {
 function Center() {
     const center = Box({
         children: [
-            Media(),
-            Notification(),
+            ClientTitle(),
         ],
     });
     return center;
@@ -208,6 +229,7 @@ function Right() {
     const right = Box({
         halign: 'end',
         children: [
+            Notification(),
             Volume(),
             BatteryLabel(),
             Clock(),
