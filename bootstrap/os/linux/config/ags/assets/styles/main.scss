@@ -1,0 +1,48 @@
+// Theme
+@import "themes/catppuccin/mocha.scss";
+
+// Universal Styling
+* {
+    all: unset;
+    // background-color: $base;
+    // margin: 1px;
+    font-family: Caskaydia Cove Nerd Font;
+}
+
+label {
+    font-weight: bold;
+}
+
+button {
+    :hover {
+        background-color: $lavender;
+    }
+}
+
+window.popup {
+    > * {
+        border: none;
+        box-shadow: none;
+    }
+    menu {
+        background-color: $surface0;
+        border-radius: 5px;
+        margin: 10px;
+        separator {
+            background-color: $surface1;
+        }
+        
+        menuitem {
+            :hover {
+                background-color: $red;
+            }
+            padding: 2.5px;
+            margin: 5px;
+            &:first-child { margin-top: 0; }
+            &:last-child { margin-bottom: 0; }
+        }
+    }
+}
+
+// Modules
+@import "modules/bar.scss"

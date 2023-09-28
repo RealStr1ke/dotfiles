@@ -1,0 +1,67 @@
+
+.bar {
+    margin: 10px;
+    box {
+        background-color: $base;
+        margin: 5px 25px;
+        border-radius: 12px;
+    }
+}
+
+.workspaces {
+    margin: 2px;
+    button {
+        background-color: transparent;
+        font-size: 24px;
+        // color: #eee;
+        margin: 0px 6px;
+
+        :hover {
+            background-color: $mantle;
+            color: #efefef;
+        }
+        :active {
+            color: $red;
+        }
+    }
+}
+
+.workspaces button.focused {
+    border-bottom: 3px solid white;
+}
+
+.client-title {
+    margin-left: 1em;
+    color: $lavender;
+}
+
+.notification image {
+    color: yellow;
+    margin-left: 1em;
+}
+
+.battery progressbar {
+    margin: 0 6px;
+}
+
+.clock {
+    margin: 0 6px;
+    font-size: 1.1em;
+}
+
+progress, highlight {
+    background-color: aqua;
+    min-height: 8px;
+}
+
+.systray {
+    background-color: $base;
+}
+.systray button {
+    background-color: $base;
+    margin: 0px;
+    padding: 5px;
+}
+.systray button:hover {
+    background-color: $mauve;
+}

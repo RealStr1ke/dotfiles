@@ -1,0 +1,11 @@
+{
+  "name": "realstr1ke-ags",
+  "version": "1.0.0",
+  "description": "RealStr1ke's AGS config files",
+  "main": " ",
+  "scripts": {
+    "test": "hyprctl exec dispatch ags && ./reload.sh"
+  },
+  "author": "RealStr1ke",
+  "license": "MIT"
+}
