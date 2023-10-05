@@ -7,7 +7,10 @@
 
 # Eww
 # ~/.config/eww/launch.sh start --WM hyprland
-eww open bar0 --config ~/.dotfiles/bootstrap/os/linux/config/eww/hyprland/
+# eww open bar0 --config ~/.dotfiles/bootstrap/os/linux/config/eww/hyprland/
+
+# AGS
+ags
 
 # Clipboard Manager (copyq)
 copyq &
@@ -44,7 +47,7 @@ spotifyd &
 mpd --stdout --verbose &
 
 # Notification Daemon
-swaync &
+# swaync &
 
 # Wob
 function wbs() {
