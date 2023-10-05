@@ -63,12 +63,10 @@ function Workspaces() {
 function ClientTitle() {
     return Label({
         className: 'bar-title',
-        // an initial label value can be given but its pointless
-        // because callbacks from connections are run on construction
-        // so in this case this is redundant
-        label: Hyprland.active.client.title || '',
         connections: [[Hyprland, label => {
-            const title = exec(`bash -c "echo \\"${Hyprland.active.client.title || ''}\\" | cut -c1-50 | awk '{print (length($0) < 20) ? $0 : $0\\"...\\"}'"`)
+            // Shorten the title if it's over 50 chars long and add elipses
+            const window = Hyprland.active.client.title;
+            const title = window.length > 50 ? window.substring(0, 50) + '...' : window;
             label.label = title;
         }]],
     });
@@ -161,12 +159,12 @@ function VolumeInfo() {
                                 // className: 'bv-slider',
                                 hexpand: true,
                                 drawValue: false,
-                                onChange: ({ value }) => Audio.speaker.volume = value / 100,
+                                onChange: ({ value }) => Audio.speaker.volume = value,
                                 connections: [[Audio, slider => {
                                     if (!Audio.speaker)
                                         return;
-                                    console.log(`Volume: ${Audio.speaker.volume * 100}`)
-                                    slider.value = Audio.speaker.volume * 100;
+                                    // console.log(`Volume: ${Audio.speaker.volume * 100}`)
+                                    slider.value = Audio.speaker.volume;
                                 }, 'speaker-changed']],
                             })
                         }),
@@ -204,8 +202,13 @@ function BatteryInfo() {
                     className: 'bb-icon',
                     connections: [[Battery, label => {
                         const icons = ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂"];
-                        label.label = icons[Math.floor(Battery.percent / 10)];
-                        console.log(label.label);
+                        console.log((Math.floor(Battery.percent / 10) + 1) * 10)
+                        if (Battery.charging) {
+                            label.label = '󰂄';
+                        } else {
+                            label.label = icons[Math.floor(Battery.percent / 10)];
+                        }
+                        // console.log(label.label);
                     }]],
                 }),
                 Revealer({
