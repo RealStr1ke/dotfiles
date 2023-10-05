@@ -1,25 +1,28 @@
-
-.bar {
-    box {
-        background-color: $mantle;
-        margin: 3px 10px;
-        border-radius: 15px;
-    }
+.bar { 
+    margin: 10px 20px 0px 20px;
+    background-color: $crust;
+    border-radius: 12px;
 }
 
 .bar-workspaces {
-    margin: 2px;
+    margin: 4px 12px 4px 0px;
+    background-color: $crust;
+    padding: 1px 2px;
+    border-radius: 8px;
+
     button {
         background-color: transparent;
         font-size: 24px;
         font-weight: bolder;
         color: $overlay1;
-        margin: 0px 6px;
+        margin: 0px 4px;
+        border-radius: 10px;
+        padding: 0px 2px;
+    }
 
-        :hover {
-            background-color: $mantle;
-            color: #efefef;
-        }
+    button:hover {
+        background-color: $mantle;
+        color: yellow;
     }
 
     button.bw-unoccupied {
@@ -38,38 +41,99 @@
 
 .bar-title {
     margin-left: 1em;
-    color: $lavender;
+    color: $text;
     font-size: 22px;
 }
 
 .bar-notification image {
-    color: yellow;
+    color: $lavender;
     margin-left: 1em;
 }
 
 .bar-battery progressbar {
     margin: 0 6px;
+    border-radius: 5px;
 }
 
 .bar-clock {
-    margin: 0 6px;
-    font-size: 1.1em;
+    margin: 0px 6px;
     font-size: 24px;
+}
+.bc-clock {
+    color: $text;
+    font-weight: bold;
+    padding: 0px 6px 0px 4px;
+}
+.bc-date {
+    color: $text;
+    font-weight: normal;
+    font-size: 22px;
+    padding: 0px 6px 0px 6px;
 }
 
 progress, highlight {
-    background-color: aqua;
+    background-color: $mauve;
     min-height: 8px;
+    border-radius: 8px;
 }
 
 .bar-systray {
-    background-color: $base;
+    margin: 3px 10px;
+    background-color: $mantle;
+    border-radius: 10px;
     button {
-        background-color: $base;
         margin: 0px;
         padding: 5px;
-        :hover {
-            background-color: $mauve;
+        border-radius: 10px;
+    }
+    button:hover {
+        background-color: $base;
+    }
+}
+
+.bar-separator {
+    margin: 3px;
+    // padding: 0px 8px;
+    label {
+        font-size: 24px;
+    }
+}
+
+.bl-icon {
+    margin-left: 16px;
+    font-size: 50px;
+}
+
+.bar-media {
+    background-color: $crust;
+    border-radius: 8px;
+    margin: 5px;
+    padding: 5px;
+}
+.bar-media:hover {
+    background-color: $mantle;
+}
+
+// .bar-volume {
+// }
+.bv-icon {
+    margin: 0px 10px;
+    font-size: 28px;
+    color: $text;
+}
+.bv-slider {
+    scale {
+        margin: 0px 8px;
+        contents {
+            margin: 0px 10px;
         }
     }
+}
+
+// .bar-battery {
+// }
+.bb-icon {
+    margin: 0px 10px;
+    font-size: 28px;
+    color: $text;
 }

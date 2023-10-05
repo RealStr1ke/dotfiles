@@ -17,7 +17,7 @@ ags.Utils.subprocess([
 export default {
     // style: ags.App.configDir + '/style.css',
     windows: [
-        Bar(),
+        Bar(    { monitor: 0 }),
         // Bar({ monitor: 0 }),
         // Bar({ monitor: 1 })
     ],
