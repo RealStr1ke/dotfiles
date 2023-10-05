@@ -1,6 +1,9 @@
 # To-Do List
-
- - Transfer from Bash to Fish as my main shell
- - Rewrite Neovim configuration
- - Complete Eww bar and dashboard
  - Fix Hyprland blur
+ - Rewrite install.sh to use OS-specific install scripts
+ - AGS
+   - Add Wi-Fi info revealer to bar
+   - Create the following
+     - Dashboard
+     - Bar Quick Settings
+     - Workspace Overview
