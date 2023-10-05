@@ -18,6 +18,7 @@ format = '''
 '''
 right_format = "$os$sudo$battery"
 
+command_timeout = 50000
 
 # Main Modules
 
