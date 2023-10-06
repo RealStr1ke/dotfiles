@@ -203,7 +203,7 @@ function BatteryInfo() {
                     className: 'bb-icon',
                     connections: [[Battery, label => {
                         const icons = ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂"];
-                        console.log((Math.floor(Battery.percent / 10) + 1) * 10)
+                        // console.log((Math.floor(Battery.percent / 10) + 1) * 10)
                         if (Battery.charging) {
                             label.label = '󰂄';
                         } else {
