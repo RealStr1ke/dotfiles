@@ -27,6 +27,7 @@ function Workspaces() {
             const array = Array.from({ length: 9 }, (_, i) => i + 1);
             // console.log(array)
             box.children = array.map(i => {
+                // const icons = ["一", "二", "三", "四", "五", "六", "七", "八", "九"];
                 const icons = ["١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
                 return Button({
                     onClicked: () => {
