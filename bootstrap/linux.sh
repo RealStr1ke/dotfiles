@@ -62,8 +62,8 @@ fi
 # Install dotfiles
 
 # Clone the repository to $TARGET
-# git clone $SOURCE $TARGET
-# cd $TARGET
+git clone $SOURCE $TARGET
+cd $TARGET
 
 # ============> Symlinking
 
