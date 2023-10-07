@@ -32,10 +32,10 @@ elif is::gitpod; then
 fi
 
 # If either git or gum (non-headless) is not installed, abort.
-if [ ! is-executable "git" ]; then
+if  ! is-executable "git" ; then
     echo "Git is required to install the dotfiles."
     exit
-elif [ ! is-executable "gum" &&  ! "$headless" == true ]; then
+elif  ! is-executable "gum" &&  ! "$headless" == true; then
     echo "Gum is required to install the dotfiles."
     exit
 fi
