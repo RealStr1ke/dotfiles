@@ -35,26 +35,29 @@ fi
 if  ! is-executable "git" ; then
     echo "Git is required to install the dotfiles."
     exit
-elif  ! is-executable "gum" &&  ! "$headless" == true; then
-    echo "Gum is required to install the dotfiles."
-    exit
+fi
+if  ! is-executable "gum"; then
+    if [ ! "$headless" == true ]; then
+        echo "Gum is required to install the dotfiles."
+        exit
+    fi
 fi
 
 # Get parameters by user input using gum
 # ./bin/gum choose full minimal --header "Pick the type of installation for the dotfiles" --header.foreground 213
 # ./bin/gum choose packages fonts themes wallpapers --header "Pick the extra stuff to install (space to select, enter to continue)" --header.foreground 213 --no-limit
-if [ ! "$headless" == true ]; then
-    if [ -f /etc/arch-release ]; then
-        echo "=====> Distro: Arch Linux"
-        if ! is-executable "git"; then
-            echo "======> Installing git (you might need your sudo password)..."
-            sudo pacman -S git
-        elif ! is-executable "gum"; then
-            echo "======> Installing gum (you might need your sudo password)..."
-            sudo pacman -S gum
-        fi
-    fi
-fi
+# if [ ! "$headless" == true ]; then
+#     if [ -f /etc/arch-release ]; then
+#         echo "=====> Distro: Arch Linux"
+#         if ! is-executable "git"; then
+#             echo "======> Installing git (you might need your sudo password)..."
+#             sudo pacman -S git
+#         elif ! is-executable "gum"; then
+#             echo "======> Installing gum (you might need your sudo password)..."
+#             sudo pacman -S gum
+#         fi
+#     fi
+# fi
 
 # Install dotfiles
 
