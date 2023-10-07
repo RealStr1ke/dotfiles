@@ -104,7 +104,7 @@ do
     fi
 
     # Symlink the config directory
-    [ -d "$TARGET/bootstrap/os/linux/runcom/$RUNCOM" ] && ln -sf "$TARGET/bootstrap/os/linux/runcom/$RUNCOM" "$HOME/$RUNCOM"
+    [ -d "$TARGET/bootstrap/os/linux/config/$CONFIG" ] && ln -sf "$TARGET/bootstrap/os/linux/config/$CONFIG" "$HOME/.config/$CONFIG"
 done
 
 # Config Files
