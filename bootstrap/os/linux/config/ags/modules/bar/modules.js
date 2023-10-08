@@ -86,7 +86,7 @@ function Clock() {
                     className: 'bc-clock',
                     connections: [[
                         1000, // update every 1000ms
-                        label => execAsync(['date', '+%H:%M:%S %p'])
+                        label => execAsync(['date', '+%I:%M:%S %p'])
                             .then(date => label.label = date).catch(console.error)]]
                 }),
                 Revealer({
