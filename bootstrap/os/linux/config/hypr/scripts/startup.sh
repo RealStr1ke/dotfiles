@@ -10,7 +10,7 @@
 # eww open bar0 --config ~/.dotfiles/bootstrap/os/linux/config/eww/hyprland/
 
 # AGS
-ags
+ags &
 
 # Clipboard Manager (copyq)
 copyq &
@@ -19,7 +19,7 @@ copyq &
 discord --start-minimized &
 
 # Mail Client (mailspring)
-mailspring --background &
+# mailspring --background &
 
 
 # ================================
