@@ -10,6 +10,9 @@
 -- Main Options
 require("core.options")
 
+-- Plugins
+require("plugins.loader")
+
 -- Commands
 require("core.commands")
 
@@ -24,6 +27,3 @@ require("core.diagnostics")
 
 -- Keymaps
 require("core.keymaps")
-
--- Plugins
-require("plugins.loader")
