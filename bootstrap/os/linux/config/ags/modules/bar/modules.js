@@ -207,7 +207,7 @@ function BatteryInfo() {
                         if (Battery.charging) {
                             label.label = '󰂄';
                         } else {
-                            label.label = icons[Math.floor(Battery.percent / 10)];
+                            label.label = `${icons[Math.floor(Battery.percent / 10)]}`;
                         }
                         // console.log(label.label);
                     }]],
