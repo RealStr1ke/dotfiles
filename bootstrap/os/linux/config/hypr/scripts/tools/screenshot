@@ -4,8 +4,12 @@
 
 # If parameter 1 is "flameshot", then run flameshot gui, otherwise use grim and/or slurp
 if [ "$1" = "flameshot" ]; then
-    export XDG_CURRENT_DESKTOP=sway
-    flameshot gui --clipboard --path ~/Pictures/Screenshots
+    # export XDG_CURRENT_DESKTOP=sway
+    FILENAME="$(date +Screenshot-[%Y-%m-%d]-\(%H-%M-%S\)).png"
+    flameshot gui --path ~/Pictures/Screenshots/$FILENAME
+
+    # Copy the screenshot to the clipboard 
+    wl-copy < "$HOME/Pictures/Screenshots/$FILENAME"
 else
     # Get the current date and time
     DATE="$(date +%Y-%m-%d=)"
