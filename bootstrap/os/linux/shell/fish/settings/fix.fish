@@ -31,9 +31,9 @@ end
 # end
 
 # find-the-command
-# if [[ "$OSTYPE" == "linux-gnu" ]] && [[ -f "/etc/arch-release" ]]
+# if [ (cat /etc/os-release | grep -i arch ) ]
 # 	# If shell is Bash, then source bash script
-# 	if [[ "$SHELL" == "/bin/bash" ]]
-# 		source /usr/share/doc/find-the-command/ftc.bash quiet su noupdate noprompt
+# 	if [[ "$SHELL" == "/usr/bin/fish" ]]
+# 		source /usr/share/doc/find-the-command/ftc.fish quiet su noupdate noprompt
 # 	end
 # end
