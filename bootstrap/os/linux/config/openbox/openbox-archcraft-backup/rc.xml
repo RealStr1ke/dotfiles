@@ -589,59 +589,59 @@
     <!-- Screenshot Keys -->
     <keybind key="Print">
       <action name="Execute">
-        <command>ob-screenshot --now</command>
+        <command>~/.config/openbox/scripts/ob-screenshot --now</command>
       </action>
     </keybind>
     <keybind key="A-Print">
       <action name="Execute">
-        <command>ob-screenshot --in5</command>
+        <command>~/.config/openbox/scripts/ob-screenshot --in5</command>
       </action>
     </keybind>
     <keybind key="S-Print">
       <action name="Execute">
-        <command>ob-screenshot --in10</command>
+        <command>~/.config/openbox/scripts/ob-screenshot --in10</command>
       </action>
     </keybind>
     <keybind key="C-Print">
       <action name="Execute">
-        <command>ob-screenshot --win</command>
+        <command>~/.config/openbox/scripts/ob-screenshot --win</command>
       </action>
     </keybind>
     <keybind key="W-Print">
       <action name="Execute">
-        <command>ob-screenshot --area</command>
+        <command>~/.config/openbox/scripts/ob-screenshot --area</command>
       </action>
     </keybind>
     <!-- Brightness Control -->
     <keybind key="XF86MonBrightnessUp">
       <action name="Execute">
-        <command>ob-brightness --inc</command>
+        <command>~/.config/openbox/scripts/ob-brightness --inc</command>
       </action>
     </keybind>
     <keybind key="XF86MonBrightnessDown">
       <action name="Execute">
-        <command>ob-brightness --dec</command>
+        <command>~/.config/openbox/scripts/ob-brightness --dec</command>
       </action>
     </keybind>
     <!-- Volume -->
     <keybind key="XF86AudioRaiseVolume">
       <action name="Execute">
-        <command>ob-volume --inc</command>
+        <command>~/.config/openbox/scripts/ob-volume --inc</command>
       </action>
     </keybind>
     <keybind key="XF86AudioLowerVolume">
       <action name="Execute">
-        <command>ob-volume --dec</command>
+        <command>~/.config/openbox/scripts/ob-volume --dec</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMute">
       <action name="Execute">
-        <command>ob-volume --toggle</command>
+        <command>~/.config/openbox/scripts/ob-volume --toggle</command>
       </action>
     </keybind>
     <keybind key="XF86AudioMicMute">
       <action name="Execute">
-        <command>ob-volume --toggle-mic</command>
+        <command>~/.config/openbox/scripts/ob-volume --toggle-mic</command>
       </action>
     </keybind>
     <!-- Media Controls -->
@@ -726,22 +726,22 @@
     <!-- CLI Apps -->
     <keybind key="C-A-t">
       <action name="Execute">
-        <command>xfce4-terminal</command>
+        <command>kitty</command>
       </action>
     </keybind>
     <keybind key="C-A-v">
       <action name="Execute">
-        <command>alacritty -e vim</command>
+        <command>kitty -e vim</command>
       </action>
     </keybind>
     <keybind key="C-A-r">
       <action name="Execute">
-        <command>alacritty -e ranger</command>
+        <command>kitty -e ranger</command>
       </action>
     </keybind>
     <keybind key="C-A-h">
       <action name="Execute">
-        <command>alacritty -e htop</command>
+        <command>kitty -e htop</command>
       </action>
     </keybind>
     <!-- Misc -->
@@ -752,17 +752,17 @@
     </keybind>
     <keybind key="W-t">
       <action name="Execute">
-        <command>ob-furminal</command>
+        <command>~/.config/openbox/scripts/ob-furminal</command>
       </action>
     </keybind>
     <keybind key="W-p">
       <action name="Execute">
-        <command>ob-colorpicker</command>
+        <command>~/.config/openbox/scripts/ob-colorpicker</command>
       </action>
     </keybind>
     <keybind key="C-A-m">
       <action name="Execute">
-        <command>ob-music</command>
+        <command>~/.config/openbox/scripts/ob-music</command>
       </action>
     </keybind>
     <keybind key="W-Escape">
