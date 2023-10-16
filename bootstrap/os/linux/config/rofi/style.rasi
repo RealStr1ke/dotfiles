@@ -18,15 +18,16 @@ configuration {
 /*****----- Global Properties -----*****/
 * {
     font:                        "Caskaydia Cove Nerd Font 10";
-    background:                  #1e1e2e;
-    background-alt:              #313244;
-    foreground:                  #FFFFFF;
+    background:                  @bg-col;
+    background-alt:              @bg-col-light;
+    foreground:                  @fg-col;
     selected:                    #b4befe;
     active:                      #cba6f7;
     urgent:                      #f38ba8;
 
-    bg-col:  #1e1e2e;
-    bg-col-light: #1e1e2e;
+    bg-col:  #11111b;
+    bg-col-light: #181825;
+    bg-col-lighter: #1e1e2e;
     border-col: #1e1e2e;
     selected-col: #1e1e2e;
     blue: #89b4fa;
@@ -42,7 +43,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       1000px;
+    width:                       500px;
     x-offset:                    0px;
     y-offset:                    0px;
 
@@ -61,25 +62,25 @@ mainbox {
     spacing:                     0px;
     background-color:            @bg-col;
     orientation:                 horizontal;
-    children:                    [ "imagebox", "listbox" ];
+    children:                    [  "listbox" ];
     border:                      3px;
     border-color:                @active;
 }
 
-imagebox {
-    padding:                     20px;
-    background-color:            transparent;
-    background-image:            url("~/.dotfiles/assets/wallpapers/collection/tokyo-street/TokyoStreet-Night-Blur.png", height);
-    orientation:                 vertical;
-    children:                    [ "inputbar", "dummy", "mode-switcher" ];
-}
+// sidebox {
+//     padding:                     20px;
+//     background-color:            transparent;
+//     // background-image:            url("~/.dotfiles/assets/wallpapers/collection/tokyo-street/TokyoStreet-Night-Blur.png", height);
+//     orientation:                 vertical;
+//     children:                    [  ];
+// }
 
 listbox {
     spacing:                     20px;
     padding:                     20px;
     background-color:            transparent;
     orientation:                 vertical;
-    children:                    [ "message", "listview" ];
+    children:                    [ "inputbar", "mode-switcher", "message", "listview" ];
 }
 
 dummy {
@@ -92,7 +93,7 @@ inputbar {
     spacing:                     10px;
     padding:                     15px;
     border-radius:               10px;
-    background-color:            @bg-col;
+    background-color:            @bg-col-light;
     text-color:                  @foreground;
     children:                    [ "textbox-prompt-colon", "entry", "prompt" ];
 }
@@ -125,13 +126,13 @@ entry {
 mode-switcher {
     enabled:                     true;
     spacing:                     20px;
-    background-color:            transparent;
+    background-color:            @bg-col;
     text-color:                  @foreground;
 }
 button {
-    padding:                     15px;
+    padding:                     10px;
     border-radius:               10px;
-    background-color:            @bg-col;
+    background-color:            @bg-col-lighter;
     text-color:                  inherit;
     cursor:                      pointer;
 }
@@ -144,7 +145,7 @@ button selected {
 listview {
     enabled:                     true;
     columns:                     1;
-    lines:                       8;
+    lines:                       6;
     cycle:                       true;
     dynamic:                     true;
     scrollbar:                   false;
@@ -153,8 +154,9 @@ listview {
     fixed-height:                true;
     fixed-columns:               true;
     
+    border-radius:               10px;
     spacing:                     10px;
-    background-color:            transparent;
+    background-color:            @bg-col-light;
     text-color:                  @foreground;
     cursor:                      "default";
 }
