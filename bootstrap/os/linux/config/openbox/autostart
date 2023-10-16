@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+# Kill all of these processes if running
+killall -9 polybar picom dunst lxpolkit
+
+# Tell programs that the WM is Openbox
+export XDG_CURRENT_DESKTOP=Openbox
+export XDG_SESSION_DESKTOP=Openbox
+export XDG_SESSION_TYPE=x11
+export DESKTOP_SESSION=Openbox
+
+# Compositor
+picom &
+
+# =======> Applications
+
+# Wallpaper
+nitrogen --restore &
+
+# Polkit Agent
+lxpolkit &
+
+# Notification Daemon
+dunst &
+
+# Bluetooth Utilities
+mpris-proxy &
+blueman-applet &
+blueman-tray &
+
+# NetworkManager Applet
+nm-applet &
+
+# Spotify Daemon
+spotifyd &
+
+# Music Player Daemon (MPD)
+mpd --stdout --verbose &
+
+# Dock
+plank &
+
+# XKB
+setxkbmap -layout "us" -option "ctrl:nocaps" &
