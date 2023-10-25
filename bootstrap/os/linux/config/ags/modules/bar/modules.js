@@ -120,6 +120,37 @@ function Clock() {
     return clock;
 }
 
+function Network() {
+    let hover = false;
+    let hoverRevealer = false;
+    const network = EventBox({
+        className: 'bar-network',
+        onHover: () => hover = true,
+        onHoverLost: () => hover = false,
+        child: Box({
+            children: [
+                Label({
+                    className: 'bn-icon',
+
+                }),
+                Revealer({
+                    transition: 'slide_right',
+                    'transition-duration': 350,
+                    child: EventBox({
+                        onHover: () => hoverRevealer = true,
+                        onHoverLost: () => hoverRevealer = false,
+                        child: Label({
+                            className: 'bn-essid',
+                            
+                        })
+                    })
+                })
+            ]
+        })
+    });
+    return network;
+}
+
 function VolumeInfo() {
     let hover = false;
     let hoverRevealer = false;

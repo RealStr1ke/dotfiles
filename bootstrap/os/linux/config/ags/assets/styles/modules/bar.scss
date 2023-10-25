@@ -18,11 +18,11 @@
         margin: 0px 4px;
         border-radius: 10px;
         padding: 0px 4px;
-    }
-
-    button:hover {
-        background-color: $mantle;
-        color: yellow;
+        
+        &:hover {
+            background-color: $red;
+            color: yellow;
+        }
     }
 
     button.bw-unoccupied {
