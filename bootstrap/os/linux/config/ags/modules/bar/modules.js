@@ -1,6 +1,5 @@
-const { Hyprland, Notifications, Mpris, Audio, Battery, SystemTray } = ags.Service;
-const { Widget } = ags;
-const { exec, execAsync } = ags.Utils;
+import { App, Utils, Widget, Hyprland, Notifications, Mpris, Audio, Battery, SystemTray } from '../utils/imports.js';
+const { exec, execAsync } = Utils;
 const { Box, Button, Label, Revealer, Icon, EventBox, Slider, ProgressBar } = Widget;
 
 
@@ -13,7 +12,7 @@ function Launcher() {
             onSecondaryClick: () => exec('bash -c "~/.config/rofi/launcher.sh run"'),
             child: Icon({
                 className: 'bl-icon',
-                icon: `${ags.App.configDir}/assets/images/hyprland-logo.png`,
+                icon: `${App.configDir}/assets/images/hyprland-logo.png`,
                 size: 28,
             }),
         }),
