@@ -29,11 +29,16 @@ function Right() {
         children: [
             BM.Notification(),
             BM.VolumeInfo(),
+            BM.NetworkInfo(),
             BM.BatteryInfo(),
             BM.Separator(),
             BM.Clock(),
             BM.Separator(),
+            // BM.SystemInfo(),
+            // BM.Separator(),
             BM.SysTray(),
+            BM.Separator(),
+            BM.PowerMenu(),
         ],
     });
     return right;

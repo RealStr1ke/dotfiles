@@ -1,6 +1,7 @@
-import { App, Utils, Widget, Hyprland, Notifications, Mpris, Audio, Battery, SystemTray } from '../utils/imports.js';
+import { App, Variable, Utils, Widget, Hyprland, Notifications, Network, Mpris, Audio, Battery, SystemTray } from '../utils/imports.js';
 const { exec, execAsync } = Utils;
-const { Box, Button, Label, Revealer, Icon, EventBox, Slider, ProgressBar } = Widget;
+const { Box, Button, Label, Revealer, Icon, EventBox, Slider, ProgressBar, CircularProgress } = Widget;
+
 
 
 function Launcher() {
@@ -72,6 +73,81 @@ function ClientTitle() {
     });
 }
 
+function SystemInfo() {
+    const divide = ([total, free]) => free / total;
+
+    const CPUVar = Variable(0, {
+        poll: [
+            2000, 
+            'top -b -n 1', 
+            out => {
+                divide([100, out.split('\n')
+                    .find(line => line.includes('Cpu(s)'))
+                    .split(/\s+/)[1]
+                    .replace(',', '.')])
+            }
+        ],
+    });
+
+    const RAMVar = Variable(0, {
+        poll: [
+            2000, 
+            'free', 
+            out => {
+                divide(out.split('\n')
+                    .find(line => line.includes('Mem:'))
+                    .split(/\s+/)
+                    .splice(1, 2))
+            }
+        ],
+    });
+
+    console.log(RAMVar)
+
+    const RAM = CircularProgress({
+        className: "bs-ram",
+        // thickness: 8,
+        binds: [['value', RAMVar]],
+        child: Button({
+            onClicked: "kitty --detach btm",
+            className: "bs-ram-icon",
+            child: Label("")
+        })
+    });
+
+    const CPU = CircularProgress({
+        className: "bs-cpu",
+        // thickness: 8,
+        binds: [['value', CPUVar]],
+        child: Button({
+            onClicked: "kitty --detach btm",
+            className: "bs-cpu-icon",
+            child: Label("")
+        })
+    });
+
+    const system = Box({
+        className: "bar-system",
+        children: [
+            CPU,
+            RAM
+        ]
+    });
+
+    return system;
+}
+
+function PowerMenu() {
+    const powermenu = Button({
+        onPrimaryClick: () => exec('bash -c "~/.config/wlogout/launch.sh"'),
+        child: Label({
+            className: 'bar-powermenu',
+            label: '',
+        }),
+    });
+    return powermenu;
+}
+
 function Clock() {
     let hover = false;
     let hoverRevealer = false;
@@ -84,7 +160,7 @@ function Clock() {
                 Label({
                     className: 'bc-clock',
                     connections: [[
-                        1000, // update every 1000ms
+                        1000, // update every second
                         label => execAsync(['date', '+%I:%M:%S %p'])
                             .then(date => label.label = date).catch(console.error)]]
                 }),
@@ -97,7 +173,7 @@ function Clock() {
                         child: Label({
                             className: 'bc-date',
                             connections: [[
-                                60000, // update every 60000ms
+                                1000, // update every 60000ms
                                 label => execAsync(['date', '+%A, %B %d, %Y (%V)'])
                                     .then(date => label.label = date).catch(console.error)]]
                         }),
@@ -120,7 +196,7 @@ function Clock() {
     return clock;
 }
 
-function Network() {
+function NetworkInfo() {
     let hover = false;
     let hoverRevealer = false;
     const network = EventBox({
@@ -131,22 +207,85 @@ function Network() {
             children: [
                 Label({
                     className: 'bn-icon',
-
+                    connections: [[
+                        Network,
+                        label => {
+                            let icon = '';
+                            if (Network.connectivity == "unknown" || Network.connectivity == "none") {
+                                icon = "󰤭"
+                            } else if (Network.wifi) {
+                                if (Network.wifi.internet === "connected") {
+                                    const wifiStrength = Network.wifi.strength; // 0 - 100
+                                    if (wifiStrength >= 100) {
+                                        icon = "󰤩";
+                                    } else if (wifiStrength > 75) {
+                                        icon = "󰤥";
+                                    } else if (wifiStrength > 50) {
+                                        icon = "󰤢";
+                                    } else if (wifiStrength > 25) {
+                                        icon = "󰤟";
+                                    } else {
+                                        icon = "󰤯";
+                                    }
+                                } else if (Network.wifi.internet === "connecting") {
+                                    icon = "";
+                                } else if (Network.wifi.internet === "disconnected") {
+                                    icon = "󰤭";
+                                }
+                            } else if (Network.wired) {
+                                icon = "󰈀";
+                            }
+                            label.label = icon;
+                        }
+                    ]]
                 }),
                 Revealer({
-                    transition: 'slide_right',
+                    transition: 'slide_left',
                     'transition-duration': 350,
                     child: EventBox({
                         onHover: () => hoverRevealer = true,
                         onHoverLost: () => hoverRevealer = false,
                         child: Label({
-                            className: 'bn-essid',
-                            
-                        })
-                    })
+                            className: 'bn-text',
+                            connections: [[
+                                Network,
+                                label => {
+                                    let text = "";
+                                    if (Network.connectivity === "unknown") {
+                                        text = "Unknown"
+                                    } else if (Network.connectivity === "none") {
+                                        text = "Not Connected"
+                                    } else if (Network.wifi) {
+                                        if (Network.wifi.internet === "disconnected") {
+                                            text = "Disconnected"
+                                        } else if (Network.wifi.internet === "connecting") {
+                                            text = "Connecting"
+                                        } else if (Network.wifi.internet === "connected") {
+                                            text = Network.wifi.ssid;
+                                        }
+                                    } else if (Network.wired) {
+                                        text = "Wired"
+                                    }
+                                    // console.log(text)
+                                    label.label = text;
+                                },
+                            ]]
+                        }),
+                    }),
+                    connections: [[
+                        100, // update every 100ms
+                        (revealer) => {
+                            // exec(`notify-send ${revealer.reveal_child}`);
+                            if (hover || hoverRevealer) {
+                                revealer.reveal_child = true;
+                            } else {
+                                revealer.reveal_child = false;
+                            }
+                        }
+                    ]]
                 })
             ]
-        })
+        }),
     });
     return network;
 }
@@ -328,6 +467,7 @@ function Media() {
         onScrollUp: () => Mpris.getPlayer('')?.next(),
         onScrollDown: () => Mpris.getPlayer('')?.previous(),
         child: Label({
+            className: 'bm-title',
             connections: [[Mpris, label => {
                 const mpris = Mpris.getPlayer('');
                 // console.log(mpris);
@@ -373,7 +513,10 @@ export default {
     Clock,
     VolumeInfo,
     BatteryInfo,
+    NetworkInfo,
+    PowerMenu,
     Notification,
+    SystemInfo,
     Gap,
     Separator,
     Media,

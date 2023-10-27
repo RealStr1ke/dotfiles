@@ -6,7 +6,7 @@
 
 .bar-workspaces {
     margin: 4px 12px 4px 0px;
-    background-color: $crust;
+    background-color: $mantle;
     padding: 1px 2px;
     border-radius: 8px;
 
@@ -18,24 +18,24 @@
         margin: 0px 4px;
         border-radius: 10px;
         padding: 0px 4px;
-        
-        &:hover {
-            background-color: $red;
-            color: yellow;
-        }
-    }
 
-    button.bw-unoccupied {
-        color: $overlay1;
-    }
-    button.bw-occupied {
-        color: $lavender;
-    }
-    button.bw-focused {
-        color: $mauve;
-        // padding: 0px 4px;
-        // border: 2px solid $mauve;
-        // border-radius: 5px;
+        &:hover {
+            background-color: $surface0;
+            // color: $red;
+        }
+
+        &.bw-unoccupied {
+            color: $overlay1;
+        }
+        &.bw-occupied {
+            color: $lavender;
+        }
+        &.bw-focused {
+            color: $mauve;
+            // padding: 0px 4px;
+            // border: 2px solid $mauve;
+            // border-radius: 5px;
+        }
     }
 }
 
@@ -78,7 +78,7 @@ progress, highlight {
 }
 
 .bar-systray {
-    margin: 3px 10px;
+    margin: 3px 5px;
     background-color: $mantle;
     border-radius: 10px;
     button {
@@ -96,6 +96,7 @@ progress, highlight {
     // padding: 0px 8px;
     label {
         font-size: 24px;
+        color: $overlay0;
     }
 }
 
@@ -113,11 +114,16 @@ progress, highlight {
 .bar-media:hover {
     background-color: $mantle;
 }
+.bm-title {
+    color: $text;
+    font-size: 18px;
+    margin: 0px 6px;
+}
 
 // .bar-volume {
 // }
 .bv-icon {
-    margin: 0px 10px;
+    margin: 0px 12px;
     font-size: 28px;
     color: $text;
 }
@@ -133,7 +139,41 @@ progress, highlight {
 // .bar-battery {
 // }
 .bb-icon {
-    margin: 0px 10px;
+    margin: 0px 12px;
     font-size: 28px;
     color: $text;
+}
+
+.bn-icon {
+    margin: 0px 10px;
+    font-size: 26px;
+    color: $text;
+}
+.bn-text {
+    color: $text;
+    font-weight: bolder;
+    font-size: 22px;
+    padding: 0px 6px 0px 6px;
+}
+
+.bar-powermenu {
+    color: $red;
+    font-size: 24px;
+    margin-right: 20px;
+}
+
+.bar-system {
+    // background-color: $red;
+}
+.bs-ram {
+    color: $red;
+    background-color: $base;
+    border-radius: 10px;
+    padding: 0px 4px;
+}
+.bs-cpu {
+    color: $lavender;
+    background-color: $base;
+    border-radius: 10px;
+    padding: 0px 4px;
 }
