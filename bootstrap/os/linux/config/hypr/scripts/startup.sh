@@ -18,8 +18,12 @@ copyq &
 # Discord
 discord --start-minimized &
 
-# Mail Client (mailspring)
+# Bitwarden Desktop
+bitwarden-desktop &
+
+# Mail Client
 # mailspring --background &
+thunderbird -mail &
 
 
 # ================================

@@ -13,7 +13,7 @@ if [ "$color" != "" ]; then
     if ping -c 1 -W 1 thecolorapi.com; then
         color_name=$(curl -s "http://www.thecolorapi.com/id?hex=$color" | jq -r '.name.value')
     else
-        color_name="Unknown"
+        color_name="$color"
     fi
     
     # Make temporary image in /tmp with the color
