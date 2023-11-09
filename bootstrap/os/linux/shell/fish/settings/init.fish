@@ -20,6 +20,11 @@ if is-executable spt
     spt --completions fish | source
 end
 
+# Atuin
+if is-executable atuin
+    atuin init fish | source
+end
+
 # FNM
 # if is-executable fnm
 # 	fnm env 2> /dev/null
