@@ -37,7 +37,7 @@ function cmc -d "Compile and run C/C++ program with clang++"
     # Run the executable file
     echo "==== START PROGRAM ===="
     echo ""
-    "~/.local/tmp/$filename"
+    ~/.local/tmp/$filename
     echo ""
     echo "==== END PROGRAM ===="
 
@@ -60,6 +60,11 @@ function pwdn
     echo (basename (pwd))
 end
 
+# Create a directory and enter it
+function mkd
+  	mkdir -p "$argv[1]" && cd "$_";
+end
+
 # TODO: Create a zip file recursively from a given directory
 
-#
+
