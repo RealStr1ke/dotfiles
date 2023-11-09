@@ -16,14 +16,14 @@ ags &
 copyq &
 
 # Discord
-discord --start-minimized &
+# discord --start-minimized &
 
 # Bitwarden Desktop
-bitwarden-desktop &
+# bitwarden-desktop &
 
 # Mail Client
 # mailspring --background &
-thunderbird -mail &
+# thunderbird -mail &
 
 
 # ================================
@@ -34,6 +34,9 @@ thunderbird -mail &
 # /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 # /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 lxpolkit &
+
+# XWayland to Wayland Video Bridge
+xwaylandvideobridge &
 
 # Bluetooth Utilities
 # /usr/lib/bluetooth/mpris-proxy &
