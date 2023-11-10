@@ -16,4 +16,4 @@ bash -c "`curl -fsSL https://raw.githubusercontent.com/RealStr1ke/dotfiles/maste
 ## Information
 **COMING SOON**
 
-# [TO-DO](TODO.md)
+## [TO-DO](TODO.md)
