@@ -19,7 +19,7 @@ Utils.subprocess([
 // Main Export
 export default {
     windows: [
-        Bar(    { monitor: 0 }),
-        // Bar({ monitor: 1 })
+        // Bar({ monitor: 0 }),
+        Bar({ monitor: 1 })
     ],
 };
