@@ -19,7 +19,7 @@ dashboard.section.buttons.val = {
     dashboard.button("r", " " .. " Recent files", ":Telescope oldfiles <CR>"),
     dashboard.button("t", " " .. " Find text", ":Telescope live_grep <CR>"),
     dashboard.button("b", " " .. " Bookmarks", ":Telescope marks <CR>"),
-    dashboard.button("s", " " .. " Themes", ":Telescope themes <CR>"),
+    dashboard.button("s", " " .. " Themes", ":Telescope colorscheme <CR>"),
     dashboard.button("c", " " .. " Config", ":e ~/.dotfiles/config/nvim"),
     dashboard.button("q", " " .. " Quit", ":qa<CR>"),
 }
