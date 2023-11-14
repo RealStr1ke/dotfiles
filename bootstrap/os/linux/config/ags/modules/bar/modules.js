@@ -323,8 +323,8 @@ function VolumeInfo() {
                         onHover: () => hoverRevealer = true,
                         onHoverLost: () => hoverRevealer = false,
                         child: Box({
-                            className: 'bv-slider',
-                            style: 'min-width: 180px',
+                            // className: 'bv-slider',
+                            // css: 'min-width: 180px',
                             child: Slider({
                                 // className: 'bv-slider',
                                 hexpand: true,
@@ -390,9 +390,9 @@ function BatteryInfo() {
                         onHoverLost: () => hoverRevealer = false,
                         child: Box({
                             className: 'bb-slider',
-                            style: 'min-width: 180px',
+                            // css: 'min-width: 180px',
                             child: ProgressBar({
-                                valign: 'center',
+                                vpack: 'center',
                                 connections: [[Battery, progress => {
                                     if (Battery.percent < 0)
                                         return;

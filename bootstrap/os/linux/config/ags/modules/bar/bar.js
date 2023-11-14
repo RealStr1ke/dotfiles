@@ -28,7 +28,7 @@ function Right() {
         halign: 'end',
         children: [
             BM.Notification(),
-            BM.VolumeInfo(),
+            // BM.VolumeInfo(),
             BM.NetworkInfo(),
             BM.BatteryInfo(),
             BM.Separator(),
