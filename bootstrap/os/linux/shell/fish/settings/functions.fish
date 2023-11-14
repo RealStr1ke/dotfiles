@@ -50,21 +50,23 @@ end
 # TODO: Color table
 
 # Markdown
-function md
+function md -d "Pretty print Markdown (.md) files"
     # pandoc $argv[1] | lynx -stdin -dump
     glow $argv[1]
 end
 
 # Print current directory name
-function pwdn
+function pwdn -d "Print the current directory's name"
     echo (basename (pwd))
 end
 
 # Create a directory and enter it
-function mkd
-  	mkdir -p "$argv[1]" && cd "$_";
+function mkd -d "Create a directory and enter it"
+  	mkdir -p "$argv[1]" && cd "$argv[1]";
 end
 
-# TODO: Create a zip file recursively from a given directory
-
+# Create a zip file recursively from a given directory
+function zipr -d "Create a zip file recursively from a given directory"
+    zip -r "$argv[1].zip" "$argv[1]"
+end
 
