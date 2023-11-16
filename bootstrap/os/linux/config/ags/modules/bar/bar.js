@@ -25,10 +25,10 @@ function Center() {
 
 function Right() {
     const right = Box({
-        halign: 'end',
+        hpack: 'end',
         children: [
             BM.Notification(),
-            // BM.VolumeInfo(),
+            BM.VolumeInfo(),
             BM.NetworkInfo(),
             BM.BatteryInfo(),
             BM.Separator(),

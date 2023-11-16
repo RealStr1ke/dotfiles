@@ -131,7 +131,21 @@ progress, highlight {
     scale {
         margin: 0px 8px;
         contents {
-            margin: 0px 10px;
+            trough {
+                slider {
+                    background-color: $mantle;
+                    box-shadow: 0 0 0 2.5px $text;
+                    &:hover {
+                        background-color: $surface2;
+                    }
+                }
+                highlight {
+                    background-color: $mauve;
+                }
+                background-color: $surface0;
+                border-radius: 10px;
+            }
+            margin: 0px 4px;
         }
     }
 }
@@ -143,6 +157,17 @@ progress, highlight {
     font-size: 28px;
     color: $text;
 }
+.bb-progress {
+    margin: 0px 8px;
+    trough {
+        highlight {
+            background-color: $mauve;
+        }
+        background-color: $surface0;
+        border-radius: 10px;
+        padding: 2px 0px;
+    }
+}
 
 .bn-icon {
     margin: 0px 10px;
@@ -152,7 +177,7 @@ progress, highlight {
 .bn-text {
     color: $text;
     font-weight: bolder;
-    font-size: 22px;
+    font-size: 18px;
     padding: 0px 6px 0px 6px;
 }
 
@@ -162,9 +187,9 @@ progress, highlight {
     margin-right: 20px;
 }
 
-.bar-system {
-    // background-color: $red;
-}
+// .bar-system {
+//     background-color: $red;
+// }
 .bs-ram {
     color: $red;
     background-color: $base;
