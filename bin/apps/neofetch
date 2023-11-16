@@ -2,5 +2,5 @@
 
 # This script runs neofetch without the QT_QPA_PLATFORMTHEME env var set.
 unset QT_QPA_PLATFORMTHEME
-neofetch
+/usr/bin/neofetch
 export QT_QPA_PLATFORMTHEME=qt5ct
