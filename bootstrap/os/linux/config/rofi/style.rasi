@@ -17,7 +17,7 @@ configuration {
 
 /*****----- Global Properties -----*****/
 * {
-    font:                        "Caskaydia Cove Nerd Font 10";
+    font:                        "CaskaydiaCove NF 10";
     background:                  @bg-col;
     background-alt:              @bg-col-light;
     foreground:                  @fg-col;

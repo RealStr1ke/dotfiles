@@ -53,7 +53,7 @@ swaylock -f \
     --color ${base}E6 \
     \
     `# Backspace Key` \
-    --font 'Caskaydia Cove Nerd Font' \
+    --font 'CaskaydiaCove NF' \
     --font-size 46 \
     \
 	--key-hl-color ${mauve} \

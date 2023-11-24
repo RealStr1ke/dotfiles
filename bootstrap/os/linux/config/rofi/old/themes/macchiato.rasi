@@ -9,7 +9,7 @@
     grey: #6e738d;
 
     width: 600;
-/*  font: "Caskaydia Cove Nerd Font 14"; */
+/*  font: "CaskaydiaCove NF 14"; */
 }
 
 element-text, element-icon , mode-switcher {

@@ -6,7 +6,7 @@
 
 THEME='Catppuccin-Mocha-Standard-Mauve-Dark'
 ICONS='Yaru-Lavender'
-FONT='Caskaydia Cove Nerd Font'
+FONT='CaskaydiaCove NF'
 CURSOR='BreezeX-Dark'
 
 SCHEMA='gsettings set org.gnome.desktop.interface'

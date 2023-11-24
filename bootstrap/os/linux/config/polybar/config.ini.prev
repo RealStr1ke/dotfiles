@@ -57,9 +57,9 @@ enable-ipc = true
 background = ${colors.bg}
 foreground = ${colors.fg}
 
-font-0 = "Caskaydia Cove Nerd Font:style=Regular:size=10;2"
-font-1 = "Caskaydia Cove Nerd Font:style=Bold:size=10;2"
-font-2 = "Caskaydia Cove Nerd Font:size=19;5"
+font-0 = "CaskaydiaCove NF:style=Regular:size=10;2"
+font-1 = "CaskaydiaCove NF:style=Bold:size=10;2"
+font-2 = "CaskaydiaCove NF:size=19;5"
 font-3 = "Material Icons Outlined:9;4"
 font-4 = "Material Icons Round:9;4"
 font-5 = "Source Han Sans CN:size=9;2"

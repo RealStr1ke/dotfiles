@@ -3,7 +3,7 @@ local g = vim.g
 local M = {}
 
 function M.defaults()
-    vim.opt.guifont = "Caskaydia Cove NF:h17" -- the font used in graphical neovim applications
+    vim.opt.guifont = "CaskaydiaCove NF:h17" -- the font used in graphical neovim applications
 end
 
 function M.tokyonight()

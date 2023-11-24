@@ -21,9 +21,9 @@ border-color = #00000000
 padding-left = 1
 padding-right = 2
 
-font-0 = "Caskaydia Cove Nerd Font Mono:size=22;1"
-font-1 = "Caskaydia Cove Nerd Font Mono:style=Regular:size=25;4"
-font-2 = "Caskaydia Cove Nerd Font Mono:style=Regular:size=14;3"
+font-0 = "CaskaydiaCove NF Mono:size=22;1"
+font-1 = "CaskaydiaCove NF Mono:style=Regular:size=25;4"
+font-2 = "CaskaydiaCove NF Mono:style=Regular:size=14;3"
 font-3 = Weather Icons:size=12;1
 modules-left = launcher sep reddit twitter dis yt insta
 modules-center = scroll
@@ -49,9 +49,9 @@ padding-right = 2
 
 offset-x = 375
 
-font-0 = "Caskaydia Cove Nerd Font Mono:size=10;1"
-font-1 = "Caskaydia Cove Nerd Font Mono:style=Regular:size=25;4"
-font-2 = "Caskaydia Cove Nerd Font Mono:style=Regular:size=14;3"
+font-0 = "CaskaydiaCove NF Mono:size=10;1"
+font-1 = "CaskaydiaCove NF Mono:style=Regular:size=25;4"
+font-2 = "CaskaydiaCove NF Mono:style=Regular:size=14;3"
 font-3 = Weather Icons:size=12;1
 modules-left = temp cpu memused memfree uptime sep bspwm
 ;modules-center = scroll
@@ -79,9 +79,9 @@ offset-x = 1000
 tray-position = left
 tray-padding = 1
 
-font-0 = "Caskaydia Cove Nerd Font Mono:size=10;1"
-font-1 = "Caskaydia Cove Nerd Font Mono:style=Regular:size=25;4"
-font-2 = "Caskaydia Cove Nerd Font Mono:style=Regular:size=14;3"
+font-0 = "CaskaydiaCove NF Mono:size=10;1"
+font-1 = "CaskaydiaCove NF Mono:style=Regular:size=25;4"
+font-2 = "CaskaydiaCove NF Mono:style=Regular:size=14;3"
 font-3 = Weather Icons:size=12;1
 modules-right = pulc sep wlan sep date
 ;modules-center = scroll

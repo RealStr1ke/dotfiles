@@ -3,7 +3,7 @@
 configuration {
     modi: "drun,run,window,ssh";
 
-    font: "Caskaydia Cove Nerd Font 12";
+    font: "CaskaydiaCove NF 12";
 
     icon-theme: "Papirus-Dark";
     show-icons: true;
