@@ -470,19 +470,25 @@ function Media() {
             className: 'bm-title',
             connections: [[Mpris, label => {
                 const mpris = Mpris.getPlayer('');
+                let text = "";
                 // console.log(mpris);
                 // mpris player can be undefined
                 if (mpris) {
-                    // If the artist is unknown, then just show the title
+                    // If there is both a list of artists and
+
+                    // // If the artist is unknown, then just show the title
                     if (mpris.trackArtists[0] === 'Unknown artist' || mpris.trackArtists[0] === "") {
-                        label.label = `${mpris.trackTitle}`;
+                        text = `${mpris.trackTitle}`;
                     // If the artist and title exist, then show both
                     } else if (mpris.trackTitle !== "") {
-                        label.label = `${mpris.trackArtists.join(', ')} - ${mpris.trackTitle}`;
+                        text = `${mpris.trackArtists.join(', ')} - ${mpris.trackTitle}`;
                     }
                 } else {
-                    label.label = '';
+                    text = '';
                 }
+
+                // If text has more than 40 characters, add ellipses to the end of those 40 chars and omit the rest
+                label.label = text.length > 40 ? text.substring(0, 40) + '...' : text;
             }]]
         })
     });

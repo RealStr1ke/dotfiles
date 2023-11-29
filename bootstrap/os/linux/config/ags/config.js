@@ -8,6 +8,10 @@ import Bar from "./modules/bar/bar.js"
 import SCSS from "./modules/utils/scss.js";
 SCSS();
 
+// Kill all other notification daemons
+import { killOtherNotifDaemons } from "./modules/utils/utils.js";
+killOtherNotifDaemons();
+
 // SCSS Watcher
 Utils.subprocess([
     'inotifywait',
