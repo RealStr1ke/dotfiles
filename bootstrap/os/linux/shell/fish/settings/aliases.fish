@@ -99,7 +99,7 @@ alias paruu="paru --needed --noconfirm -Syu"
 
 
 # Docker
-alias docker="sudo docker"
+# alias docker="sudo docker"
 
 
 # ----------------------------
