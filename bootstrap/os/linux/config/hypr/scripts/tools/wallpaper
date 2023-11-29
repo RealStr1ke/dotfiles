@@ -12,7 +12,7 @@ function setWallpaper() {
     # --transition-type => simple | fade | left | right | top | bottom | wipe | grow | center | outer | random | wave
     swww img "$1" \
         --transition-type grow \
-        --transition-fps 255 \
+        --transition-fps 60 \
         --transition-duration 10 \
         --transition-step 255 \
         # --transition-bezier 0.32,0.0,0.67,0.0 # easeInCubic
