@@ -2,6 +2,7 @@
 import { App, Utils } from './modules/utils/imports.js';
 
 // Modules
+import AppLauncher from "./modules/applauncher/applauncher.js";
 import Bar from "./modules/bar/bar.js"
 
 // SCSS Setup
@@ -23,7 +24,8 @@ Utils.subprocess([
 // Main Export
 export default {
     windows: [
-        // Bar({ monitor: 0 }),
-        Bar({ monitor: 1 })
+        Bar({ monitor: 0 }),
+        AppLauncher(),
+        // Bar({ monitor: 1 })
     ],
 };
