@@ -506,7 +506,7 @@ function Media() {
                 const mpris = Mpris.getPlayer('');
                 if (mpris) {
                     box['tooltip-text'] = `Playing on ${mpris._identity}`;
-                    console.log(box['tooltip-text']);
+                    // console.log(box['tooltip-text']);
                 }
             }]]
         }),
