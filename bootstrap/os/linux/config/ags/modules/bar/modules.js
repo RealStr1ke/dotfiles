@@ -466,31 +466,50 @@ function Media() {
         onPrimaryClick: () => Mpris.getPlayer('')?.playPause(),
         onScrollUp: () => Mpris.getPlayer('')?.next(),
         onScrollDown: () => Mpris.getPlayer('')?.previous(),
-        child: Label({
-            className: 'bm-title',
-            connections: [[Mpris, label => {
+        child: Box({
+            children: [
+                Icon({
+                    className: 'bm-icon',
+                    size: 28,
+                    connections: [
+                        [Mpris, icon => {
+                            const mpris = Mpris.getPlayer('');
+                            execAsync('echo $USER').then(user => {
+                                if (mpris) {
+                                    icon.icon = mpris._coverPath;
+                                } else {
+                                    icon.icon = `/home/${user}/.config/ags/assets/images/music.svg`;
+                                }
+                            });
+                        }]
+                    ]
+                }),
+                Label({
+                    className: 'bm-title',
+                    connections: [[Mpris, label => {
+                        const mpris = Mpris.getPlayer('');
+                        let text = "";
+                        if (mpris) {
+                            if (mpris.trackArtists[0] === 'Unknown artist' || mpris.trackArtists[0] === "") {
+                                text = `${mpris.trackTitle}`;
+                            } else if (mpris.trackTitle !== "") {
+                                text = `${mpris.trackArtists.join(', ')} - ${mpris.trackTitle}`;
+                            }
+                        } else {
+                            text = '';
+                        }
+                        label.label = text.length > 30 ? text.substring(0, 30) + '...' : text;
+                    }]]
+                }),
+            ],
+            connections: [[Mpris, box => {
                 const mpris = Mpris.getPlayer('');
-                let text = "";
-                // console.log(mpris);
-                // mpris player can be undefined
                 if (mpris) {
-                    // If there is both a list of artists and
-
-                    // // If the artist is unknown, then just show the title
-                    if (mpris.trackArtists[0] === 'Unknown artist' || mpris.trackArtists[0] === "") {
-                        text = `${mpris.trackTitle}`;
-                    // If the artist and title exist, then show both
-                    } else if (mpris.trackTitle !== "") {
-                        text = `${mpris.trackArtists.join(', ')} - ${mpris.trackTitle}`;
-                    }
-                } else {
-                    text = '';
+                    box['tooltip-text'] = `Playing on ${mpris._identity}`;
+                    console.log(box['tooltip-text']);
                 }
-
-                // If text has more than 40 characters, add ellipses to the end of those 40 chars and omit the rest
-                label.label = text.length > 40 ? text.substring(0, 40) + '...' : text;
             }]]
-        })
+        }),
     });
 }
 
