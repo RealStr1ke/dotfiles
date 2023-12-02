@@ -470,7 +470,7 @@ function Media() {
             children: [
                 Icon({
                     className: 'bm-icon',
-                    size: 28,
+                    size: 26,
                     connections: [
                         [Mpris, icon => {
                             const mpris = Mpris.getPlayer('');
