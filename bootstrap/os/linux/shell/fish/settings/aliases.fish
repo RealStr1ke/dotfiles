@@ -67,6 +67,9 @@ alias ncd="npm-check -su"
 # bat
 # alias bat="\bat --theme=GitHub"
 
+# Hyprland
+alias hyprexec="hyprctl dispatch exec"+
+
 # cat
 alias cat="cat -s"
 
