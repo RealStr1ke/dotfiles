@@ -20,8 +20,9 @@
 .bar-workspaces {
     margin: 4px 12px 4px 0px;
     background-color: $mantle;
-    padding: 1px 2px;
+    padding: 0px 2px;
     border-radius: 8px;
+    border: 1.5px solid $surface0;
 
     button {
         background-color: transparent;
@@ -49,7 +50,7 @@
             color: $mauve;
             font-weight: bolder;
             background-color: $surface0;
-            border: 2px solid $mauve;
+            border: 1.5px solid $mauve;
             border-radius: 5px;
         }
     }
@@ -61,24 +62,34 @@
     padding: 0px 6px;
     color: $text;
     background-color: $base;
+    border: 1.5px solid $surface0;
     font-size: 16px;
     font-weight: bolder;
 }
-.bar-notification {
+
+// .bar-notification {
+// }
+// .bnf-icon {
+//     margin: 0px 5px 0px 4px;
+// }
+.bnf-button {
     background-color: $base;
     border-radius: 8px;
     margin: 4px 4px;
     padding: 0px 4px;
+    border: 1.5px solid $surface0;
+    font-size: 12px;
     &:hover {
-        background-color: $base;
+        background-color: $surface0;
     }
-}
-
-.bnf-icon {
-    // margin: 0px 5px 0px 4px;
 }
 .bnf-label {
     margin: 0px 4px;
+}
+.bnf-notif-critical {
+    border: 2px solid $red;
+    padding: 0px 6px;
+    border-radius: 8px;
 }
 
 .bar-battery progressbar {
@@ -110,6 +121,7 @@
     font-size: 16px;
     color: $text;
     border-radius: 10px;
+    border: 1.5px solid $surface0;
     &:hover {
         background-color: $surface0;
     }
@@ -124,6 +136,7 @@ progress, highlight {
 .bar-systray {
     margin: 4px 5px;
     background-color: $mantle;
+    border: 1.5px solid $surface1;
     border-radius: 10px;
     button {
         margin: 0px;
@@ -148,9 +161,10 @@ progress, highlight {
     background-color: $base;
     border-radius: 8px;
     margin: 4px;
+    border: 1.5px solid $surface0;
     // padding: 0px 5px 0px 0px;
     &:hover {
-        background-color: $base;
+        background-color: $surface0;
     }
 }
 .bm-title {

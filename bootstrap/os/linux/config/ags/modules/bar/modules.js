@@ -23,9 +23,9 @@ function Workspaces() {
     const arabic = ["١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
     const greek = ["α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι"];
     const dots = ["●", "●", "●", "●", "●", "●", "●", "●", "●"];
-    const iconSets = [ japanese, arabic, greek, dots ];
-    // const icons = iconSets[Math.floor(Math.random() * iconSets.length)];
-    const icons = iconSets[3];
+    const iconSets = [ arabic, greek, dots ];
+    const icons = iconSets[Math.floor(Math.random() * iconSets.length)];
+    // const icons = iconSets[2];
     return Box({
         className: 'bar-workspaces',
         connections: [[Hyprland, box => {
@@ -465,9 +465,8 @@ function Notification() {
                     transition: 'slide_right',
                     'transition-duration': 350,
                     child: Label({
-                        className: 'bnf-label',
                         connections: [[Notifications, label => {
-                            label.label = Notifications.popups[0]?.summary || '';
+                            label.label = Notifications.popups[Notifications.popups.length - 1]?.summary || '';
                         }]],
                     }),
                     connections: [[
@@ -496,8 +495,15 @@ function Notification() {
                             }],
                     ],
                 }),
-            ]
-        })
+            ],
+            connections: [[
+                Notifications,
+                box => {
+                    if (Notifications.popups[Notifications.popups.length - 1]?.urgency === "critical") box.toggleClassName('bnf-notif-critical', true);
+                    else box.toggleClassName('bnf-notif-critical', false);
+                }
+            ]]
+        }),
     });
 }
 
