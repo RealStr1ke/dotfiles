@@ -1,7 +1,20 @@
 .bar { 
-    margin: 10px 20px 0px 20px;
+    // margin: 10px 20px 0px 20px;
     background-color: $crust;
-    border-radius: 12px;
+    // border-radius: 12px;
+}
+
+.bar-launcher {
+    // background-color: red;
+    button {
+        padding: 6px;
+        margin: 4px 0px 6px 10px;
+        border-radius: 20px;
+        // padding: 2px;
+        &:hover {
+            background-color: $base;
+        }
+    }
 }
 
 .bar-workspaces {
@@ -12,37 +25,44 @@
 
     button {
         background-color: transparent;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: bolder;
         color: $overlay1;
-        margin: 0px 4px;
+        margin: 0px 1px;
         border-radius: 10px;
         padding: 0px 4px;
+        // transition: 200ms;
 
         &:hover {
             background-color: $surface0;
-            // color: $red;
         }
 
         &.bw-unoccupied {
             color: $overlay1;
+            padding: 0px 4px;
         }
         &.bw-occupied {
             color: $lavender;
+            padding: 0px 4px;
         }
         &.bw-focused {
             color: $mauve;
-            // padding: 0px 4px;
-            // border: 2px solid $mauve;
-            // border-radius: 5px;
+            font-weight: bolder;
+            background-color: $surface0;
+            border: 2px solid $mauve;
+            border-radius: 5px;
         }
     }
 }
 
 .bar-title {
-    margin-left: 1em;
+    margin: 4px;
+    border-radius: 10px;
+    padding: 0px 6px;
     color: $text;
-    font-size: 22px;
+    background-color: $base;
+    font-size: 16px;
+    font-weight: bolder;
 }
 
 .bar-notification image {
@@ -55,20 +75,33 @@
     border-radius: 5px;
 }
 
-.bar-clock {
+.bar-clock-revealer {
     margin: 0px 6px;
-    font-size: 24px;
+    font-size: 19px;
 }
-.bc-clock {
+.bcr-clock {
     color: $text;
     font-weight: bold;
     padding: 0px 6px 0px 4px;
+    font-size: 24px;
 }
-.bc-date {
+.bcr-date {
     color: $text;
     font-weight: normal;
     font-size: 22px;
     padding: 0px 6px 0px 6px;
+}
+
+.bar-clock-button {
+    background-color: $base;
+    margin: 4px;
+    padding: 0px 6px;
+    font-size: 16px;
+    color: $text;
+    border-radius: 10px;
+    &:hover {
+        background-color: $surface0;
+    }
 }
 
 progress, highlight {
@@ -78,12 +111,12 @@ progress, highlight {
 }
 
 .bar-systray {
-    margin: 3px 5px;
+    margin: 4px 5px;
     background-color: $mantle;
     border-radius: 10px;
     button {
         margin: 0px;
-        padding: 5px;
+        padding: 4px;
         border-radius: 10px;
     }
     button:hover {
@@ -95,39 +128,34 @@ progress, highlight {
     margin: 3px;
     // padding: 0px 8px;
     label {
-        font-size: 24px;
+        font-size: 14px; 
         color: $overlay0;
     }
 }
 
-.bl-icon {
-    margin-left: 16px;
-    font-size: 50px;
-}
-
 .bar-media {
-    background-color: $crust;
+    background-color: $base;
     border-radius: 8px;
     margin: 5px;
     padding: 5px;
-}
-.bar-media:hover {
-    background-color: $mantle;
+    &:hover {
+        background-color: $base;
+    }
 }
 .bm-title {
     color: $text;
-    font-size: 18px;
-    margin: 0px 6px;
+    font-size: 14px;
+    margin: 0px 6px 0px 0px;
 }
 .bm-icon {
-    margin: 0px 6px 0px 0px;
+    margin: 0px 4px;
 }
 
 // .bar-volume {
 // }
 .bv-icon {
     margin: 0px 12px;
-    font-size: 28px;
+    font-size: 22px;
     color: $text;
 }
 .bv-slider {
@@ -157,7 +185,7 @@ progress, highlight {
 // }
 .bb-icon {
     margin: 0px 12px;
-    font-size: 28px;
+    font-size: 20px;
     color: $text;
 }
 .bb-progress {
@@ -173,21 +201,21 @@ progress, highlight {
 }
 
 .bn-icon {
-    margin: 0px 10px;
-    font-size: 26px;
+    margin: 0px 10px 0px 6px;
+    font-size: 20px;
     color: $text;
 }
 .bn-text {
     color: $text;
     font-weight: bolder;
-    font-size: 18px;
+    font-size: 16px;
     padding: 0px 6px 0px 6px;
 }
 
 .bar-powermenu {
     color: $red;
-    font-size: 24px;
-    margin-right: 20px;
+    font-size: 18px;
+    margin: 0px 16px 0px 8px;
 }
 
 // .bar-system {

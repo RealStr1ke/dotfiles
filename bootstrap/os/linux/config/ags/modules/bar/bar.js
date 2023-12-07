@@ -6,9 +6,9 @@ function Left() {
     const left = Box({
         children: [
             BM.Launcher(),
-            BM.Separator(),
+            BM.Separator("|"),
             BM.Workspaces(),
-            BM.Media(),
+            BM.ClientTitle(),
         ],
     });
     return left;
@@ -17,7 +17,11 @@ function Left() {
 function Center() {
     const center = Box({
         children: [
-            BM.ClientTitle(),
+            // BM.Notification(),
+            // BM.Separator(),
+            BM.Clock('button'),
+            BM.Separator(),
+            BM.Media(),
         ],
     });
     return center;
@@ -27,12 +31,9 @@ function Right() {
     const right = Box({
         hpack: 'end',
         children: [
-            BM.Notification(),
             BM.VolumeInfo(),
             BM.NetworkInfo(),
             BM.BatteryInfo(),
-            BM.Separator(),
-            BM.Clock(),
             BM.Separator(),
             // BM.SystemInfo(),
             // BM.Separator(),

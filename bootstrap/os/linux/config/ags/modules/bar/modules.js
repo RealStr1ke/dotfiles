@@ -1,34 +1,37 @@
 import { App, Variable, Utils, Widget, Hyprland, Notifications, Network, Mpris, Audio, Battery, SystemTray } from '../utils/imports.js';
 const { exec, execAsync } = Utils;
 const { Box, Button, Label, Revealer, Icon, EventBox, Slider, ProgressBar, CircularProgress } = Widget;
-
-
+import settings from '../settings.js'
 
 function Launcher() {
     return Box({
-        // className: 'bar-launcher',
+        className: 'bar-launcher',
         orientation: 'h',
         child: Button({
             onPrimaryClick: () => exec('bash -c "~/.config/rofi/launcher.sh drun"'),
             onSecondaryClick: () => exec('bash -c "~/.config/rofi/launcher.sh run"'),
             child: Icon({
-                className: 'bl-icon',
                 icon: `${App.configDir}/assets/images/hyprland-logo.png`,
-                size: 28,
+                size: 16,
             }),
         }),
     })
 }
 
 function Workspaces() {
+    const japanese = ["一", "二", "三", "四", "五", "六", "七", "八", "九"];
+    const arabic = ["١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+    const greek = ["α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι"];
+    const dots = ["●", "●", "●", "●", "●", "●", "●", "●", "●"];
+    const iconSets = [ japanese, arabic, greek, dots ];
+    // const icons = iconSets[Math.floor(Math.random() * iconSets.length)];
+    const icons = iconSets[3];
     return Box({
         className: 'bar-workspaces',
         connections: [[Hyprland, box => {
             const array = Array.from({ length: 9 }, (_, i) => i + 1);
             // console.log(array)
             box.children = array.map(i => {
-                // const icons = ["一", "二", "三", "四", "五", "六", "七", "八", "九"];
-                const icons = ["١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
                 return Button({
                     onClicked: () => {
                         try {
@@ -41,7 +44,6 @@ function Workspaces() {
                     child: Label({ label: `${icons[i - 1]}` }),
                     connections: [[Hyprland, 
                         btn => {
-                            const occupied = Hyprland.getWorkspace(i)?.windows > 0;
                             if (Hyprland.active.workspace.id == i) {
                                 btn.toggleClassName('bw-focused', true);
                                 btn.toggleClassName('bw-occupied', true);
@@ -65,10 +67,16 @@ function ClientTitle() {
     return Label({
         className: 'bar-title',
         connections: [[Hyprland, label => {
-            // Shorten the title if it's over 50 chars long and add elipses
-            const window = Hyprland.active.client.title;
-            const title = window.length > 50 ? window.substring(0, 50) + '...' : window;
-            label.label = title;
+            let window;
+            if (Hyprland.active.client.class) window = Hyprland.active.client.class;
+            else window = "Desktop";
+            let replacements = settings.global.classReplacements;
+            if (replacements[window]) {
+                window = replacements[window]
+            } else {
+                window.length > 25 ? window.substring(0, 25) + '...' : window;
+            } 
+            label.label = window;
         }]],
     });
 }
@@ -148,52 +156,77 @@ function PowerMenu() {
     return powermenu;
 }
 
-function Clock() {
-    let hover = false;
-    let hoverRevealer = false;
-    const clock = EventBox({
-        className: 'bar-clock',
-        onHover: () => hover = true,
-        onHoverLost: () => hover = false,
-        child: Box({
-            children: [
-                Label({
-                    className: 'bc-clock',
-                    connections: [[
-                        1000, // update every second
-                        label => execAsync(['date', '+%I:%M:%S %p'])
-                            .then(date => label.label = date).catch(console.error)]]
-                }),
-                Revealer({
-                    transition: 'slide_left',
-                    'transition-duration': 350,
-                    child: EventBox({
-                        onHover: () => hoverRevealer = true,
-                        onHoverLost: () => hoverRevealer = false,
-                        child: Label({
-                            className: 'bc-date',
-                            connections: [[
-                                1000, // update every 60000ms
-                                label => execAsync(['date', '+%A, %B %d, %Y (%V)'])
-                                    .then(date => label.label = date).catch(console.error)]]
-                        }),
+function Clock(type) {
+    if (type === 'revealer') {
+        let hover = false;
+        let hoverRevealer = false;
+        const clockRevealer = EventBox({
+            className: 'bar-clock-revealer',
+            onHover: () => hover = true,
+            onHoverLost: () => hover = false,
+            child: Box({
+                children: [
+                    Label({
+                        className: 'bcr-clock',
+                        connections: [[
+                            1000, // update every second
+                            label => execAsync(['date', '+%I:%M:%S %p'])
+                                .then(date => label.label = date).catch(console.error)]]
                     }),
-                    connections: [[
-                        100, // update every 100ms
-                        (revealer) => {
-                            // exec(`notify-send ${revealer.reveal_child}`);
-                            if (hover || hoverRevealer) {
-                                revealer.reveal_child = true;
-                            } else {
-                                revealer.reveal_child = false;
+                    Revealer({
+                        transition: 'slide_left',
+                        'transition-duration': 350,
+                        child: EventBox({
+                            onHover: () => hoverRevealer = true,
+                            onHoverLost: () => hoverRevealer = false,
+                            child: Label({
+                                className: 'bcr-date',
+                                connections: [[
+                                    1000, // update every 60000ms
+                                    label => execAsync(['date', '+%A, %B %d, %Y (%V)'])
+                                        .then(date => label.label = date).catch(console.error)]]
+                            }),
+                        }),
+                        connections: [[
+                            10, // update every 100ms
+                            (revealer) => {
+                                // exec(`notify-send ${revealer.reveal_child}`);
+                                if (hover || hoverRevealer) {
+                                    revealer.reveal_child = true;
+                                } else {
+                                    revealer.reveal_child = false;
+                                }
                             }
-                        }
-                    ]]
-                })
-            ]
-        }),
-    });
-    return clock;
+                        ]]
+                    })
+                ]
+            }),
+        });
+        return clock;
+    } else if (type === 'button') {
+        let shortLong = false;
+        const clock = Button({
+            onPrimaryClick: () => shortLong = !shortLong,
+            className: 'bar-clock-button',
+            child: Label({
+                className: 'bcb-label',
+                connections: [[
+                    10, // update every 10ms
+                    label => {
+                        // console.log("BUTTON HAS BEEN SELECTED")
+                        if (shortLong == false) {
+                            execAsync(['date', "+%I:%M:%S %p | %a, %b %d, %Y"])
+                                .then(date => label.label = date).catch(console.error);
+                        } else if (shortLong == true) {
+                            execAsync(['date', "+%I:%M:%S %p | %A, %B %d, %Y (%V)"])
+                                .then(date => label.label = date).catch(console.error);
+                        };
+                    }
+                ]]
+            })
+        });
+        return clock;
+    }
 }
 
 function NetworkInfo() {
@@ -448,68 +481,78 @@ function Gap() {
     });
 }
 
-function Separator() {
-    return Box({
-        className: 'bar-separator',
-        // hexpand: true,
-        // vexpand: true,
-        valign: 'center',
-        child: Label({
-            label: '|',
-        }),
-    })
+function Separator(sep) {
+    if (sep) {
+        return Box({
+            className: 'bar-separator',
+            // hexpand: true,
+            // vexpand: true,
+            valign: 'center',
+            child: Label({
+                label: sep,
+            }),
+        })
+    } else {
+        return Box({
+            className: 'bar-separator',
+            // hexpand: true,
+            // vexpand: true,
+            valign: 'center',
+            child: Label({
+                label: '●',
+            }),
+        })
+    }
 }
 
 function Media() {
+    let hover = false;
     return Button({
         className: 'bar-media',
         onPrimaryClick: () => Mpris.getPlayer('')?.playPause(),
         onScrollUp: () => Mpris.getPlayer('')?.next(),
         onScrollDown: () => Mpris.getPlayer('')?.previous(),
+        onHover: () => hover = true,
+        onHoverLost: () => hover = false,
         child: Box({
             children: [
                 Icon({
                     className: 'bm-icon',
-                    size: 26,
-                    connections: [
-                        [Mpris, icon => {
+                    icon: `${App.configDir}/assets/images/music.svg`
+                }),
+                Revealer({
+                    transition: 'slide_left',
+                    'transition-duration': 350,
+                    child: Label({
+                        className: 'bm-title',
+                        connections: [[Mpris, label => {
                             const mpris = Mpris.getPlayer('');
-                            execAsync('echo $USER').then(user => {
-                                if (mpris) {
-                                    icon.icon = mpris._coverPath;
-                                } else {
-                                    icon.icon = `/home/${user}/.config/ags/assets/images/music.svg`;
+                            let text = "";
+                            if (mpris) {
+                                if (mpris.trackArtists[0] === 'Unknown artist' || mpris.trackArtists[0] === "") {
+                                    text = `${mpris.trackTitle}`;
+                                } else if (mpris.trackTitle !== "") {
+                                    text = `${mpris.trackArtists.join(', ')} - ${mpris.trackTitle}`;
                                 }
-                            });
-                        }]
-                    ]
-                }),
-                Label({
-                    className: 'bm-title',
-                    connections: [[Mpris, label => {
-                        const mpris = Mpris.getPlayer('');
-                        let text = "";
-                        if (mpris) {
-                            if (mpris.trackArtists[0] === 'Unknown artist' || mpris.trackArtists[0] === "") {
-                                text = `${mpris.trackTitle}`;
-                            } else if (mpris.trackTitle !== "") {
-                                text = `${mpris.trackArtists.join(', ')} - ${mpris.trackTitle}`;
+                            } else {
+                                text = '';
                             }
-                        } else {
-                            text = '';
+                            label.label = text.length > 30 ? text.substring(0, 30) + '...' : text;
+                        }]]
+                    }),
+                    connections: [[
+                        100, // update every 100ms
+                        (revealer) => {
+                            if (hover) {
+                                revealer.reveal_child = true;
+                            } else {
+                                revealer.reveal_child = false;
+                            }
                         }
-                        label.label = text.length > 30 ? text.substring(0, 30) + '...' : text;
-                    }]]
+                    ]]
                 }),
-            ],
-            connections: [[Mpris, box => {
-                const mpris = Mpris.getPlayer('');
-                if (mpris) {
-                    box['tooltip-text'] = `Playing on ${mpris._identity}`;
-                    // console.log(box['tooltip-text']);
-                }
-            }]]
-        }),
+            ]
+        })
     });
 }
 
