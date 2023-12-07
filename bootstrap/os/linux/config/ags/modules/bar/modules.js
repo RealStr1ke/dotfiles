@@ -456,21 +456,48 @@ function BatteryInfo() {
 }
 
 function Notification() {
-    return Box({
+    return Button({
         className: 'bar-notification',
-        children: [
-            Icon({
-                icon: 'preferences-system-notifications-symbolic',
-                connections: [
-                    [Notifications, icon => icon.visible = Notifications.popups.length > 0],
-                ],
-            }),
-            Label({
-                connections: [[Notifications, label => {
-                    label.label = Notifications.popups[0]?.summary || '';
-                }]],
-            }),
-        ],
+        child: Box({
+            className: 'bnf-button',
+            children: [
+                Revealer({
+                    transition: 'slide_right',
+                    'transition-duration': 350,
+                    child: Label({
+                        className: 'bnf-label',
+                        connections: [[Notifications, label => {
+                            label.label = Notifications.popups[0]?.summary || '';
+                        }]],
+                    }),
+                    connections: [[
+                        Notifications, // update every 100ms
+                        (revealer) => {
+                            if (Notifications.popups.length > 0) {
+                                revealer.reveal_child = true;
+                            } else {
+                                revealer.reveal_child = false;
+                            }
+                        }
+                    ]]
+                }),
+                Icon({
+                    className: 'bnf-icon',
+                    // icon: 'preferences-system-notifications-symbolic',
+                    size: 18,
+                    connections: [
+                        [Notifications, 
+                            icon => {
+                                if (Notifications.popups.length > 0) {
+                                    icon.icon = `${App.configDir}/assets/images/notif-alert.svg`;
+                                } else {
+                                    icon.icon = `${App.configDir}/assets/images/notif-regular.svg`;
+                                }
+                            }],
+                    ],
+                }),
+            ]
+        })
     });
 }
 

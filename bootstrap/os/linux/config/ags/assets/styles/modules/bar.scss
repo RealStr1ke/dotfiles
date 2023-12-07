@@ -64,10 +64,21 @@
     font-size: 16px;
     font-weight: bolder;
 }
+.bar-notification {
+    background-color: $base;
+    border-radius: 8px;
+    margin: 4px 4px;
+    padding: 0px 4px;
+    &:hover {
+        background-color: $base;
+    }
+}
 
-.bar-notification image {
-    color: $lavender;
-    margin-left: 1em;
+.bnf-icon {
+    // margin: 0px 5px 0px 4px;
+}
+.bnf-label {
+    margin: 0px 4px;
 }
 
 .bar-battery progressbar {
@@ -136,19 +147,19 @@ progress, highlight {
 .bar-media {
     background-color: $base;
     border-radius: 8px;
-    margin: 5px;
-    padding: 5px;
+    margin: 4px;
+    // padding: 0px 5px 0px 0px;
     &:hover {
         background-color: $base;
     }
 }
 .bm-title {
     color: $text;
-    font-size: 14px;
+    font-size: 16px;
     margin: 0px 6px 0px 0px;
 }
 .bm-icon {
-    margin: 0px 4px;
+    margin: 0px 5px 0px 4px;
 }
 
 // .bar-volume {

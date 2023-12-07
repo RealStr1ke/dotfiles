@@ -17,8 +17,8 @@ function Left() {
 function Center() {
     const center = Box({
         children: [
-            // BM.Notification(),
-            // BM.Separator(),
+            BM.Notification(),
+            BM.Separator(),
             BM.Clock('button'),
             BM.Separator(),
             BM.Media(),
