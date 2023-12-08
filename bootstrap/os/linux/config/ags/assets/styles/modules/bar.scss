@@ -32,7 +32,7 @@
         margin: 0px 1px;
         border-radius: 10px;
         padding: 0px 4px;
-        // transition: 200ms;
+        transition: padding 0.2s cubic-bezier(0.12, 0, 0.39, 0);
 
         &:hover {
             background-color: $surface0;
@@ -52,6 +52,7 @@
             background-color: $surface0;
             border: 1.5px solid $mauve;
             border-radius: 5px;
+            padding: 0px 8px;
         }
     }
 }

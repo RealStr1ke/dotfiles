@@ -26,40 +26,37 @@ function Workspaces() {
     const iconSets = [ arabic, greek, dots ];
     const icons = iconSets[Math.floor(Math.random() * iconSets.length)];
     // const icons = iconSets[2];
+    const status = num => {
+        if (Hyprland.active.workspace.id == num) return "bw-focused bw-occupied";
+        else if (Hyprland.getWorkspace(num)?.windows > 0) return "bw-occupied";
+        else return "bw-unoccupied";
+    }
+
+    const array = Array.from({ length: 9 }, (_, i) => i + 1);
     return Box({
         className: 'bar-workspaces',
-        connections: [[Hyprland, box => {
-            const array = Array.from({ length: 9 }, (_, i) => i + 1);
-            // console.log(array)
-            box.children = array.map(i => {
-                return Button({
-                    onClicked: () => {
-                        try {
-                            exec(`bash -c "~/.config/hypr/scripts/tools/workspaces workspace ${i}"`);
-                        } catch (error) {
-                            console.log(error);
-                        }
-                    },
-                    // onScrollUp: () => {},
-                    child: Label({ label: `${icons[i - 1]}` }),
-                    connections: [[Hyprland, 
-                        btn => {
-                            if (Hyprland.active.workspace.id == i) {
-                                btn.toggleClassName('bw-focused', true);
-                                btn.toggleClassName('bw-occupied', true);
-                                // console.log(`${i} is focused`)
-                            } else if ( Hyprland.getWorkspace(i)?.windows > 0) {
-                                btn.toggleClassName('bw-occupied', true);
-                                // console.log(`${i} is occupied`);
-                            } else {
-                                btn.toggleClassName('bw-unoccupied', true);
-                                // console.log(`${i} is unoccupied`);
-                            }
-                        }
-                    ]],
-                })
-            });
-        }]],
+        children: array.map(i => {
+            return Button({
+                onClicked: () => {
+                    try {
+                        exec(`bash -c "~/.config/hypr/scripts/tools/workspaces workspace ${i}"`);
+                    } catch (error) {
+                        console.log(error);
+                    }
+                },
+                // className: status(i),
+                // onScrollUp: () => {},
+                child: Label({ label: `${icons[i - 1]}` }),
+                connections: [[
+                    Hyprland,
+                    btn => {
+                        btn.toggleClassName('bw-focused', Hyprland.active.workspace.id == i);
+                        btn.toggleClassName('bw-occupied', Hyprland.active.workspace.id == i || Hyprland.getWorkspace(i)?.windows > 0);
+                        btn.toggleClassName('bw-unoccupied', !(Hyprland.active.workspace.id == i || Hyprland.getWorkspace(i)?.windows > 0));
+                    }
+                ]],
+            })
+        })
     });
 }
 

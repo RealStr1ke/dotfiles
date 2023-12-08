@@ -29,7 +29,7 @@ let settings = {
             "Spotify": " Spotify",
             "Alacritty": "󰆍 Alacritty",
         }
-}
+    }
 };
 
 export default settings;
