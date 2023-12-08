@@ -22,7 +22,7 @@
     background-color: $mantle;
     padding: 0px 2px;
     border-radius: 8px;
-    border: 1.5px solid $surface0;
+    border: 1.5px solid $base;
 
     button {
         background-color: transparent;
@@ -62,8 +62,8 @@
     border-radius: 10px;
     padding: 0px 6px;
     color: $text;
-    background-color: $base;
-    border: 1.5px solid $surface0;
+    background-color: $mantle;
+    border: 1.5px solid $base;
     font-size: 16px;
     font-weight: bolder;
 }
@@ -74,11 +74,11 @@
 //     margin: 0px 5px 0px 4px;
 // }
 .bnf-button {
-    background-color: $base;
+    background-color: $mantle;
     border-radius: 8px;
     margin: 4px 4px;
     padding: 0px 4px;
-    border: 1.5px solid $surface0;
+    border: 1.5px solid $base;
     font-size: 12px;
     &:hover {
         background-color: $surface0;
@@ -116,13 +116,13 @@
 }
 
 .bar-clock-button {
-    background-color: $base;
+    background-color: $mantle;
     margin: 4px;
     padding: 0px 6px;
     font-size: 16px;
     color: $text;
     border-radius: 10px;
-    border: 1.5px solid $surface0;
+    border: 1.5px solid $base;
     &:hover {
         background-color: $surface0;
     }
@@ -136,8 +136,9 @@ progress, highlight {
 
 .bar-systray {
     margin: 4px 5px;
+    padding: 0px 4px;
     background-color: $mantle;
-    border: 1.5px solid $surface1;
+    border: 1.5px solid $base;
     border-radius: 10px;
     button {
         margin: 0px;
@@ -159,10 +160,10 @@ progress, highlight {
 }
 
 .bar-media {
-    background-color: $base;
+    background-color: $mantle;
     border-radius: 8px;
     margin: 4px;
-    border: 1.5px solid $surface0;
+    border: 1.5px solid $base;
     // padding: 0px 5px 0px 0px;
     &:hover {
         background-color: $surface0;
