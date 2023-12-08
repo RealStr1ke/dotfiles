@@ -57,6 +57,9 @@ alias nup="npm update"
 alias nri="rm -r node_modules package-lock.json && npm install"
 alias ncd="npm-check -su"
 
+# Nodejs
+# alias noderi="node index.js"
+
 # Microsoft VS Code
 # If VS Code Insiders is installed and the default VS Code isn't,
 # set `code` as an alias of `code-insiders`
