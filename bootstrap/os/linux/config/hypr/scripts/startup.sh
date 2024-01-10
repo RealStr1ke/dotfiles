@@ -48,10 +48,10 @@ blueman-tray &
 nm-applet &
 
 # Spotify Daemon
-spotifyd &
+# spotifyd &
 
 # Music Player Daemon (MPD)
-mpd --stdout --verbose &
+# mpd --stdout --verbose &
 
 # Notification Daemon
 # swaync &
@@ -92,6 +92,8 @@ function xdph() {
     /usr/lib/xdg-desktop-portal-hyprland &
     # sleep 2
     /usr/lib/xdg-desktop-portal &
+    # sleep 2
+    /usr/lib/xdg-desktop-portal-gtk &
     # sleep 2
     # /usr/lib/xdg-desktop-portal-wlr
 }
