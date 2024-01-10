@@ -30,22 +30,22 @@ alias wheel="wheel3"
 alias py="python3"
 
 # Java
-alias javasel="sudo update-alternatives --config java"
-
+# alias javasel="sudo update-alternatives --config java"
+# archlinux-java 
 
 # ----------------------------
 # |       Applications       |
 # ----------------------------
 
 # Homebrew
-alias brewu='brew update && brew upgrade && brew cleanup && brew doctor'
-alias bi='brew install'
+# alias brewu='brew update && brew upgrade && brew cleanup && brew doctor'
+# alias bi='brew install'
 
 # Yarn
-alias yi='yarn install'
+# alias yi='yarn install'
 
 # nano
-alias sano="sudo nano"
+# alias sano="sudo nano"
 
 # kitty
 alias icat="kitty +kitten icat --align left"
@@ -71,7 +71,7 @@ alias ncd="npm-check -su"
 # alias bat="\bat --theme=GitHub"
 
 # Hyprland
-alias hyprexec="hyprctl dispatch exec"+
+alias hyprexec="hyprctl dispatch exec"
 
 # cat
 alias cat="cat -s"
@@ -143,23 +143,29 @@ alias .......="cd ../../../../../.."
 # alias -- -="cd -"
 
 # Directory Listing
-alias ls="ls --color=auto"
-alias l="ls -CF"
+# alias ls="ls --color=auto"
+# alias l="ls -CF"
+# alias la="ls -A"
+# alias ll="ls -alF"
+# alias ld="ls -ld */"
+alias ls="eza --icons --group-directories-first"
+alias l="ls -F"
+alias lf="ls -F"
 alias la="ls -A"
 alias ll="ls -alF"
 alias ld="ls -ld */"
 
 # Directory shortcuts
-alias desktop="cd ~/Desktop"
-alias dotfiles="cd ~/.dotfiles"
-alias projects="cd ~/Projects"
-alias drives="cd /media/$USER/"
-alias documents="cd ~/Documents"
-alias downloads="cd ~/Downloads"
+# alias desktop="cd ~/Desktop"
+# alias dotfiles="cd ~/.dotfiles"
+# alias projects="cd ~/Projects"
+# alias drives="cd /media/$USER/"
+# alias documents="cd ~/Documents"
+# alias downloads="cd ~/Downloads"
 
 # File shortcuts
-alias hosts="sudo nano /etc/hosts"
-alias notes="nano ~/notes.md"
+alias hosts="sudo nvim /etc/hosts"
+alias notes="nvim ~/notes.md"
 
 # VS Code Dotfile shortcut
 # if ! is-executable code && is-executable code-insiders; then
@@ -169,13 +175,14 @@ alias notes="nano ~/notes.md"
 # fi
 
 # Dotfile shortcuts
-alias dots-alias="nano ~/.dotfiles/shell/global/.aliases"
+# alias dots-alias="nano ~/.dotfiles/shell/global/.aliases"
 alias dots-funcs="nano ~/.dotfiles/shell/global/.functions"
-alias dots-path="nano ~/.dotfiles/shell/global/.path"
-alias dots-env="nano ~/.dotfiles/shell/global/.env"
+# alias dots-path="nano ~/.dotfiles/shell/global/.path"
+# alias dots-env="nano ~/.dotfiles/shell/global/.env"
 
 # Grep Coloring
-alias grep="grep --color=auto"
+alias rgrep="rg --color=auto"
+alias grep="rgrep --color=auto"
 alias egrep="egrep --color=auto"
 alias fgrep="fgrep --color=auto"
 
@@ -210,7 +217,7 @@ alias cleanupspdl='find . -type f -name '\''.spotdl-cache'\'' -ls -delete'
 # ----------------------------
 # |        Networking        |
 # ----------------------------
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias pubip="curl 'https://api.ipify.org?format=json' | jq .ip"
 alias localip="ipconfig getifaddr en0"
 alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
 
@@ -222,7 +229,7 @@ alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[
 
 # Weather
 alias weather="curl wttr.in"
-alias wttr="curl wttr.in"
+# alias wttr="curl wttr.in"
 
 
 # ----------------------------
@@ -311,7 +318,7 @@ alias dec2hex='printf "%x\n" $1'
 alias speedtest="wget -O /dev/null http://speed.transip.nl/100mb.bin"
 
 # Reload the shell (i.e. invoke as a login shell)
-# alias reload="exec ${SHELL} -l"
+alias reload="exec $SHELL -l"
 
 # Print each PATH entry on a separate line
 # alias path="$PATH" | tr ':' '\n'
@@ -327,10 +334,10 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 # Lock the screen (when going AFK)
 # alias afk="i3lock -c 000000"
 # alias afk="gnome-screensaver-command -l"
-alias afk="xdg-screensaver lock"
+# alias afk="xdg-screensaver lock"
 
 # Open hosts file with nano
-alias hosts='sudo nano /etc/hosts'
+# alias hosts='sudo nano /etc/hosts'
 
 # Copy working directory
 alias cwd='pwd | tr -d "\r\n" | xclip -selection clipboard'

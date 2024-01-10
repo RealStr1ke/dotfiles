@@ -8,6 +8,13 @@ if is-executable brew
     brew shellenv | source
 end
 
+# bun
+# If the ~/.bun directory exists, then source the bun env
+if test -d "$HOME/.bun"
+    set --export BUN_INSTALL "$HOME/.bun"
+    set --export PATH $BUN_INSTALL/bin $PATH
+end
+
 # TheFuck
 # MOVED to an autoloaded function at fish/functions/thefuck.fish
 # if is-executable thefuck
