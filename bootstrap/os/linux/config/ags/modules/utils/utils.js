@@ -4,7 +4,7 @@ export function killOtherNotifDaemons() {
     const list = ["dunst", "mako", "swaync" ];
     for (let i = 0; i < list.length; i++) {
         try {
-            execAsync(`pkill ${list[i]}`);
+            exec(`pkill ${list[i]}`);
         } catch {
             console.warn(`Failed to kill ${list[i]}`);
         }

@@ -44,7 +44,9 @@ const NotificationIcon = ({ appEntry, appIcon, image }) => {
 export const Notification = n => Widget.EventBox({
     className: `notification ${n.urgency}`,
     onPrimaryClick: () => n.dismiss(),
-    properties: [['hovered', false]],
+    attribute: {
+        'hovered': 'false',
+    },
     onHover: self => {
         if (self._hovered)
             return;

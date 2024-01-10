@@ -5,6 +5,7 @@ let settings = {
             "Desktop": "  Desktop",
 
             "firefoxdeveloperedition": "󰈹 Firefox Developer Edition",
+            "\"firefoxdeveloperedition\"": "󰈹 Firefox Developer Edition",
             "kitty": "󰆍 Kitty",
             "org.prismlauncher.PrismLauncher": "󰍳 Prism Launcher",
             "blueberry.py": " Blueberry",
@@ -33,6 +34,11 @@ let settings = {
             "io.github.seadve.Kooha": " Kooha",
             "hyprland-share-picker": " Hyprland Share Picker",
             "gedit": "󰎞 Gedit",
+            "mpv": "  MPV",
+            "Pulse Browser": "󰈹 Pulse Browser",
+            "zoom": " Zoom",
+            "Twitch": " Twitch",
+            "org-jdownloader-update-launcher-JDLauncher": " JDownloader",
         }
     }
 };

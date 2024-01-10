@@ -112,7 +112,9 @@ function SystemInfo() {
     const RAM = CircularProgress({
         className: "bs-ram",
         // thickness: 8,
-        binds: [['value', RAMVar]],
+        setup: self => {
+            self.bind('value', RAMVar);
+        },
         child: Button({
             onClicked: "kitty --detach btm",
             className: "bs-ram-icon",
@@ -123,7 +125,9 @@ function SystemInfo() {
     const CPU = CircularProgress({
         className: "bs-cpu",
         // thickness: 8,
-        binds: [['value', CPUVar]],
+        setup: self => {
+            self.bind('value', CPUVar);
+        },
         child: Button({
             onClicked: "kitty --detach btm",
             className: "bs-cpu-icon",
@@ -201,7 +205,7 @@ function Clock(type) {
         });
         return clock;
     } else if (type === 'button') {
-        let shortLong = false;
+        let shortLong = true;
         const clock = Button({
             onPrimaryClick: () => shortLong = !shortLong,
             className: 'bar-clock-button',

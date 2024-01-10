@@ -49,7 +49,7 @@ export default monitor => Window({
     name: `bar${monitor}`, // name has to be unique
     monitor,
     anchor: ['top', 'left', 'right'],
-    exclusive: true,
+    exclusivity: 'exclusive',
     child: CenterBox({
         className: 'bar',
         startWidget: Left(),
