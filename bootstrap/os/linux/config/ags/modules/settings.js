@@ -39,6 +39,12 @@ let settings = {
             "zoom": " Zoom",
             "Twitch": " Twitch",
             "org-jdownloader-update-launcher-JDLauncher": " JDownloader",
+            "org.gnome.Settings": " Settings", 
+            "org.gnome.clocks": "  Clocks",
+            "Waydroid": " Waydroid",
+            "chat-gpt": "󰭻 ChatGPT",
+            "flameshot": "󰹑 Flameshot",
+            "harmonoid": "p Harmonoid",
         }
     }
 };
