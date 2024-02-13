@@ -6,13 +6,15 @@ export GNOME_KEYRING_CONTROL
 export GNOME_KEYRING_PID
 
 # Start WM based on SESSION variable
-if [[ $1 == "openbox" || $1 == "bspwm" ]]; then
+if [[ $1 == "openbox" || $1 == "bspwm" || $1 == "Hypr" ]]; then
     SESSION=$1
 
     if [ "$SESSION" = "openbox" ]; then
         exec openbox-session
     elif [ "$SESSION" = "bspwm" ]; then 
         exec bspwm
+    elif [ "$SESSION" = "Hypr" ]; then
+        exec Hypr
     fi
     
 else
