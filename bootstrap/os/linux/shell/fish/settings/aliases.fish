@@ -76,6 +76,9 @@ alias hyprexec="hyprctl dispatch exec"
 # cat
 alias cat="cat -s"
 
+# gping
+alias gping="gping -c magenta"
+
 # pfetch
 # alias pfetch='PF_INFO="ascii os host de uptime pkgs memory" pfetch'
 
@@ -143,12 +146,13 @@ alias .......="cd ../../../../../.."
 # alias -- -="cd -"
 
 # Directory Listing
-# alias ls="ls --color=auto"
-# alias l="ls -CF"
-# alias la="ls -A"
-# alias ll="ls -alF"
-# alias ld="ls -ld */"
-alias ls="eza --icons --group-directories-first"
+# Use exa if installed, ls otherwise
+if type eza > /dev/null 2>&1
+    alias ls "eza --icons --group-directories-first"
+else
+    alias ls "ls --color=auto"
+end
+
 alias l="ls -F"
 alias lf="ls -F"
 alias la="ls -A"
