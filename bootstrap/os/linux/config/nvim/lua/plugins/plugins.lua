@@ -255,7 +255,7 @@ return {
         { "moll/vim-bbye" },
         { "voldikss/vim-floaterm" },
         { "tpope/vim-repeat" },
-        { "JoosepAlviste/nvim-ts-context-commentstring" },
+        -- { "JoosepAlviste/nvim-ts-context-commentstring" },
         -- { 
         --     "echasnovski/mini.nvim", 
         --     version = false 
