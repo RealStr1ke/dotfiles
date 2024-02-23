@@ -20,7 +20,7 @@ dashboard.section.buttons.val = {
     dashboard.button("t", " " .. " Find text", ":Telescope live_grep <CR>"),
     dashboard.button("b", " " .. " Bookmarks", ":Telescope marks <CR>"),
     dashboard.button("s", " " .. " Themes", ":Telescope colorscheme <CR>"),
-    dashboard.button("c", " " .. " Config", ":e ~/.dotfiles/config/nvim"),
+    dashboard.button("c", " " .. " Config", ":e ~/.config/nvim"),
     dashboard.button("q", " " .. " Quit", ":qa<CR>"),
 }
 local function footer()
