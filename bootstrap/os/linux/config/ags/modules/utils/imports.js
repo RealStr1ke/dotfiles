@@ -9,7 +9,7 @@ import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 import Applications from 'resource:///com/github/Aylur/ags/service/applications.js';
 import Audio from 'resource:///com/github/Aylur/ags/service/audio.js';
 import Battery from 'resource:///com/github/Aylur/ags/service/battery.js';
-import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
+// import Bluetooth from 'resource:///com/github/Aylur/ags/service/bluetooth.js';
 import Hyprland from 'resource:///com/github/Aylur/ags/service/hyprland.js';
 import Mpris from 'resource:///com/github/Aylur/ags/service/mpris.js';
 import Network from 'resource:///com/github/Aylur/ags/service/network.js';
@@ -25,7 +25,7 @@ export {
     Applications,
     Audio,
     Battery,
-    Bluetooth,
+    // Bluetooth,
     Hyprland,
     Mpris,
     Network,
