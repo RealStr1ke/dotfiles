@@ -3,6 +3,12 @@ if is-executable rbenv
     rbenv init - | source
 end
 
+# go
+if is-executable go
+    set --export GOPATH $HOME/go
+    set --export PATH $GOPATH/bin $PATH
+end
+
 # Homebrew
 if is-executable brew
     brew shellenv | source
