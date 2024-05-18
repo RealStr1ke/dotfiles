@@ -33,7 +33,7 @@ copyq &
 # Policy Authentication Agent 
 # /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
 # /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-lxpolkit &
+/usr/lib/lxpolkit/lxpolkit &
 
 # XWayland to Wayland Video Bridge
 xwaylandvideobridge &
