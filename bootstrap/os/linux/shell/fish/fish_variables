@@ -14,7 +14,7 @@ SETUVAR _fisher_franciscolourenco_2F_done_files:\x7e/\x2econfig/fish/conf\x2ed/d
 SETUVAR _fisher_jethrokuan_2F_z_files:\x7e/\x2econfig/fish/functions/__z\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_add\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_clean\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_complete\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/z\x2efish
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_jorgebucaran_2F_spark_2E_fish_files:\x7e/\x2econfig/fish/functions/spark\x2efish\x1e\x7e/\x2econfig/fish/completions/spark\x2efish
-SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejorgebucaran/spark\x2efish\x1eacomagu/fish\x2dasync\x2dprompt\x1ejethrokuan/z\x1efranciscolourenco/done
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejorgebucaran/spark\x2efish\x1ejethrokuan/z\x1efranciscolourenco/done\x1eacomagu/fish\x2dasync\x2dprompt
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_color_autosuggestion:6e738d
 SETUVAR fish_color_cancel:ed8796
