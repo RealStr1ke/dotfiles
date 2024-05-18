@@ -13,7 +13,7 @@
 ags &
 
 # Clipboard Manager (copyq)
-copyq &
+copyq --start-server
 
 # Discord
 # discord --start-minimized &
