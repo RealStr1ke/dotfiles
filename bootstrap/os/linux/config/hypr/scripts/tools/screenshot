@@ -4,7 +4,7 @@
 
 # If parameter 1 is "flameshot", then run flameshot gui, otherwise use grim and/or slurp
 if [ "$1" = "flameshot" ]; then
-    # export XDG_CURRENT_DESKTOP=sway
+    export XDG_CURRENT_DESKTOP=sway
     FILENAME="$(date +Screenshot-[%Y-%m-%d]-\(%H-%M-%S\)).png"
     flameshot gui --path ~/Pictures/Screenshots/$FILENAME
 
