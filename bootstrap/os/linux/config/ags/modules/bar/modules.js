@@ -23,7 +23,7 @@ function Workspaces() {
     const arabic = ["١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
     const greek = ["α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "ι"];
     const dots = ["●", "●", "●", "●", "●", "●", "●", "●", "●"];
-    const iconSets = [ arabic, greek, dots ];
+    const iconSets = [ japanese, arabic, greek, dots ];
     const icons = iconSets[Math.floor(Math.random() * iconSets.length)];
     // const icons = iconSets[2];
     const status = num => {
