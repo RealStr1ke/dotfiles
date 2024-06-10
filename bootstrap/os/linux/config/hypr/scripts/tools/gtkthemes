@@ -6,8 +6,8 @@
 
 THEME='Catppuccin-Mocha-Standard-Mauve-Dark'
 ICONS='Adwaita'
-FONT='CaskaydiaCove NF'
-CURSOR='BreezeX-Dark'
+FONT='Noto Sans'
+CURSOR='Catppuccin-Mocha-Dark'
 
 SCHEMA='gsettings set org.gnome.desktop.interface'
 
