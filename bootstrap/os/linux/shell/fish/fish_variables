@@ -55,3 +55,4 @@ SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
 SETUVAR fish_style_pwd_dir_length:0
+SETUVAR fish_user_paths:/home/str1ke/\x2espicetify
