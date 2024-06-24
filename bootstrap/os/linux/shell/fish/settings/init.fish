@@ -50,8 +50,9 @@ end
 
 # find-the-command
 # if [ (cat /etc/os-release | grep -i arch ) ]
-# 	# If shell is Bash, then source bash script
+#   	# If shell is Fish, then source bash script
 # 	if [[ "$SHELL" == "/usr/bin/fish" ]]
 # 		source /usr/share/doc/find-the-command/ftc.fish quiet su noupdate noprompt
 # 	end
 # end
+
