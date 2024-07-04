@@ -47,7 +47,8 @@ let settings = {
 			'chat-gpt': '󰭻 ChatGPT',
 			'flameshot': '󰹑 Flameshot',
 			'harmonoid': 'p Harmonoid',
-			'vesktop': '󰙯 Vesktop'
+			'vesktop': '󰙯 Vesktop',
+			'jetbrains-idea': '󰨞 IntelliJ IDEA',
 		}
 	}
 };
