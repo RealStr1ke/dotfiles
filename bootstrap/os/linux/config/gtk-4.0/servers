@@ -23,4 +23,24 @@
       </metadata>
     </info>
   </bookmark>
+  <bookmark href="sftp://yaman@10.0.0.172/" added="2024-07-07T05:11:14.429880Z" modified="2024-07-07T09:27:08.934496Z" visited="2024-07-07T09:27:08.934493Z">
+    <title>/ on 10.0.0.172</title>
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <bookmark:applications>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2024-07-07T09:27:08.934494Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="sftp://root@10.8.0.8/" added="2024-07-16T18:33:55.045159Z" modified="2024-07-17T15:34:54.717770Z" visited="2024-07-17T15:34:54.717733Z">
+    <title>/ on 10.8.0.8</title>
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <bookmark:applications>
+          <bookmark:application name="org.gnome.Nautilus" exec="&apos;org.gnome.Nautilus %u&apos;" modified="2024-07-17T15:34:54.717759Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
 </xbel>
