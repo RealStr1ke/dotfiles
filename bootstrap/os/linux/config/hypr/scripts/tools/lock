@@ -40,7 +40,7 @@ lavender="b4befe"
 blue="89b4fa"
 
 # Swaylock
-swaylock -f \
+swaylock --debug \
     `# General` \
     --clock \
     --indicator \
@@ -73,8 +73,8 @@ swaylock -f \
 	--inside-wrong-color ${red} \
 	\
 	`# Layout Colors` \
-	--layout-bg-color ${cyan} \
-	--layout-border-color ${cyan} \
+	--layout-bg-color ${blue} \
+	--layout-border-color ${blue} \
 	--layout-text-color ${base} \
 	\
 	`# Line Colors` \
@@ -85,10 +85,10 @@ swaylock -f \
 	--line-wrong-color ${base} \
 	\
 	`# Ring Colors` \
-	--ring-color ${cyan} \
+	--ring-color ${surface1} \
 	--ring-clear-color ${base} \
 	--ring-caps-lock-color ${mauve} \
-	--ring-ver-color ${blue} \
+	--ring-ver-color ${surface1} \
 	--ring-wrong-color ${red} \
 	\
 	`# Separator Color` \
@@ -103,4 +103,4 @@ swaylock -f \
     \
     `# Effects` \
     --screenshots \
-    --effect-blur 8x8
+    --effect-blur 10x8
