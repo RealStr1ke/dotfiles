@@ -1,4 +1,4 @@
-let settings = {
+const settings = {
 	global: {
 		// Class to Title replacements for windows
 		'classReplacements': {
@@ -6,6 +6,7 @@ let settings = {
 
 			'firefoxdeveloperedition': '󰈹 Firefox Developer Edition',
 			'"firefoxdeveloperedition"': '󰈹 Firefox Developer Edition',
+			'firefox-developer-edition': '󰈹 Firefox Developer Edition',
 			'kitty': '󰆍 Kitty',
 			'org.prismlauncher.PrismLauncher': '󰍳 Prism Launcher',
 			'blueberry.py': ' Blueberry',
