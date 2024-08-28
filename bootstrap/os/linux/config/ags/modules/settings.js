@@ -42,7 +42,7 @@ const settings = {
 			'zoom': ' Zoom',
 			'Twitch': ' Twitch',
 			'org-jdownloader-update-launcher-JDLauncher': ' JDownloader',
-			'org.gnome.Settings': ' Settings', 
+			'org.gnome.Settings': ' Settings',
 			'org.gnome.clocks': '  Clocks',
 			'Waydroid': ' Waydroid',
 			'chat-gpt': '󰭻 ChatGPT',
@@ -50,8 +50,8 @@ const settings = {
 			'harmonoid': 'p Harmonoid',
 			'vesktop': '󰙯 Vesktop',
 			'jetbrains-idea': '󰨞 IntelliJ IDEA',
-		}
-	}
+		},
+	},
 };
 
 export default settings;
