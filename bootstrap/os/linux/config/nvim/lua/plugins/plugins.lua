@@ -103,6 +103,9 @@ return {
         -- Telescope
         {
             "nvim-telescope/telescope.nvim",
+			dependencies = {
+				"nvim-telescope/telescope-project.nvim"
+			},
             config = function()
                 require("plugins.configs.telescope")
             end,
