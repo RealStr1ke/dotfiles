@@ -22,10 +22,11 @@ Utils.subprocess([
 ], () => SCSS());
 
 // Main Export
-export default {
+App.config({
 	windows: [
-		Bar({ monitor: 0 }),
+		// Bar({ monitor: 0 }),
+		Bar({ monitor: 1 }),
+		// Bar({ monitor: 2 }),
 		AppLauncher(),
-		// Bar({ monitor: 1 })
 	],
-};
+});

@@ -39,6 +39,7 @@ const settings = {
 			'gedit': '󰎞 Gedit',
 			'mpv': '  MPV',
 			'Pulse Browser': '󰈹 Pulse Browser',
+			'mercury-default': '󰈹 Mercury Browser',
 			'zoom': ' Zoom',
 			'Twitch': ' Twitch',
 			'org-jdownloader-update-launcher-JDLauncher': ' JDownloader',

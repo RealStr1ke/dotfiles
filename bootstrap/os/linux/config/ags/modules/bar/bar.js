@@ -46,8 +46,8 @@ function Right() {
 }
 
 export default monitor => Window({
-	name: `bar${monitor}`, // name has to be unique
-	monitor,
+	name: `bar${monitor.monitor}`, // name has to be unique
+	monitor: monitor.monitor,
 	anchor: ['top', 'left', 'right'],
 	exclusivity: 'exclusive',
 	child: CenterBox({
