@@ -44,6 +44,9 @@ mpris-proxy &
 blueman-applet &
 blueman-tray &
 
+# OpenTablerDriver Daemon
+otd-daemon &
+
 # NetworkManager Applet 
 nm-applet &
 
