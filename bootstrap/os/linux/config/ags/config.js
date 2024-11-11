@@ -24,8 +24,8 @@ Utils.subprocess([
 // Main Export
 App.config({
 	windows: [
-		// Bar({ monitor: 0 }),
-		Bar({ monitor: 1 }),
+		Bar({ monitor: 0 }),
+		// Bar({ monitor: 1 }),
 		// Bar({ monitor: 2 }),
 		AppLauncher(),
 	],
