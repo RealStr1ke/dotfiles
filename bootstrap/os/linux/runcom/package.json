@@ -1,1 +1,10 @@
-{ "dependencies": { "eslint": "^9.6.0" } }
+{
+  "dependencies": {
+    "eslint": "^9.16.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "typescript-eslint": "^8.18.0"
+  },
+  "devDependencies": {
+    "@nuxt/eslint-config": "^0.7.3"
+  }
+}

@@ -10,10 +10,10 @@
 # eww open bar0 --config ~/.dotfiles/bootstrap/os/linux/config/eww/hyprland/
 
 # AGS
-ags &
+agsv1 &
 
 # Clipboard Manager (copyq)
-copyq --start-server
+copyq --start-server &
 
 # Discord
 # discord --start-minimized &
@@ -46,6 +46,9 @@ blueman-tray &
 
 # OpenTablerDriver Daemon
 otd-daemon &
+
+# OpenAsar's Discord arRPC
+arrpc &
 
 # NetworkManager Applet 
 nm-applet &

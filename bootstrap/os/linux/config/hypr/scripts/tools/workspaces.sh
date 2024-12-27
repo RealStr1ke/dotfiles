@@ -1,7 +1,6 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 focused=$(hyprctl monitors -j | jq -rc '[ .[].focused ] | index(true)')
-# echo $focused
 
 dispatcher=$1
 workspace=$2

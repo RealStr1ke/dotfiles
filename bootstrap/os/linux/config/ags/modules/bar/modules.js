@@ -39,7 +39,7 @@ function Workspaces() {
 			return Button({
 				onClicked: () => {
 					try {
-						exec(`bash -c "~/.config/hypr/scripts/tools/workspaces workspace ${i}"`);
+						exec(`bash -c "~/.config/hypr/scripts/tools/workspaces.sh workspace ${i}"`);
 					} catch (error) {
 						console.log(error);
 					}
