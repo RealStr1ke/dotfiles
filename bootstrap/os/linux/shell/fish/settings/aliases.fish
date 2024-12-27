@@ -67,6 +67,9 @@ alias ncd="npm-check -su"
 #     alias code="code-insiders"
 # fi
 
+# aocs
+alias aocs="cd ~/Projects/GitHub/AoC && bun ./bin/run.js"
+
 # bat
 # alias bat="\bat --theme=GitHub"
 
