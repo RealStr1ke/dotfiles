@@ -51,6 +51,9 @@ const settings = {
 			'harmonoid': 'p Harmonoid',
 			'vesktop': '󰙯 Vesktop',
 			'jetbrains-idea': '󰨞 IntelliJ IDEA',
+			'geany': '󰎞 Geany',
+			// sober = roblox
+			'org.vinegarhq.Sober': '  Sober (Roblox)',
 		},
 	},
 };
