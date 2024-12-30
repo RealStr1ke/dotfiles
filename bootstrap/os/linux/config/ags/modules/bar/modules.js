@@ -1,7 +1,7 @@
 import { App, Variable, Utils, Widget, Hyprland, Notifications, Network, Mpris, Audio, Battery, SystemTray } from '../utils/imports.js';
+import settings from '../settings.js';
 const { exec, execAsync } = Utils;
 const { Box, Button, Label, Revealer, Icon, EventBox, Slider, ProgressBar, CircularProgress } = Widget;
-import settings from '../settings.js';
 
 function Launcher() {
 	return Box({
