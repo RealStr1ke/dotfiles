@@ -24,8 +24,8 @@ function Workspaces() {
 	const greek = ['α', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι'];
 	const dots = ['●', '●', '●', '●', '●', '●', '●', '●', '●'];
 	const iconSets = [ japanese, arabic, greek, dots ];
-	const icons = iconSets[Math.floor(Math.random() * iconSets.length)];
-	// const icons = iconSets[2];
+	// const icons = iconSets[Math.floor(Math.random() * iconSets.length)];
+	const icons = iconSets[2];
 	const status = num => {
 		if (Hyprland.active.workspace.id == num) return 'bw-focused bw-occupied';
 		else if (Hyprland.getWorkspace(num)?.windows > 0) return 'bw-occupied';
