@@ -1,0 +1,2 @@
+[general]
+import = ["/home/str1ke/.config/alacritty/mocha.toml"]
