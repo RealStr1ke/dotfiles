@@ -243,6 +243,8 @@ alias weather="curl wttr.in"
 # |          Typos           |
 # ----------------------------
 alias breq="brew"
+alias pary="paru"
+alias sl="ls" # fuck that locomotive :troll:
 
 
 # ----------------------------
