@@ -1,17 +1,13 @@
-// Import AGS
-import { App, Utils } from './modules/utils/imports.js';
-
-// Modules
+// Import AGS + modules + other imports
+import { App, Utils, Service, Hyprland } from './modules/utils/imports.js';
 import AppLauncher from './modules/applauncher/applauncher.js';
 import Bar from './modules/bar/bar.js';
-
-// SCSS Setup
-import SCSS from './modules/utils/scss.js';
-SCSS();
-
-// Kill all other notification daemons
 import { killOtherNotifDaemons } from './modules/utils/utils.js';
-killOtherNotifDaemons();
+import SCSS from './modules/utils/scss.js';
+
+// Setup
+SCSS(); // Compile SCSS
+killOtherNotifDaemons(); // Kill other notification daemons
 
 // SCSS Watcher
 Utils.subprocess([
@@ -21,12 +17,47 @@ Utils.subprocess([
 	'-m', App.configDir + '/assets/styles',
 ], () => SCSS());
 
-// Main Export
+const hyprland = await Service.import('hyprland');
+
+let currentMonitorCount = hyprland.monitors.length;
+
+function createBars() {
+	const bars = hyprland.monitors.map((monitor, index) => Bar({ monitor: index }));
+	return bars;
+}
+
+function reloadBars() {
+	const newMonitorCount = hyprland.monitors.length;
+	console.log(`Current monitor count: ${newMonitorCount}`);
+	if (newMonitorCount !== currentMonitorCount) {
+		console.log(`Monitor count changed from ${currentMonitorCount} to ${newMonitorCount}, reloading bars...`);
+		currentMonitorCount = newMonitorCount;
+
+		// Close all windows
+		const currentWindows = App.windows;
+		currentWindows.forEach((window) => {
+			console.log(`Closing window ${window.name}`);
+			App.closeWindow(window.name);
+			App.removeWindow(window);
+		});
+
+		// Add new windows
+		App.config({
+			windows: [
+				...createBars(),
+				AppLauncher(),
+			],
+		});
+	}
+}
+
+// Initial setup
 App.config({
 	windows: [
-		Bar({ monitor: 0 }),
-		// Bar({ monitor: 1 }),
-		// Bar({ monitor: 2 }),
+		...createBars(),
 		AppLauncher(),
 	],
 });
+
+// Periodically check for monitor changes
+setInterval(reloadBars, 1000);

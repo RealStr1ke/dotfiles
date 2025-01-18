@@ -18,24 +18,28 @@ function Launcher() {
 	});
 }
 
-function Workspaces() {
+function Workspaces(monitor) {
 	const japanese = ['一', '二', '三', '四', '五', '六', '七', '八', '九'];
 	const arabic = ['١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
 	const greek = ['α', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'ι'];
 	const dots = ['●', '●', '●', '●', '●', '●', '●', '●', '●'];
-	const iconSets = [ japanese, arabic, greek, dots ];
-	// const icons = iconSets[Math.floor(Math.random() * iconSets.length)];
-	const icons = iconSets[2];
-	const status = num => {
-		if (Hyprland.active.workspace.id == num) return 'bw-focused bw-occupied';
-		else if (Hyprland.getWorkspace(num)?.windows > 0) return 'bw-occupied';
-		else return 'bw-unoccupied';
-	};
+	// const iconSets = [ japanese, arabic, greek, dots ];
+	const iconSets = [ arabic, greek, dots ];
+	const icons = iconSets[Math.floor(Math.random() * iconSets.length)];
+	// const icons = iconSets[2];
 
-	const array = Array.from({ length: 9 }, (_, i) => i + 1);
+	// const status = num => {
+	// 	if (Hyprland.active.workspace.id == num) return 'bw-focused bw-occupied';
+	// 	else if (Hyprland.getWorkspace(num)?.windows > 0) return 'bw-occupied';
+	// 	else return 'bw-unoccupied';
+	// };
+
+	const array = Array.from({ length: 9 }, (_, i) => i + 1 + (monitor * 10));
+	// console.log(array, monitor);
 	return Box({
 		className: 'bar-workspaces',
 		children: array.map(i => {
+			// console.log(i);
 			return Button({
 				onClicked: () => {
 					try {
@@ -46,7 +50,7 @@ function Workspaces() {
 				},
 				// className: status(i),
 				// onScrollUp: () => {},
-				child: Label({ label: `${icons[i - 1]}` }),
+				child: Label({ label: `${icons[array.indexOf(i)]}` }),
 				connections: [[
 					Hyprland,
 					btn => {

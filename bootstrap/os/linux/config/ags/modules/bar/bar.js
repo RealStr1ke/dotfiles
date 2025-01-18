@@ -2,12 +2,12 @@ import { Widget } from '../utils/imports.js';
 const { Box, CenterBox, Window } = Widget;
 import BM from './modules.js';
 
-function Left() {
+function Left(monitor) {
 	const left = Box({
 		children: [
 			BM.Launcher(),
 			BM.Separator('|'),
-			BM.Workspaces(),
+			BM.Workspaces(monitor),
 			BM.ClientTitle(),
 		],
 	});
@@ -52,7 +52,7 @@ export default monitor => Window({
 	exclusivity: 'exclusive',
 	child: CenterBox({
 		className: 'bar',
-		startWidget: Left(),
+		startWidget: Left(monitor.monitor),
 		centerWidget: Center(),
 		endWidget: Right(),
 	}),
