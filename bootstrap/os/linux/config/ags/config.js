@@ -23,7 +23,8 @@ let currentMonitorCount = hyprland.monitors.length;
 
 function createBars() {
 	const bars = hyprland.monitors.map((monitor, index) => Bar({ monitor: index }));
-	return bars;
+	// return bars;
+	return bars[0]; // temporarily only return the first bar due to lag issues
 }
 
 function reloadBars() {
