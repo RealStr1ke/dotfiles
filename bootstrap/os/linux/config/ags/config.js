@@ -45,7 +45,8 @@ function reloadBars() {
 		// Add new windows
 		App.config({
 			windows: [
-				...createBars(),
+				// ...createBars(),
+				Bar({ monitor: 0 }),
 				AppLauncher(),
 			],
 		});
@@ -55,7 +56,8 @@ function reloadBars() {
 // Initial setup
 App.config({
 	windows: [
-		...createBars(),
+		// ...createBars(),
+		Bar({ monitor: 0 }),
 		AppLauncher(),
 	],
 });
