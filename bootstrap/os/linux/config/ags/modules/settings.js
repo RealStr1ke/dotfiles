@@ -42,6 +42,7 @@ const settings = {
 			'mpv': '  MPV',
 			'Pulse Browser': '󰈹 Pulse Browser',
 			'mercury-default': '󰈹 Mercury Browser',
+			'zen': '󰈹 Zen Browser',
 			'zen-beta': '󰈹 Zen Browser',
 			'zoom': ' Zoom',
 			'Twitch': ' Twitch',
