@@ -316,8 +316,8 @@ alias ctb="clear;tb"
 alias clh="cd;clear"
 
 # Reset shell
-alias rst="reset;pfetch"
-alias rsh="reset;cd;pfetch"
+alias rst="reset;echo;pfetch"
+alias rsh="reset;echo;cd;pfetch"
 
 # Decimal 2 Hexadecimal
 # alias dec2hex="od -v -t x1"

@@ -51,6 +51,7 @@ const settings = {
 			'org.gnome.clocks': '  Clocks',
 			'Waydroid': ' Waydroid',
 			'chat-gpt': '󰭻 ChatGPT',
+			'chatterino': '󰊗 Chatterino',
 			'flameshot': '󰹑 Flameshot',
 			'harmonoid': 'p Harmonoid',
 			'vesktop': '󰙯 Vesktop',
