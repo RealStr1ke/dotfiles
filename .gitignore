@@ -3,5 +3,6 @@ backup/
 node_modules/
 ignore/*
 config/gtk*/servers
+bun.lock
 bun.lockb
 package-lock.json
