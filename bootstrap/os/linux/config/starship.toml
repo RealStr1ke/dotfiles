@@ -23,7 +23,7 @@ command_timeout = 50000
 # Main Modules
 
 [battery]
-full_symbol = '🔋 '
+full_symbol = '󰁹 '
 charging_symbol = '󰂄 '
 discharging_symbol = '󱟤 '
 

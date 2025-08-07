@@ -54,7 +54,7 @@ arrpc &
 nm-applet &
 
 # Spotify Daemon
-# spotifyd &
+spotifyd &
 
 # Music Player Daemon (MPD)
 # mpd --stdout --verbose &

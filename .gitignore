@@ -4,3 +4,4 @@ node_modules/
 ignore/*
 config/gtk*/servers
 bun.lockb
+package-lock.json
