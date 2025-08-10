@@ -26,3 +26,14 @@ bash -c "`curl -fsSL https://raw.githubusercontent.com/RealStr1ke/dotfiles/maste
   
   [▶️ Watch the Showcase Video](https://cloud-92tb4q7ml-hack-club-bot.vercel.app/0hyprland-rice-competition-submission-winter-2022.mp4)
 </div>
+
+# To-Do List
+ - AGS
+   - Add Wi-Fi info revealer to bar
+   - Add an on-screen keyboard button to bar that launches wvkbd
+   - Fix the volume slider
+   - Create the following
+     - Dashboard
+     - Bar Quick Settings
+     - Workspace Overview
+ - Rewrite README
