@@ -1,0 +1,62 @@
+# Homebrew
+if ! is-executable "gp"; then
+	if [ "$(uname)" = "Linux" ]; then
+		if [ -d "/home/linuxbrew/.linuxbrew/" ]; then
+			eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+		elif [ -d "$HOME/.linuxbrew" ]; then
+			eval $($HOME/.linuxbrew/bin/brew shellenv)
+		fi
+	elif [ "$(uname)" = "Darwin" ]; then
+		if [ "$(uname -m)" = "arm64" ]; then
+			eval $(/usr/local/bin/brew shellenv)
+		else
+			eval $(/usr/local/Homebrew/bin/brew shellenv)
+		fi
+	fi
+fi
+
+# Spicetify CLI
+if [ -d "$HOME/.spicetify" ]; then
+	PATH="$PATH:$HOME/.spicetify"
+fi
+
+# Go binaries
+# If go is executable, add $GOPATH/bin to PATH
+if is-executable "go"; then
+	export GOMODCACHE="$HOME/.local/src/go/pkg/mod"
+	export GOPATH="$HOME/.local/src/go"
+	export GOBIN="$HOME/.local/src/go/bin"
+	PATH="$(go env GOBIN):$PATH"
+fi
+
+# Dotfile Binaries
+PATH="$HOME/.dotfiles/src/bin/main:$PATH";
+PATH="$HOME/.dotfiles/src/bin/apps:$PATH";
+PATH="$HOME/.dotfiles/src/bin/fun:$PATH";
+
+# Main Binaries
+PATH="$HOME/.local/bin:$PATH";
+PATH="$HOME/bin:$PATH";
+
+# Use project specific binaries before global ones
+# PATH="node_modules/.bin:$PATH";
+# PATH="vendor/bin:$PATH";
+
+# Use current directory's binaries over global ones
+# PATH="bin:$PATH"
+
+# Adding Global NPM packages to PATH
+if is-executable "npm"; then
+	PATH="$(npm config get prefix)/bin:$PATH"
+	# PATH="$(npm bin --location=global):$PATH"
+	# PATH="$(npm bin):$PATH"
+fi
+
+# Adding Rust's Cargo Binaries
+PATH="$HOME/.cargo/bin:$PATH"
+
+# Remove duplicate PATH entries because why not
+# PATH="$(perl -e 'print join(":", grep { not $seen{$_}++ } split(/:/, $ENV{PATH}))')"
+PATH=$(echo $PATH | awk -v RS=: -v ORS=: '!($0 in a) {a[$0]; print}')
+
+export PATH;
