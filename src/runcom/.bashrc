@@ -6,9 +6,9 @@ PATH="$HOME/.dotfiles/bin/main:$PATH";
 PATH="$HOME/.dotfiles/bin/apps:$PATH";
 PATH="$HOME/.dotfiles/bin/fun:$PATH";
 
-for DOTFILE in `find $HOME/.dotfiles/bootstrap/os/linux/shell/global -type f -name ".*" -printf "%f\n"`
+for DOTFILE in `find $HOME/.dotfiles/src/shell/global -type f -name ".*" -printf "%f\n"`
 do
-    source "$HOME/.dotfiles/bootstrap/os/linux/shell/global/$DOTFILE"
+    source "$HOME/.dotfiles/src/shell/global/$DOTFILE"
 done
 unset DOTFILE
 # [ -f "/home/str1ke/.ghcup/env" ] && source "/home/str1ke/.ghcup/env" # ghcup-env

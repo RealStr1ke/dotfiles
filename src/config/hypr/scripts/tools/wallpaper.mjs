@@ -11,8 +11,8 @@ try {
 }
 
 // Set directory for wallpapers
-const wallDir = `${process.env.HOME}/.dotfiles/bootstrap/os/common/wallpapers/current`;
-const fallback = `${process.env.HOME}/.dotfiles/bootstrap/os/common/wallpapers/collection/catppuccin/cat-sound.png`;
+const wallDir = `${process.env.HOME}/.dotfiles/assets/wallpapers/current`;
+const fallback = `${process.env.HOME}/.dotfiles/assets/wallpapers/collection/catppuccin/cat-sound.png`;
 
 // Function to set wallpaper
 async function setWallpaper(path) {
