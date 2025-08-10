@@ -3,5 +3,8 @@
     "chalk": "^5.5.0",
     "tinysh": "^1.0.0",
     "zx": "^8.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.2.1"
   }
 }

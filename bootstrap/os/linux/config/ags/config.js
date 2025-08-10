@@ -47,6 +47,7 @@ function reloadBars() {
 			windows: [
 				// ...createBars(),
 				Bar({ monitor: 0 }),
+				// Bar({ monitor: 1 }),
 				AppLauncher(),
 			],
 		});
@@ -58,6 +59,7 @@ App.config({
 	windows: [
 		// ...createBars(),
 		Bar({ monitor: 0 }),
+		// Bar({ monitor: 1 }),
 		AppLauncher(),
 	],
 });

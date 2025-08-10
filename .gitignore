@@ -6,3 +6,4 @@ config/gtk*/servers
 bun.lock
 bun.lockb
 package-lock.json
+config.dots.json
