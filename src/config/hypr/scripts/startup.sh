@@ -62,6 +62,9 @@ spotifyd &
 # Notification Daemon
 # swaync &
 
+# Hyprland Language Server
+hyprls &
+
 # Wob
 function wbs() {
     # Create pipe file if it doesn't exist
