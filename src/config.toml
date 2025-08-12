@@ -1,0 +1,42 @@
+# Dotfiles Symlink Configuration
+
+[symlinks]
+# Shell & Terminal
+fish = { source = "src/config/fish", target = "~/.config/fish", type = "folder" }
+starship = { source = "src/config/starship.toml", target = "~/.config/starship.toml", type = "file" }
+alacritty = { source = "src/config/alacritty", target = "~/.config/alacritty", type = "folder" }
+kitty = { source = "src/config/kitty", target = "~/.config/kitty", type = "folder" }
+
+# Window Managers
+hypr = { source = "src/config/hypr", target = "~/.config/hypr", type = "folder" }
+sway = { source = "src/config/sway", target = "~/.config/sway", type = "folder" }
+bspwm = { source = "src/config/bspwm", target = "~/.config/bspwm", type = "folder" }
+waybar = { source = "src/config/waybar", target = "~/.config/waybar", type = "folder" }
+polybar = { source = "src/config/polybar", target = "~/.config/polybar", type = "folder" }
+
+# Launchers & Menus
+rofi = { source = "src/config/rofi", target = "~/.config/rofi", type = "folder" }
+wofi = { source = "src/config/wofi", target = "~/.config/wofi", type = "folder" }
+
+# Development
+nvim = { source = "src/config/nvim", target = "~/.config/nvim", type = "folder" }
+bat = { source = "src/config/bat", target = "~/.config/bat", type = "folder" }
+
+# Media & Audio
+mpd = { source = "src/config/mpd", target = "~/.config/mpd", type = "folder" }
+ncmpcpp = { source = "src/config/ncmpcpp", target = "~/.config/ncmpcpp", type = "folder" }
+cava = { source = "src/config/cava", target = "~/.config/cava", type = "folder" }
+
+# System Utils
+btop = { source = "src/config/btop", target = "~/.config/btop", type = "folder" }
+neofetch = { source = "src/config/neofetch", target = "~/.config/neofetch", type = "folder" }
+dunst = { source = "src/config/dunst", target = "~/.config/dunst", type = "folder" }
+
+# Scripts & Binaries
+main_bin = { source = "src/bin/main", target = "~/.local/bin", type = "folder" }
+apps_bin = { source = "src/bin/apps", target = "~/.local/bin", type = "folder" }
+fun_bin = { source = "src/bin/fun", target = "~/.local/bin", type = "folder" }
+
+# Home Files
+eslint = { source = "src/home/eslint.config.mjs", target = "~/eslint.config.mjs", type = "file" }
+package = { source = "src/home/package.json", target = "~/package.json", type = "file" }
