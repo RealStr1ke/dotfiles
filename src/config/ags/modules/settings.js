@@ -58,6 +58,7 @@ const settings = {
 			'jetbrains-idea': '󰨞 IntelliJ IDEA',
 			'geany': '󰎞 Geany',
 			'org.vinegarhq.Sober': '  Sober (Roblox)',
+			'sublime_text': '󰎞 Sublime Text',
 		},
 	},
 };
