@@ -1,42 +1,87 @@
 # Dotfiles Symlink Configuration
-
 [symlinks]
-# Shell & Terminal
-fish = { source = "src/config/fish", target = "~/.config/fish", type = "folder" }
-starship = { source = "src/config/starship.toml", target = "~/.config/starship.toml", type = "file" }
+
+### Home
+bash_profile = { source = "src/home/.bash_profile", target = "~/.bash_profile", type = "file" }
+bashrc = { source = "src/home/.bashrc", target = "~/.bashrc", type = "file" }
+curlrc = { source = "src/home/.curlrc", target = "~/.curlrc", type = "file" }
+dir_colors = { source = "src/home/.dir_colors", target = "~/.dir_colors", type = "file" }
+eslintrc_js = { source = "src/home/.eslintrc.js", target = "~/.eslintrc.js", type = "file" }
+eslintrc_json = { source = "src/home/.eslintrc.json", target = "~/.eslintrc.json", type = "file" }
+gitconfig = { source = "src/home/.gitconfig", target = "~/.gitconfig", type = "file" }
+gitignore = { source = "src/home/.gitignore", target = "~/.gitignore", type = "file" }
+gvimrc = { source = "src/home/.gvimrc", target = "~/.gvimrc", type = "file" }
+hushlogin = { source = "src/home/.hushlogin", target = "~/.hushlogin", type = "file" }
+inputrc = { source = "src/home/.inputrc", target = "~/.inputrc", type = "file" }
+prettierrc_js = { source = "src/home/.prettierrc.js", target = "~/.prettierrc.js", type = "file" }
+rvmrc = { source = "src/home/.rvmrc", target = "~/.rvmrc", type = "file" }
+screenrc = { source = "src/home/.screenrc", target = "~/.screenrc", type = "file" }
+wgetrc = { source = "src/home/.wgetrc", target = "~/.wgetrc", type = "file" }
+xinitrc = { source = "src/home/.xinitrc", target = "~/.xinitrc", type = "file" }
+xresources = { source = "src/home/.Xresources", target = "~/.Xresources", type = "file" }
+eslint_config_mjs = { source = "src/home/.eslint.config.mjs", target = "~/.eslint.config.mjs", type = "file" }
+
+### Config
+ags = { source = "src/config/ags", target = "~/.config/ags", type = "folder" }
 alacritty = { source = "src/config/alacritty", target = "~/.config/alacritty", type = "folder" }
-kitty = { source = "src/config/kitty", target = "~/.config/kitty", type = "folder" }
-
-# Window Managers
-hypr = { source = "src/config/hypr", target = "~/.config/hypr", type = "folder" }
-sway = { source = "src/config/sway", target = "~/.config/sway", type = "folder" }
-bspwm = { source = "src/config/bspwm", target = "~/.config/bspwm", type = "folder" }
-waybar = { source = "src/config/waybar", target = "~/.config/waybar", type = "folder" }
-polybar = { source = "src/config/polybar", target = "~/.config/polybar", type = "folder" }
-
-# Launchers & Menus
-rofi = { source = "src/config/rofi", target = "~/.config/rofi", type = "folder" }
-wofi = { source = "src/config/wofi", target = "~/.config/wofi", type = "folder" }
-
-# Development
-nvim = { source = "src/config/nvim", target = "~/.config/nvim", type = "folder" }
+atuin = { source = "src/config/atuin", target = "~/.config/atuin", type = "folder" }
 bat = { source = "src/config/bat", target = "~/.config/bat", type = "folder" }
-
-# Media & Audio
+bspwm = { source = "src/config/bspwm", target = "~/.config/bspwm", type = "folder" }
+btop = { source = "src/config/btop", target = "~/.config/btop", type = "folder" }
+cava = { source = "src/config/cava", target = "~/.config/cava", type = "folder" }
+discord-rpc = { source = "src/config/discord-rpc", target = "~/.config/discord-rpc", type = "folder" }
+dunst = { source = "src/config/dunst", target = "~/.config/dunst", type = "folder" }
+eww = { source = "src/config/eww", target = "~/.config/eww", type = "folder" }
+fish = { source = "src/config/fish", target = "~/.config/fish", type = "folder" }
+flameshot = { source = "src/config/flameshot", target = "~/.config/flameshot", type = "folder" }
+flashfocus = { source = "src/config/flashfocus", target = "~/.config/flashfocus", type = "folder" }
+fontconfig = { source = "src/config/fontconfig", target = "~/.config/fontconfig", type = "folder" }
+gtk-2_0 = { source = "src/config/gtk-2.0", target = "~/.config/gtk-2.0", type = "folder" }
+gtk-3_0 = { source = "src/config/gtk-3.0", target = "~/.config/gtk-3.0", type = "folder" }
+gtk-4_0 = { source = "src/config/gtk-4.0", target = "~/.config/gtk-4.0", type = "folder" }
+gtklock = { source = "src/config/gtklock", target = "~/.config/gtklock", type = "folder" }
+hyper = { source = "src/config/hyper", target = "~/.config/hyper", type = "folder" }
+hypr = { source = "src/config/hypr", target = "~/.config/hypr", type = "folder" }
+kitty = { source = "src/config/kitty", target = "~/.config/kitty", type = "folder" }
 mpd = { source = "src/config/mpd", target = "~/.config/mpd", type = "folder" }
 ncmpcpp = { source = "src/config/ncmpcpp", target = "~/.config/ncmpcpp", type = "folder" }
-cava = { source = "src/config/cava", target = "~/.config/cava", type = "folder" }
-
-# System Utils
-btop = { source = "src/config/btop", target = "~/.config/btop", type = "folder" }
 neofetch = { source = "src/config/neofetch", target = "~/.config/neofetch", type = "folder" }
-dunst = { source = "src/config/dunst", target = "~/.config/dunst", type = "folder" }
+nitrogen = { source = "src/config/nitrogen", target = "~/.config/nitrogen", type = "folder" }
+nix = { source = "src/config/nix", target = "~/.config/nix", type = "folder" }
+nvim = { source = "src/config/nvim", target = "~/.config/nvim", type = "folder" }
+nwg-bar = { source = "src/config/nwg-bar", target = "~/.config/nwg-bar", type = "folder" }
+nwg-displays = { source = "src/config/nwg-displays", target = "~/.config/nwg-displays", type = "folder" }
+nwg-dock = { source = "src/config/nwg-dock", target = "~/.config/nwg-dock", type = "folder" }
+nwg-dock-hyprland = { source = "src/config/nwg-dock-hyprland", target = "~/.config/nwg-dock-hyprland", type = "folder" }
+nwg-drawer = { source = "src/config/nwg-drawer", target = "~/.config/nwg-drawer", type = "folder" }
+nwg-look = { source = "src/config/nwg-look", target = "~/.config/nwg-look", type = "folder" }
+openbox = { source = "src/config/openbox", target = "~/.config/openbox", type = "folder" }
+openbox-themes = { source = "src/config/openbox-themes", target = "~/.config/openbox-themes", type = "folder" }
+paru = { source = "src/config/paru", target = "~/.config/paru", type = "folder" }
+picom = { source = "src/config/picom", target = "~/.config/picom", type = "folder" }
+polybar = { source = "src/config/polybar", target = "~/.config/polybar", type = "folder" }
+qt5ct = { source = "src/config/qt5ct", target = "~/.config/qt5ct", type = "folder" }
+qt6ct = { source = "src/config/qt6ct", target = "~/.config/qt6ct", type = "folder" }
+ranger = { source = "src/config/ranger", target = "~/.config/ranger", type = "folder" }
+rofi = { source = "src/config/rofi", target = "~/.config/rofi", type = "folder" }
+spotifyd = { source = "src/config/spotifyd", target = "~/.config/spotifyd", type = "folder" }
+sway = { source = "src/config/sway", target = "~/.config/sway", type = "folder" }
+swaync = { source = "src/config/swaync", target = "~/.config/swaync", type = "folder" }
+sxhkd = { source = "src/config/sxhkd", target = "~/.config/sxhkd", type = "folder" }
+tilda = { source = "src/config/tilda", target = "~/.config/tilda", type = "folder" }
+wava = { source = "src/config/wava", target = "~/.config/wava", type = "folder" }
+waybar = { source = "src/config/waybar", target = "~/.config/waybar", type = "folder" }
+waypaper = { source = "src/config/waypaper", target = "~/.config/waypaper", type = "folder" }
+wlogout = { source = "src/config/wlogout", target = "~/.config/wlogout", type = "folder" }
+wofi = { source = "src/config/wofi", target = "~/.config/wofi", type = "folder" }
+youtube-tui = { source = "src/config/youtube-tui", target = "~/.config/youtube-tui", type = "folder" }
+zotify = { source = "src/config/zotify", target = "~/.config/zotify", type = "folder" }
+betterlockscreenrc = { source = "src/config/betterlockscreenrc", target = "~/.config/betterlockscreenrc", type = "file" }
+code-flags_conf = { source = "src/config/code-flags.conf", target = "~/.config/code-flags.conf", type = "file" }
+starship_toml = { source = "src/config/starship.toml", target = "~/.config/starship.toml", type = "file" }
 
-# Scripts & Binaries
-main_bin = { source = "src/bin/main", target = "~/.local/bin", type = "folder" }
-apps_bin = { source = "src/bin/apps", target = "~/.local/bin", type = "folder" }
-fun_bin = { source = "src/bin/fun", target = "~/.local/bin", type = "folder" }
+### Local
+# Nothing atm...
 
-# Home Files
-eslint = { source = "src/home/eslint.config.mjs", target = "~/eslint.config.mjs", type = "file" }
-package = { source = "src/home/package.json", target = "~/package.json", type = "file" }
+### Shell
+# Nothing rly but I'll figure smth out here

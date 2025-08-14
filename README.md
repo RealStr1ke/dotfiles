@@ -31,6 +31,7 @@ bash -c "`curl -fsSL https://raw.githubusercontent.com/RealStr1ke/dotfiles/maste
 ## To-Do List
  - Rebuild ags config from scratch using astal
  - Finish tooling for dotfiles
+ - For the config stuff have a way to save the currently active symlinks and be able to refresh them (add dry run too lol)
 
 ### To-Do List (Old)
  - AGS
