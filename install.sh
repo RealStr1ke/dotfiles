@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# bash -c "`curl -fsSL https://raw.githubusercontent.com/RealStr1ke/dotfiles/master/core/src/utils/install.sh`"
+# bash -c "`curl -fsSL https://raw.githubusercontent.com/RealStr1ke/dotfiles/master/install.sh`"
+
 
 # Check if git is installed
 if ! command -v git &> /dev/null; then
