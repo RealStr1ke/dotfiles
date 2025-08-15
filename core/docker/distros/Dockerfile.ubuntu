@@ -1,0 +1,140 @@
+# Ubuntu environment for dotfiles testing and development
+FROM ubuntu:22.04
+
+# Set build argument for test mode
+ARG TEST_MODE=local
+
+# Prevent interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update system and install essential packages
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y \
+        build-essential \
+        git \
+        curl \
+        sudo \
+        fish \
+        neovim \
+        nodejs \
+        npm \
+        unzip \
+        wget \
+        bash \
+        nano \
+        vim \
+        software-properties-common \
+        ca-certificates \
+        && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install Bun (required for dotfiles)
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/root/.bun/bin:${PATH}"
+
+# Create test user with sudo privileges and fish shell
+RUN useradd -m -s /usr/bin/fish testuser && \
+    echo 'testuser ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
+    echo 'testuser:testuser' | chpasswd
+
+# Switch to test user
+USER testuser
+WORKDIR /home/testuser
+
+# Install Bun for user
+RUN curl -fsSL https://bun.sh/install | bash
+ENV PATH="/home/testuser/.bun/bin:${PATH}"
+
+# Install Starship prompt
+RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
+ENV PATH="/home/testuser/.local/bin:${PATH}"
+
+# Copy dotfiles repository
+COPY --chown=testuser:testuser ../../ /home/testuser/.dotfiles
+
+# Install dotfiles dependencies
+RUN if [ -f "/home/testuser/.dotfiles/core/package.json" ]; then \
+        cd /home/testuser/.dotfiles/core && bun install; \
+    fi
+
+# Copy test scripts
+COPY scripts/test-runner.sh /home/testuser/test-runner.sh
+COPY scripts/test-scenarios.sh /home/testuser/test-scenarios.sh
+RUN chmod +x /home/testuser/test-runner.sh /home/testuser/test-scenarios.sh
+
+# Create convenient aliases and setup
+RUN echo '# Dotfiles Environment Setup' >> /home/testuser/.config/fish/config.fish && \
+    mkdir -p /home/testuser/.config/fish && \
+    echo 'set -gx PATH /home/testuser/.bun/bin $PATH' >> /home/testuser/.config/fish/config.fish && \
+    echo 'set -gx PATH /home/testuser/.local/bin $PATH' >> /home/testuser/.config/fish/config.fish && \
+    echo '' >> /home/testuser/.config/fish/config.fish && \
+    echo '# Initialize Starship prompt' >> /home/testuser/.config/fish/config.fish && \
+    echo 'starship init fish | source' >> /home/testuser/.config/fish/config.fish && \
+    echo '' >> /home/testuser/.config/fish/config.fish && \
+    echo '# Dotfiles shortcuts' >> /home/testuser/.config/fish/config.fish && \
+    echo 'alias dots-install="cd ~/.dotfiles/core && bun run src/utils/cli.ts install"' >> /home/testuser/.config/fish/config.fish && \
+    echo 'alias dots-status="cd ~/.dotfiles/core && bun run src/utils/cli.ts status"' >> /home/testuser/.config/fish/config.fish && \
+    echo 'alias dots-uninstall="cd ~/.dotfiles/core && bun run src/utils/cli.ts uninstall"' >> /home/testuser/.config/fish/config.fish && \
+    echo 'alias dots-update="cd ~/.dotfiles/core && bun run src/utils/cli.ts update"' >> /home/testuser/.config/fish/config.fish && \
+    echo 'alias dots-core="cd ~/.dotfiles/core"' >> /home/testuser/.config/fish/config.fish && \
+    echo '' >> /home/testuser/.config/fish/config.fish
+
+# Also create bash aliases for compatibility
+RUN echo '# Dotfiles Environment Setup' >> /home/testuser/.bashrc && \
+    echo 'export PATH="/home/testuser/.bun/bin:$PATH"' >> /home/testuser/.bashrc && \
+    echo 'export PATH="/home/testuser/.local/bin:$PATH"' >> /home/testuser/.bashrc && \
+    echo '' >> /home/testuser/.bashrc && \
+    echo '# Initialize Starship prompt' >> /home/testuser/.bashrc && \
+    echo 'eval "$(starship init bash)"' >> /home/testuser/.bashrc && \
+    echo '' >> /home/testuser/.bashrc && \
+    echo '# Dotfiles shortcuts' >> /home/testuser/.bashrc && \
+    echo 'alias dots-install="cd ~/.dotfiles/core && bun run src/utils/cli.ts install"' >> /home/testuser/.bashrc && \
+    echo 'alias dots-status="cd ~/.dotfiles/core && bun run src/utils/cli.ts status"' >> /home/testuser/.bashrc && \
+    echo 'alias dots-uninstall="cd ~/.dotfiles/core && bun run src/utils/cli.ts uninstall"' >> /home/testuser/.bashrc && \
+    echo 'alias dots-update="cd ~/.dotfiles/core && bun run src/utils/cli.ts update"' >> /home/testuser/.bashrc && \
+    echo 'alias dots-core="cd ~/.dotfiles/core"' >> /home/testuser/.bashrc && \
+    echo '' >> /home/testuser/.bashrc
+
+# Create remote installation script for remote mode
+RUN echo '#!/bin/bash' > /home/testuser/install-remote-dotfiles.sh && \
+    echo 'set -e' >> /home/testuser/install-remote-dotfiles.sh && \
+    echo 'echo "Installing dotfiles from remote repository..."' >> /home/testuser/install-remote-dotfiles.sh && \
+    echo 'rm -rf ~/.dotfiles' >> /home/testuser/install-remote-dotfiles.sh && \
+    echo 'git clone ${REPO_URL:-https://github.com/RealStr1ke/dotfiles.git} ~/.dotfiles' >> /home/testuser/install-remote-dotfiles.sh && \
+    echo 'cd ~/.dotfiles/core && bun install' >> /home/testuser/install-remote-dotfiles.sh && \
+    echo 'bun run src/utils/cli.ts install "$@"' >> /home/testuser/install-remote-dotfiles.sh && \
+    chmod +x /home/testuser/install-remote-dotfiles.sh
+
+# Welcome message
+RUN echo '' >> /home/testuser/.config/fish/config.fish && \
+    echo 'echo "=== Dotfiles Environment - Ubuntu 22.04 ==="' >> /home/testuser/.config/fish/config.fish && \
+    echo 'echo "Available commands:"' >> /home/testuser/.config/fish/config.fish && \
+    echo 'echo "  dots-install [--force] [--dry-run] - Install dotfiles"' >> /home/testuser/.config/fish/config.fish && \
+    echo 'echo "  dots-status                        - Check status"' >> /home/testuser/.config/fish/config.fish && \
+    echo 'echo "  dots-uninstall                     - Uninstall dotfiles"' >> /home/testuser/.config/fish/config.fish && \
+    echo 'echo "  dots-update                        - Update dotfiles"' >> /home/testuser/.config/fish/config.fish && \
+    echo 'echo "  dots-core                          - Go to core directory"' >> /home/testuser/.config/fish/config.fish && \
+    echo 'if test "$TEST_MODE" = "remote"' >> /home/testuser/.config/fish/config.fish && \
+    echo '  echo "  ./install-remote-dotfiles.sh       - Install from GitHub"' >> /home/testuser/.config/fish/config.fish && \
+    echo 'end' >> /home/testuser/.config/fish/config.fish && \
+    echo 'echo ""' >> /home/testuser/.config/fish/config.fish
+
+# Also add welcome message to bash for compatibility
+RUN echo '' >> /home/testuser/.bashrc && \
+    echo 'echo "=== Dotfiles Environment - Ubuntu 22.04 ==="' >> /home/testuser/.bashrc && \
+    echo 'echo "Available commands:"' >> /home/testuser/.bashrc && \
+    echo 'echo "  dots-install [--force] [--dry-run] - Install dotfiles"' >> /home/testuser/.bashrc && \
+    echo 'echo "  dots-status                        - Check status"' >> /home/testuser/.bashrc && \
+    echo 'echo "  dots-uninstall                     - Uninstall dotfiles"' >> /home/testuser/.bashrc && \
+    echo 'echo "  dots-update                        - Update dotfiles"' >> /home/testuser/.bashrc && \
+    echo 'echo "  dots-core                          - Go to core directory"' >> /home/testuser/.bashrc && \
+    echo 'if [ "$TEST_MODE" = "remote" ]; then' >> /home/testuser/.bashrc && \
+    echo '  echo "  ./install-remote-dotfiles.sh       - Install from GitHub"' >> /home/testuser/.bashrc && \
+    echo 'fi' >> /home/testuser/.bashrc && \
+    echo 'echo ""' >> /home/testuser/.bashrc
+
+# Set environment variables
+ENV DISTRO=ubuntu
+ENV TEST_MODE=${TEST_MODE}
+
+# Default command for interactive use
+CMD ["/usr/bin/fish"]

@@ -1,0 +1,97 @@
+version: '3.8'
+
+services:
+  # Arch Linux - Primary test target
+  arch-local:
+    build:
+      context: .
+      dockerfile: distros/Dockerfile.arch
+      args:
+        TEST_MODE: local
+    environment:
+      - TEST_TYPE=local
+      - DISTRO=arch
+    container_name: dotfiles-test-arch-local
+    tty: true
+    stdin_open: true
+    command: /usr/bin/fish
+    
+  arch-remote:
+    build:
+      context: .
+      dockerfile: distros/Dockerfile.arch
+      args:
+        TEST_MODE: remote
+    environment:
+      - TEST_TYPE=remote
+      - DISTRO=arch
+      - REPO_URL=https://github.com/RealStr1ke/dotfiles.git
+    container_name: dotfiles-test-arch-remote
+    tty: true
+    stdin_open: true
+    command: /usr/bin/fish
+
+  # Ubuntu - Secondary test target
+  ubuntu-local:
+    build:
+      context: .
+      dockerfile: distros/Dockerfile.ubuntu
+      args:
+        TEST_MODE: local
+    environment:
+      - TEST_TYPE=local
+      - DISTRO=ubuntu
+    container_name: dotfiles-test-ubuntu-local
+    tty: true
+    stdin_open: true
+    command: /usr/bin/fish
+    
+  ubuntu-remote:
+    build:
+      context: .
+      dockerfile: distros/Dockerfile.ubuntu
+      args:
+        TEST_MODE: remote
+    environment:
+      - TEST_TYPE=remote
+      - DISTRO=ubuntu
+      - REPO_URL=https://github.com/RealStr1ke/dotfiles.git
+    container_name: dotfiles-test-ubuntu-remote
+    tty: true
+    stdin_open: true
+    command: /usr/bin/fish
+
+  # Interactive development containers
+  arch-dev:
+    build:
+      context: .
+      dockerfile: distros/Dockerfile.arch
+      args:
+        TEST_MODE: local
+    environment:
+      - DISTRO=arch
+      - DEV_MODE=true
+    container_name: dotfiles-dev-arch
+    tty: true
+    stdin_open: true
+    command: /usr/bin/fish
+    profiles: ["dev"]
+
+  ubuntu-dev:
+    build:
+      context: .
+      dockerfile: distros/Dockerfile.ubuntu
+      args:
+        TEST_MODE: local
+    environment:
+      - DISTRO=ubuntu
+      - DEV_MODE=true
+    container_name: dotfiles-dev-ubuntu
+    tty: true
+    stdin_open: true
+    command: /usr/bin/fish
+    profiles: ["dev"]
+
+networks:
+  default:
+    name: dotfiles-test-network
