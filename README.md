@@ -4,7 +4,7 @@
 
 ## Welcome `~`
 
-**Hi! Welcome to my mildly amusing dotfiles collection!** I guess I kinda ~~wasted~~ spent a lot of time on these, but here they are in all their glory. This repository contains my meticulously crafted (and slightly over-engineered) development environment focused on Hyprland/Wayland with extensive customizations, automation tools, and a TypeScript-based management system. Have fun and rob what you want lol.
+**Hi! Welcome to my mildly amusing dotfiles collection!** I guess I kinda ~~wasted~~ spent a lot of time on these, but here they are in all their glory. This repository contains my meticulously crafted (and slightly over-engineered) development environment focused on Hyprland with extensive customizations, automation tools, and a TypeScript-based management system. Have fun and rob what you want lol.
 
 ## ⚡ TL;DR
 
