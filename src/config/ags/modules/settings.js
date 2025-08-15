@@ -19,6 +19,7 @@ const settings = {
 			'Cromite': ' Cromite Browser',
 			'code-oss': '󰨞 Microsoft VS Code [OSS]',
 			'Code - Insiders': '󰨞 Microsoft VS Code [Insiders]',
+			'code-insiders': '󰨞 Microsoft VS Code [Insiders]',
 			'com.github.hluk.copyq': ' CopyQ',
 			'discord': '󰙯 Discord',
 			'osu!': '󰊗 osu!',
