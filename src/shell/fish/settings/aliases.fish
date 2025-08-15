@@ -181,9 +181,13 @@ alias notes="nvim ~/notes.md"
 #     alias df-vscode="code ~/.dotfiles"
 # fi
 
+
+# Dotfiles CLI
+alias dots="bun run ~/.dotfiles/core/main.ts"
+
 # Dotfile shortcuts
 # alias dots-alias="nano ~/.dotfiles/shell/global/.aliases"
-alias dots-funcs="nano ~/.dotfiles/shell/global/.functions"
+# alias dots-funcs="nano ~/.dotfiles/shell/global/.functions"
 # alias dots-path="nano ~/.dotfiles/shell/global/.path"
 # alias dots-env="nano ~/.dotfiles/shell/global/.env"
 

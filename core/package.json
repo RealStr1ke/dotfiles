@@ -1,4 +1,8 @@
 {
+  "name": "dotfiles-core",
+  "version": "1.0.0",
+  "description": "TypeScript-based dotfiles management system",
+  "main": "main.ts",
   "dependencies": {
     "child_process": "^1.0.2",
     "fs": "^0.0.1-security",

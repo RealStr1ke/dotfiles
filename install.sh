@@ -76,9 +76,54 @@ run_installation() {
 		echo "Error: Bun not detected. Aborting."
 		exit 1
 	fi
+	
+	echo "Installing dependencies..."
+	cd "$DOTFILES_DIR/core"
+	bun install
+	
 	echo "Running installation program..."
 	
-	# TODO: Implement installation logic lol
+	# Parse arguments passed to script
+	local mode="headless"
+	local extra_args=""
+	local has_args=false
+	
+	# Process all arguments passed to the script
+	for arg in "$@"; do
+		has_args=true
+		case $arg in
+			--interactive|-i)
+				mode="interactive"
+				;;
+			--headless|-h)
+				mode="headless"
+				;;
+			--force|-f)
+				extra_args="$extra_args --force"
+				;;
+			--dry-run|-d)
+				extra_args="$extra_args --dry-run"
+				;;
+			--verbose|-v)
+				extra_args="$extra_args --verbose"
+				;;
+			*)
+				echo "Unknown option: $arg"
+				echo "Available options: --interactive, --headless, --force, --dry-run, --verbose"
+				;;
+		esac
+	done
+	
+	# If no arguments provided, enable force mode for automated/remote installs
+	# This ensures smooth installation in Gitpod and other automated environments
+	if [ "$has_args" = false ]; then
+		extra_args="--force"
+		echo "No arguments provided - enabling automatic mode (headless + force)"
+	fi
+	
+	# Run the TypeScript CLI
+	echo "Executing: bun run main.ts install --$mode $extra_args"
+	bun run main.ts install --$mode $extra_args
 }
 
 # Ensure Bun is installed
@@ -97,4 +142,4 @@ else
 fi
 
 # Run installation
-run_installation
+run_installation "$@"

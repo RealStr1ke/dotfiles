@@ -28,17 +28,20 @@ class Dotfiles {
 		this.dotfilesPath = utils.getDotfilesDir();
 		this.activeStatePath = path.join(this.dotfilesPath, 'src', 'config.active.toml');
 		this.logPath = path.join(this.dotfilesPath, 'src', 'dotfiles.log');
-		this.initializeLogging();
+		this.setupLogging();
 	}
 
-	// Initialize logging system and create session header
-	private initializeLogging() {
+	// Setup logging system (without session header)
+	private setupLogging() {
 		// Ensure log directory exists
 		const logDir = path.dirname(this.logPath);
 		if (!fs.existsSync(logDir)) {
 			fs.mkdirSync(logDir, { recursive: true });
 		}
+	}
 
+	// Initialize session logging when actually starting operations
+	private initializeSession() {
 		// Log session start with header
 		this.log('info', '='.repeat(80));
 		this.log('info', `Dotfiles session started at ${new Date().toISOString()}`);
@@ -168,15 +171,41 @@ class Dotfiles {
 
 		if (!fs.existsSync(configPath)) {
 			this.log('error', 'config.toml not found');
-			return;
+			throw new Error('Configuration file not found');
 		}
 
 		try {
 			const configContent = fs.readFileSync(configPath, 'utf8');
+
+			// Basic validation: Check file size to prevent DoS
+			if (configContent.length > 1024 * 1024) { // 1MB limit
+				throw new Error('Configuration file too large (max 1MB)');
+			}
+
 			this.config = toml.parse(configContent);
+
+			// Validate basic structure
+			if (!this.config || typeof this.config !== 'object') {
+				throw new Error('Invalid configuration: must be an object');
+			}
+
+			// Validate symlinks section if present
+			if (this.config.symlinks) {
+				if (typeof this.config.symlinks !== 'object') {
+					throw new Error('Invalid configuration: symlinks must be an object');
+				}
+
+				// Bro if you get here actually go outside
+				const symlinkCount = Object.keys(this.config.symlinks).length;
+				if (symlinkCount > 1000) {
+					throw new Error('Too many symlinks defined (max 1000). Go outside.');
+				}
+			}
+
 			this.log('info', 'Configuration loaded successfully');
 		} catch (error) {
 			this.log('error', `Failed to parse config.toml: ${error}`);
+			throw error;
 		}
 	}
 
@@ -185,23 +214,26 @@ class Dotfiles {
 		this.log('info', 'Checking requirements...');
 
 		if (!utils.isCommandInstalled('git')) {
-			this.log('error', 'Git is not installed. Please install it to continue.');
-			process.exit(1);
+			const error = 'Git is not installed. Please install it to continue.';
+			this.log('error', error);
+			throw new Error(error);
 		}
 
 		const hasBun = utils.isCommandInstalled('bun');
 		const hasTsNode = utils.isCommandInstalled('ts-node');
 
 		if (!hasBun && !hasTsNode) {
-			this.log('error', 'Neither Bun nor ts-node are installed. Idk how tf you got here without them but please install one of them to continue.');
-			process.exit(1);
+			const error = 'Neither Bun nor ts-node are installed. Please install one of them to continue.';
+			this.log('error', error);
+			throw new Error(error);
 		}
 
 		this.log('info', 'All requirements met.');
 	}
 
 	// Main installation process
-	install(headless: boolean) {
+	install(headless: boolean, force: boolean = false, dryRun: boolean = false) {
+		this.initializeSession();
 		this.log('info', 'Installing dotfiles...');
 
 		// Load configuration first
@@ -217,24 +249,30 @@ class Dotfiles {
 		}
 
 		this.log('info', `Installation mode: ${headless ? 'headless' : 'interactive'}`);
+		if (force) this.log('info', 'Force mode enabled');
+		if (dryRun) this.log('info', 'Dry run mode enabled - no changes will be made');
 
-		if (!headless) {
-			// Interactive mode - but remove async/await since this method isn't async
+		if (!headless && !dryRun) {
+			// Interactive mode - show preview first
 			this.log('info', 'Running dry run to preview changes...');
-			this.symlink(true); // dry run
+			this.symlink(true, force); // dry run
 
 			this.log('info', 'Interactive mode not fully implemented - proceeding with installation');
 			this.log('info', 'Proceeding with actual symlink creation...');
-			this.symlink(false); // actual run
+			this.symlink(false, force); // actual run
 
 			this.log('info', 'Skipping submodule update (interactive prompts not implemented)');
+		} else if (dryRun) {
+			// Headless mode or dry run (dry run branch)
+			this.log('info', 'Dry run mode - showing what would be done...');
+			this.symlink(true, force); // dry run only
 		} else {
-			// Headless mode
+			// Headless mode actual execution
 			this.log('info', 'Running dry run for logging purposes...');
-			this.symlink(true); // dry run for logging
+			this.symlink(true, force); // dry run for logging
 
 			this.log('info', 'Proceeding with actual symlink creation...');
-			this.symlink(false); // actual run
+			this.symlink(false, force); // actual run
 
 			// Only update submodules if git is available and we're in a git repo
 			if (utils.isCommandInstalled('git') && fs.existsSync(path.join(this.dotfilesPath, '.git'))) {
@@ -319,8 +357,6 @@ class Dotfiles {
 			this.log('info', 'Force flag enabled, processing all symlinks');
 		}
 
-		const time = Date.now();
-
 		// Validate configuration structure
 		for (const [name, config] of Object.entries<any>(symlinks)) {
 			if (!config || typeof config !== 'object') {
@@ -341,8 +377,10 @@ class Dotfiles {
 			}
 		}
 
-		// Setup backup directory and validate paths
-		const backupRoot = path.join(this.dotfilesPath, 'backup', `backup-${time}`);
+		// Setup backup directory with unique timestamp
+		const time = Date.now();
+		const randomSuffix = Math.random().toString(36).substring(2, 8);
+		const backupRoot = path.join(this.dotfilesPath, 'backup', `backup-${time}-${randomSuffix}`);
 		const homeDir = os.homedir();
 
 		// Validate essential directories exist
@@ -653,8 +691,104 @@ class Dotfiles {
 
 	// Check status of dotfiles (to be implemented)
 	status() {
+		this.initializeSession();
 		this.log('info', 'Checking dotfiles status...');
 		// Status checking logic here
+	}
+
+	// Remove all symlinks and clean up active state
+	uninstall(force: boolean = false) {
+		this.initializeSession();
+		this.log('info', 'Starting dotfiles uninstall...');
+
+		// Load active state to see what symlinks exist
+		const activeState = this.loadActiveState();
+
+		if (!activeState) {
+			this.log('warn', 'No active state found - nothing to uninstall');
+			return;
+		}
+
+		// Safety confirmation unless force flag is used
+		if (!force) {
+			this.log('warn', '⚠️  DANGER: This will remove ALL dotfiles symlinks!');
+			this.log('warn', '⚠️  This action cannot be undone!');
+			this.log('warn', '⚠️  Use --force flag to skip this confirmation');
+
+			// For now, just log and exit since interactive prompts aren't implemented
+			this.log('error', 'Uninstall aborted - use --force flag to proceed without confirmation');
+			return;
+		}
+
+		this.log('info', 'Force flag enabled - proceeding with uninstall');
+
+		const symlinks = activeState.symlinks;
+		let removedCount = 0;
+		let errorCount = 0;
+		let notFoundCount = 0;
+
+		// Process each symlink for removal
+		for (const [name, config] of Object.entries(symlinks)) {
+			this.log('info', `Processing removal of '${name}'...`);
+
+			try {
+				// Resolve target path
+				const homeDir = os.homedir();
+				const absTarget = path.isAbsolute(config.target)
+					? config.target
+					: path.resolve(homeDir, config.target.replace(/^~\//, ''));
+
+				// Check if target exists
+				let targetLstat: fs.Stats | null = null;
+				try {
+					targetLstat = fs.lstatSync(absTarget);
+				} catch {
+					this.log('info', `Target '${name}' does not exist: ${absTarget}`);
+					notFoundCount++;
+					continue;
+				}
+
+				// Only remove if it's a symlink (safety check)
+				if (targetLstat.isSymbolicLink()) {
+					try {
+						const linkTarget = fs.readlinkSync(absTarget);
+						this.log('info', `Removing symlink '${name}': ${absTarget} -> ${linkTarget}`);
+						fs.unlinkSync(absTarget);
+						removedCount++;
+					} catch (e: any) {
+						this.log('error', `Failed to remove symlink '${name}': ${e?.message || e}`);
+						errorCount++;
+					}
+				} else {
+					this.log('warn', `Target '${name}' is not a symlink, skipping: ${absTarget}`);
+					notFoundCount++;
+				}
+			} catch (err: any) {
+				this.log('error', `Unhandled error while removing '${name}': ${err?.message || err}`);
+				errorCount++;
+			}
+		}
+
+		// Remove active state file
+		try {
+			if (fs.existsSync(this.activeStatePath)) {
+				fs.unlinkSync(this.activeStatePath);
+				this.log('info', 'Removed active state file');
+			}
+		} catch (e: any) {
+			this.log('error', `Failed to remove active state file: ${e?.message || e}`);
+			errorCount++;
+		}
+
+		// Log summary
+		const totalItems = Object.keys(symlinks).length;
+		this.log('info', `Uninstall summary: ${removedCount} symlinks removed, ${notFoundCount} not found, ${errorCount} errors out of ${totalItems} total`);
+
+		if (errorCount === 0) {
+			this.log('info', 'Dotfiles uninstall completed successfully');
+		} else {
+			this.log('warn', `Dotfiles uninstall completed with ${errorCount} errors`);
+		}
 	}
 }
 
