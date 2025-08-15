@@ -7,3 +7,5 @@ bun.lock
 bun.lockb
 package-lock.json
 config.dots.json
+dotfiles.log
+config.active.toml

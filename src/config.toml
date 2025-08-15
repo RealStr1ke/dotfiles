@@ -19,7 +19,7 @@ screenrc = { source = "src/home/.screenrc", target = "~/.screenrc", type = "file
 wgetrc = { source = "src/home/.wgetrc", target = "~/.wgetrc", type = "file" }
 xinitrc = { source = "src/home/.xinitrc", target = "~/.xinitrc", type = "file" }
 xresources = { source = "src/home/.Xresources", target = "~/.Xresources", type = "file" }
-eslint_config_mjs = { source = "src/home/.eslint.config.mjs", target = "~/.eslint.config.mjs", type = "file" }
+eslint_config_mjs = { source = "src/home/eslint.config.mjs", target = "~/eslint.config.mjs", type = "file" }
 
 ### Config
 ags = { source = "src/config/ags", target = "~/.config/ags", type = "folder" }

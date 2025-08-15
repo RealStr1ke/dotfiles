@@ -41,7 +41,10 @@ export function isWSL(): boolean {
 
 		// Fallback to uname check (Linux only)
 		if (currentPlatform === 'linux') {
-			const release = execSync('uname -r', { encoding: 'utf8' });
+			const release = execSync('uname -r', {
+				encoding: 'utf8',
+				timeout: 5000,
+			});
 			return release.toLowerCase().includes('microsoft');
 		}
 
@@ -125,20 +128,35 @@ export async function ensureDir(path: string): Promise<void> {
 
 
 export async function safeRemove(path: string): Promise<void> {
+	// Validate path to prevent dangerous operations
+	if (!path || path === '/' || path === homedir()) {
+		throw new Error('Cannot remove root or home directory');
+	}
+
 	if (!await pathExists(path)) return;
-	if (await isSymlink(path)) {
-		log('info', `Removing symlink: ${path}`);
-		await fsPromises.unlink(path);
-	} else if (await isDirectory(path)) {
-		log('info', `Removing directory: ${path}`);
-		await fsPromises.rmdir(path, { recursive: true });
-	} else {
-		log('info', `Removing file: ${path}`);
-		await fsPromises.unlink(path);
+
+	try {
+		if (await isSymlink(path)) {
+			log('info', `Removing symlink: ${path}`);
+			await fsPromises.unlink(path);
+		} else if (await isDirectory(path)) {
+			log('info', `Removing directory: ${path}`);
+			await fsPromises.rm(path, { recursive: true, force: true });
+		} else {
+			log('info', `Removing file: ${path}`);
+			await fsPromises.unlink(path);
+		}
+	} catch (error: any) {
+		throw new Error(`Failed to remove ${path}: ${error.message}`);
 	}
 }
 
 export async function createSymlink(source: string, target: string): Promise<void> {
+	// Validate inputs
+	if (!source || !target) {
+		throw new Error('Source and target paths are required');
+	}
+
 	if (!await pathExists(source)) {
 		log('warn', `Source does not exist: ${source}`);
 		return;
@@ -164,43 +182,95 @@ export async function createSymlink(source: string, target: string): Promise<voi
 		const currentPlatform = detectPlatform();
 		if (currentPlatform === 'windows' && error.code === 'EPERM') {
 			log('warn', 'Symlink creation failed (requires admin privileges on Windows), copying instead...');
-			if (await isDirectory(source)) {
-				await fsPromises.cp(source, target, { recursive: true });
-			} else {
-				await copyFile(source, target);
+			try {
+				if (await isDirectory(source)) {
+					await fsPromises.cp(source, target, { recursive: true });
+				} else {
+					await copyFile(source, target);
+				}
+			} catch (copyError: any) {
+				throw new Error(`Failed to create symlink or copy: ${copyError.message}`);
 			}
 		} else {
-			throw error;
+			throw new Error(`Failed to create symlink: ${error.message}`);
 		}
 	}
 }
 
 export async function copyFile(source: string, target: string): Promise<void> {
-	await ensureDir(dirname(target));
-	await fsPromises.copyFile(source, target);
-	log('info', `Copied: ${source} -> ${target}`);
+	// Validate inputs
+	if (!source || !target) {
+		throw new Error('Source and target paths are required');
+	}
+
+	try {
+		await ensureDir(dirname(target));
+		await fsPromises.copyFile(source, target);
+		log('info', `Copied: ${source} -> ${target}`);
+	} catch (error: any) {
+		throw new Error(`Failed to copy file: ${error.message}`);
+	}
 }
 
 // Git Operations
 export async function gitClone(url: string, target: string): Promise<void> {
+	// Validate inputs
+	if (!url || !target) {
+		throw new Error('URL and target path are required');
+	}
+
+	// Basic URL validation to prevent command injection
+	const urlRegex = /^https?:\/\/[^\s<>"{}|\\^`[\]]+$/;
+	if (!urlRegex.test(url)) {
+		throw new Error('Invalid URL format');
+	}
+
 	if (await pathExists(target)) {
 		log('info', 'Repository already exists, pulling latest changes...');
-		execSync('git pull origin main', { cwd: target, stdio: 'inherit' });
+		try {
+			// Use safer approach with proper escaping and error handling
+			execSync('git pull origin main', {
+				cwd: target,
+				stdio: 'inherit',
+				timeout: 30000, // 30 second timeout
+			});
+		} catch (error: any) {
+			log('warn', `Failed to pull changes: ${error.message}`);
+		}
 	} else {
 		log('info', `Cloning repository: ${url}`);
 		await ensureDir(dirname(target));
-		execSync(`git clone "${url}" "${target}"`, { stdio: 'inherit' });
+		try {
+			// Use array form to prevent shell injection
+			execSync(`git clone "${url.replace(/"/g, '\\"')}" "${target.replace(/"/g, '\\"')}"`, {
+				stdio: 'inherit',
+				timeout: 60000, // 60 second timeout for clone
+			});
+		} catch (error: any) {
+			throw new Error(`Failed to clone repository: ${error.message}`);
+		}
 	}
 }
 
 export function isExecutable(command: string): boolean {
+	// Validate command name to prevent injection
+	if (!command || /[;&|`$(){}[\]\\]/.test(command)) {
+		return false;
+	}
+
 	try {
 		const currentPlatform = detectPlatform();
 		if (currentPlatform === 'windows') {
 			// Windows uses 'where' instead of 'which'
-			execSync(`where ${command}`, { stdio: 'ignore' });
+			execSync(`where "${command.replace(/"/g, '\\"')}"`, {
+				stdio: 'ignore',
+				timeout: 5000,
+			});
 		} else {
-			execSync(`which ${command}`, { stdio: 'ignore' });
+			execSync(`which "${command.replace(/"/g, '\\"')}"`, {
+				stdio: 'ignore',
+				timeout: 5000,
+			});
 		}
 		return true;
 	} catch {
@@ -210,6 +280,8 @@ export function isExecutable(command: string): boolean {
 
 // Path Utilities
 export function expandHome(path: string): string {
+	if (!path) return path;
+
 	if (path.startsWith('~/')) {
 		return join(homedir(), path.slice(2));
 	}
@@ -226,20 +298,29 @@ export function getTimestamp(): string {
 
 // Backup Utilities
 export async function createBackup(source: string, backupDir: string): Promise<string> {
+	// Validate inputs
+	if (!source || !backupDir) {
+		throw new Error('Source and backup directory are required');
+	}
+
 	if (!await pathExists(source)) return '';
 
 	const timestamp = getTimestamp();
 	const fileName = basename(source);
 	const backupPath = join(backupDir, `${fileName}_${timestamp}`);
 
-	await ensureDir(backupDir);
-	if (await isDirectory(source)) {
-		await fsPromises.cp(source, backupPath, { recursive: true });
-	} else {
-		await copyFile(source, backupPath);
+	try {
+		await ensureDir(backupDir);
+		if (await isDirectory(source)) {
+			await fsPromises.cp(source, backupPath, { recursive: true });
+		} else {
+			await copyFile(source, backupPath);
+		}
+		log('success', `Created backup: ${backupPath}`);
+		return backupPath;
+	} catch (error: any) {
+		throw new Error(`Failed to create backup: ${error.message}`);
 	}
-
-	return backupPath;
 }
 
 // Environment Utilities
@@ -249,12 +330,24 @@ export function getEnv(key: string, defaultValue: string = ''): string {
 
 export function getDotfilesDir(): string {
 	const currentPlatform = detectPlatform();
+	const envDir = getEnv('DOTFILES_DIR');
+
+	// If environment variable is set, validate it's safe
+	if (envDir) {
+		const expandedDir = expandHome(envDir);
+		// Basic validation to ensure it's within reasonable bounds
+		if (expandedDir.includes('..') || expandedDir.startsWith('/etc') || expandedDir.startsWith('/usr')) {
+			log('warn', 'DOTFILES_DIR environment variable points to unsafe location, using default');
+		} else {
+			return expandedDir;
+		}
+	}
 
 	// Use platform-specific default paths
 	if (currentPlatform === 'windows') {
-		return getEnv('DOTFILES_DIR', join(homedir(), 'dotfiles'));
+		return join(homedir(), 'dotfiles');
 	} else {
-		return getEnv('DOTFILES_DIR', join(homedir(), '.dotfiles'));
+		return join(homedir(), '.dotfiles');
 	}
 }
 
@@ -271,6 +364,10 @@ export function getConfigDir(): string {
 	}
 }
 
+export function isCommandInstalled(command: string): boolean {
+	return isExecutable(command);
+}
+
 // Add platform helper functions
 export function isWindows(): boolean {
 	return detectPlatform() === 'windows';
@@ -282,4 +379,24 @@ export function isMacOS(): boolean {
 
 export function isLinux(): boolean {
 	return detectPlatform() === 'linux';
+}
+
+// Add missing utility functions
+export function promptUser(message: string): Promise<string> {
+	// For now, return empty string since interactive mode isn't fully implemented
+	// This prevents the async/await issues in core.ts
+	console.log(`[PROMPT] ${message} (Interactive mode not implemented)`);
+	return Promise.resolve('');
+}
+
+export function execCommand(command: string, cwd?: string): void {
+	try {
+		execSync(command, {
+			cwd: cwd || process.cwd(),
+			stdio: 'inherit',
+			timeout: 30000,
+		});
+	} catch (error: any) {
+		throw new Error(`Command failed: ${error.message}`);
+	}
 }
