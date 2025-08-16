@@ -36,6 +36,7 @@ fish = { source = "src/config/fish", target = "~/.config/fish", type = "folder" 
 flameshot = { source = "src/config/flameshot", target = "~/.config/flameshot", type = "folder" }
 flashfocus = { source = "src/config/flashfocus", target = "~/.config/flashfocus", type = "folder" }
 fontconfig = { source = "src/config/fontconfig", target = "~/.config/fontconfig", type = "folder" }
+gh = { source = "src/config/gh", target = "~/.config/gh", type = "folder" }
 gtk-2_0 = { source = "src/config/gtk-2.0", target = "~/.config/gtk-2.0", type = "folder" }
 gtk-3_0 = { source = "src/config/gtk-3.0", target = "~/.config/gtk-3.0", type = "folder" }
 gtk-4_0 = { source = "src/config/gtk-4.0", target = "~/.config/gtk-4.0", type = "folder" }
