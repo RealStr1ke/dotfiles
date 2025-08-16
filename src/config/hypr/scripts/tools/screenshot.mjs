@@ -43,30 +43,3 @@ if (arg === 'full') {
 	console.log(chalk.red('Invalid argument.'));
 	console.log(chalk.yellow('Usage: screenshot [full | slurp | flameshot | swappy | satty]'));
 }
-
-// Old script using slurp and grim idk
-/**
-{
-	const date = new Date().toISOString().split('T')[0];
-	const time = new Date().toTimeString().split(' ')[0];
-
-	if (process.argv[3] === 'select') {
-		// Take selected area screenshot
-		const screenshotPath = `${process.env.HOME}/Pictures/Screenshots/Screenshot from ${date}= ${time}.png`;
-		const selection = await $`slurp`;
-		await $`grim -g "${selection}" "${screenshotPath}"`;
-		await $`wl-copy < "${screenshotPath}"`;
-
-		// Send notification
-		await $`notify-send "Screenshot Taken!" "Saved to ~/Pictures/Screenshots" -i "${screenshotPath}"`;
-	} else {
-		// Take full screenshot
-		const screenshotPath = `${process.env.HOME}/Pictures/Screenshots/Screenshot from ${date}= ${time}.png`;
-		await $`grim "${screenshotPath}"`;
-		await $`wl-copy < "${screenshotPath}"`;
-
-		// Send notification
-		await $`notify-send "Screenshot Taken!" "Saved to ~/Pictures/Screenshots" -i "${screenshotPath}"`;
-	}
-}
-**/
