@@ -1,0 +1,140 @@
+#!/usr/bin/env sh
+
+# Brightness control script with key repeat support
+# Features:
+# - Optimized for rapid successive calls (key repeat)
+# - Auto-detection of brightness control method (brightnessctl vs light)
+# - Wob integration for visual feedback
+
+# Cache variables
+cachedBrightness=""
+brightnessCmd=""
+brightnessDevice=""
+
+# Function to detect brightness control method and device
+detectBrightnessControl() {
+	if [ -n "$brightnessCmd" ]; then
+		return 0
+	fi
+
+	# Prefer brightnessctl if available
+	if command -v brightnessctl >/dev/null 2>&1; then
+		# Find the main backlight device
+		brightnessDevice=$(brightnessctl --list | grep -E "class 'backlight'" | head -n1 | sed "s/Device '\([^']*\)'.*/\1/")
+		if [ -n "$brightnessDevice" ]; then
+			brightnessCmd="brightnessctl"
+			return 0
+		fi
+	fi
+
+	# Fallback to light
+	if command -v light >/dev/null 2>&1; then
+		# Find backlight device
+		brightnessDevice=$(light -L | grep -E "sysfs/backlight/" | grep -v "auto" | head -n1 | sed 's/.*sysfs\/backlight\///')
+		if [ -n "$brightnessDevice" ]; then
+			brightnessCmd="light"
+			return 0
+		fi
+		# If no specific device found, use default light behavior
+		brightnessCmd="light"
+		brightnessDevice=""
+		return 0
+	fi
+
+	echo "Error: No brightness control tool found (brightnessctl or light)" >&2
+	exit 1
+}
+
+# Function to control brightness
+controlBrightness() {
+	action=$1
+	value=$2
+
+	detectBrightnessControl
+
+	case $brightnessCmd in
+		"brightnessctl")
+			case $action in
+				"set") brightnessctl -d "$brightnessDevice" set "$value%" ;;
+				"inc"|"increase"|"+") brightnessctl -d "$brightnessDevice" set +5% ;;
+				"dec"|"decrease"|"-") brightnessctl -d "$brightnessDevice" set 5%- ;;
+			esac
+			;;
+		"light")
+			if [ -n "$brightnessDevice" ]; then
+				case $action in
+					"set") light -s "sysfs/backlight/$brightnessDevice" -S "$value" ;;
+					"inc"|"increase"|"+") light -s "sysfs/backlight/$brightnessDevice" -A 5 ;;
+					"dec"|"decrease"|"-") light -s "sysfs/backlight/$brightnessDevice" -U 5 ;;
+				esac
+			else
+				case $action in
+					"set") light -S "$value" ;;
+					"inc"|"increase"|"+") light -A 5 ;;
+					"dec"|"decrease"|"-") light -U 5 ;;
+				esac
+			fi
+			;;
+	esac
+	cachedBrightness=""
+}
+
+# Function to get brightness state
+getBrightnessState() {
+	# Get brightness if not cached
+	if [ -z "$cachedBrightness" ]; then
+		detectBrightnessControl
+		
+		case $brightnessCmd in
+			"brightnessctl")
+				# Extract the percentage value from brightnessctl output
+				cachedBrightness=$(brightnessctl -d "$brightnessDevice" info | grep "Current brightness" | sed -r 's/.*\(([0-9]+)%\).*/\1/')
+				;;
+			"light")
+				if [ -n "$brightnessDevice" ]; then
+					cachedBrightness=$(light -s "sysfs/backlight/$brightnessDevice")
+				else
+					cachedBrightness=$(light)
+				fi
+				;;
+		esac
+	fi
+	brightness=$cachedBrightness
+
+	echo "$brightness"
+}
+
+# Function to update wob
+updateWob() {
+	brightness=$1
+
+	# Omit decimal places
+	brightness=${brightness%.*}
+
+	# Create pipe if it doesn't exist
+	[ ! -p /tmp/wobpipe ] && mkfifo /tmp/wobpipe 2>/dev/null
+
+	echo "$brightness" > /tmp/wobpipe 2>/dev/null || true
+}
+
+# Main execution
+action=$1
+value=$2
+
+case $action in
+	"set"|"+"|"inc"|"increase"|"-"|"dec"|"decrease")
+		controlBrightness "$action" "$value"
+		brightness=$(getBrightnessState)
+		updateWob "$brightness"
+		;;
+	"get")
+		brightness=$(getBrightnessState)
+		echo "$brightness"
+		;;
+	*)
+		echo "Usage: brightness [action: +|-|increase|decrease|inc|dec|set|get] <value if applicable>" >&2
+		exit 1
+		;;
+esac
+
+exit 0

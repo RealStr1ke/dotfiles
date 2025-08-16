@@ -1,0 +1,369 @@
+#!/usr/bin/env sh
+
+# Volume control script with improved mute handling
+# Features:
+# - Proper mute status detection (fixes false positive mute detection)
+# - Auto-unmute when volume is changed while muted
+# - Always sends 0 to wob when muted, actual volume when unmuted
+# - Supports both PulseAudio/PipeWire (via pamixer/pactl) and ALSA (via amixer)
+
+# Cache variables
+cachedVolume=""
+cachedMute=""
+cachedMicVolume=""
+cachedMicMute=""
+audioCmd=""
+defaultSink=""
+defaultSource=""
+
+# Function to detect audio control method and devices
+detectAudioControl() {
+	if [ -n "$audioCmd" ]; then
+		return 0
+	fi
+
+	# Check for pulseaudio/pipewire tools
+	if command -v pamixer >/dev/null 2>&1 && command -v pactl >/dev/null 2>&1; then
+		audioCmd="pulseaudio"
+		# Get default devices
+		defaultSink=$(pactl get-default-sink 2>/dev/null || echo "@DEFAULT_SINK@")
+		defaultSource=$(pactl get-default-source 2>/dev/null || echo "@DEFAULT_SOURCE@")
+		return 0
+	fi
+
+	# Fallback to ALSA (less common but still supported)
+	if command -v amixer >/dev/null 2>&1; then
+		audioCmd="alsa"
+		return 0
+	fi
+
+	echo "Error: No audio control tool found (pamixer/pactl or amixer)" >&2
+	exit 1
+}
+
+# Function to control output volume
+controlVolume() {
+	action=$1
+	value=$2
+
+	detectAudioControl
+
+	# Check if currently muted before volume changes
+	currentState=""
+	currentMute="false"
+	if [ "$action" = "set" ] || [ "$action" = "inc" ] || [ "$action" = "increase" ] || [ "$action" = "+" ] || [ "$action" = "dec" ] || [ "$action" = "decrease" ] || [ "$action" = "-" ]; then
+		currentState=$(getVolumeState)
+		currentMute=${currentState#* }
+	fi
+
+	case $audioCmd in
+		"pulseaudio")
+			case $action in
+				"set") 
+					# Auto-unmute if muted and setting volume
+					if [ "$currentMute" = "true" ]; then
+						pactl set-sink-mute "$defaultSink" false
+					fi
+					pactl set-sink-volume "$defaultSink" "${value}%" ;;
+				"inc"|"increase"|"+") 
+					# Auto-unmute if muted and increasing volume
+					if [ "$currentMute" = "true" ]; then
+						pactl set-sink-mute "$defaultSink" false
+					fi
+					pactl set-sink-volume "$defaultSink" +5% ;;
+				"dec"|"decrease"|"-") 
+					# Auto-unmute if muted and decreasing volume
+					if [ "$currentMute" = "true" ]; then
+						pactl set-sink-mute "$defaultSink" false
+					fi
+					pactl set-sink-volume "$defaultSink" -5% ;;
+				"mute"|"unmute"|"togglemute") 
+					pactl set-sink-mute "$defaultSink" toggle 
+					cachedMute="" ;;
+			esac
+			;;
+		"alsa")
+			case $action in
+				"set") 
+					# Auto-unmute if muted and setting volume
+					if [ "$currentMute" = "true" ]; then
+						amixer set Master unmute
+					fi
+					amixer set Master "${value}%" ;;
+				"inc"|"increase"|"+") 
+					# Auto-unmute if muted and increasing volume
+					if [ "$currentMute" = "true" ]; then
+						amixer set Master unmute
+					fi
+					amixer set Master 5%+ ;;
+				"dec"|"decrease"|"-") 
+					# Auto-unmute if muted and decreasing volume
+					if [ "$currentMute" = "true" ]; then
+						amixer set Master unmute
+					fi
+					amixer set Master 5%- ;;
+				"mute"|"unmute"|"togglemute") 
+					amixer set Master toggle 
+					cachedMute="" ;;
+			esac
+			;;
+	esac
+	cachedVolume=""
+	# Clear mute cache since it may have changed
+	cachedMute=""
+}
+
+# Function to control microphone volume
+controlMic() {
+	action=$1
+	value=$2
+
+	detectAudioControl
+
+	case $audioCmd in
+		"pulseaudio")
+			case $action in
+				"set") 
+					pactl set-source-volume "$defaultSource" "${value}%" ;;
+				"inc"|"increase"|"+") 
+					pactl set-source-volume "$defaultSource" +5% ;;
+				"dec"|"decrease"|"-") 
+					pactl set-source-volume "$defaultSource" -5% ;;
+				"mute"|"unmute"|"togglemute") 
+					pactl set-source-mute "$defaultSource" toggle 
+					cachedMicMute="" ;;
+			esac
+			;;
+		"alsa")
+			case $action in
+				"set") 
+					amixer set Capture "${value}%" ;;
+				"inc"|"increase"|"+") 
+					amixer set Capture 5%+ ;;
+				"dec"|"decrease"|"-") 
+					amixer set Capture 5%- ;;
+				"mute"|"unmute"|"togglemute") 
+					amixer set Capture toggle 
+					cachedMicMute="" ;;
+			esac
+			;;
+	esac
+	cachedMicVolume=""
+}
+
+# Function to get output volume and mute state
+getVolumeState() {
+	if [ -z "$cachedVolume" ] || [ -z "$cachedMute" ]; then
+		detectAudioControl
+		
+		case $audioCmd in
+			"pulseaudio")
+				# Get volume using pamixer (more reliable than parsing pactl)
+				cachedVolume=$(pamixer --get-volume 2>/dev/null || echo "0")
+				# Get mute state - check the actual output, not exit code
+				muteOutput=$(pamixer --get-mute 2>/dev/null || echo "false")
+				if [ "$muteOutput" = "true" ]; then
+					cachedMute="true"
+				else
+					cachedMute="false"
+				fi
+				;;
+			"alsa")
+				# Parse amixer output
+				amixerOutput=$(amixer get Master 2>/dev/null)
+				cachedVolume=$(echo "$amixerOutput" | grep -o '[0-9]*%' | head -n1 | tr -d '%')
+				if echo "$amixerOutput" | grep -q '\[off\]'; then
+					cachedMute="true"
+				else
+					cachedMute="false"
+				fi
+				;;
+		esac
+	fi
+
+	volume=$cachedVolume
+	mute=$cachedMute
+	echo "$volume $mute"
+}
+
+# Function to get microphone state
+getMicState() {
+	if [ -z "$cachedMicVolume" ] || [ -z "$cachedMicMute" ]; then
+		detectAudioControl
+		
+		case $audioCmd in
+			"pulseaudio")
+				# Get mic volume and mute state
+				cachedMicVolume=$(pamixer --source "$defaultSource" --get-volume 2>/dev/null || echo "0")
+				# Get mute state - check the actual output, not exit code
+				micMuteOutput=$(pamixer --source "$defaultSource" --get-mute 2>/dev/null || echo "false")
+				if [ "$micMuteOutput" = "true" ]; then
+					cachedMicMute="true"
+				else
+					cachedMicMute="false"
+				fi
+				;;
+			"alsa")
+				# Parse amixer output for capture
+				amixerOutput=$(amixer get Capture 2>/dev/null)
+				cachedMicVolume=$(echo "$amixerOutput" | grep -o '[0-9]*%' | head -n1 | tr -d '%')
+				if echo "$amixerOutput" | grep -q '\[off\]'; then
+					cachedMicMute="true"
+				else
+					cachedMicMute="false"
+				fi
+				;;
+		esac
+	fi
+
+	micVolume=$cachedMicVolume
+	micMute=$cachedMicMute
+	echo "$micVolume $micMute"
+}
+
+# Function to get output volume icon
+getVolumeIcon() {
+	volume=$1
+	mute=$2
+
+	if [ "$volume" -eq 0 ] || [ "$mute" = "true" ]; then
+		echo "󰝟"  # muted
+	elif [ "$volume" -le 25 ]; then
+		echo "󰕿"  # low volume
+	elif [ "$volume" -le 50 ]; then
+		echo "󰖀"  # medium volume  
+	elif [ "$volume" -le 75 ]; then
+		echo "󰕾"  # high volume
+	else
+		echo "󰕾"  # max volume
+	fi
+}
+
+# Function to get microphone icon
+getMicIcon() {
+	micVolume=$1
+	micMute=$2
+
+	if [ "$micMute" = "true" ]; then
+		echo "󰍭"  # mic muted
+	elif [ "$micVolume" -eq 0 ]; then
+		echo "󰍭"  # mic off
+	else
+		echo "󰍬"  # mic on
+	fi
+}
+
+# Function to update wob with volume
+updateWob() {
+	volume=$1
+	mute=$2
+
+	# Create pipe if it doesn't exist
+	[ ! -p /tmp/wobpipe ] && mkfifo /tmp/wobpipe 2>/dev/null
+
+	# Always send 0 to wob when muted, actual volume when not muted
+	if [ "$mute" = "true" ]; then
+		echo 0 > /tmp/wobpipe 2>/dev/null || true
+	else
+		echo "$volume" > /tmp/wobpipe 2>/dev/null || true
+	fi
+}
+
+# Function to print usage
+printUsage() {
+	cat >&2 << 'EOF'
+Usage: volume [type] [action] <value>
+
+Types:
+  output, volume, vol, o    - Control output volume
+  input, microphone, mic, i - Control microphone volume
+
+Actions:
+  set <value>      - Set volume to specific percentage
+  +, inc, increase - Increase volume by 5%
+  -, dec, decrease - Decrease volume by 5%
+  mute, togglemute - Toggle mute state
+  get              - Get current volume percentage
+  icon             - Get appropriate icon
+  state            - Get volume and mute state
+
+Examples:
+  volume output set 50     - Set output volume to 50%
+  volume output +          - Increase output volume by 5%
+  volume output mute       - Toggle output mute
+  volume mic set 80        - Set microphone volume to 80%
+  volume output icon       - Get output volume icon
+EOF
+}
+
+# Main execution
+type=$1
+action=$2
+value=$3
+
+case $type in
+	"output"|"volume"|"vol"|"o"|"")
+		case $action in
+			"set"|"+"|"inc"|"increase"|"-"|"dec"|"decrease"|"mute"|"unmute"|"togglemute")
+				controlVolume "$action" "$value"
+				state=$(getVolumeState)
+				volume=${state% *}
+				mute=${state#* }
+				updateWob "$volume" "$mute"
+				;;
+			"get")
+				state=$(getVolumeState)
+				volume=${state% *}
+				echo "$volume"
+				;;
+			"icon")
+				state=$(getVolumeState)
+				volume=${state% *}
+				mute=${state#* }
+				getVolumeIcon "$volume" "$mute"
+				;;
+			"state")
+				getVolumeState
+				;;
+			*)
+				printUsage
+				exit 1
+				;;
+		esac
+		;;
+	"input"|"microphone"|"mic"|"i")
+		case $action in
+			"set"|"+"|"inc"|"increase"|"-"|"dec"|"decrease"|"mute"|"unmute"|"togglemute")
+				controlMic "$action" "$value"
+				;;
+			"get")
+				state=$(getMicState)
+				micVolume=${state% *}
+				echo "$micVolume"
+				;;
+			"icon")
+				state=$(getMicState)
+				micVolume=${state% *}
+				micMute=${state#* }
+				getMicIcon "$micVolume" "$micMute"
+				;;
+			"state")
+				getMicState
+				;;
+			*)
+				printUsage
+				exit 1
+				;;
+		esac
+		;;
+	"help"|"-h"|"--help")
+		printUsage
+		exit 0
+		;;
+	*)
+		printUsage
+		exit 1
+		;;
+esac
+
+exit 0
