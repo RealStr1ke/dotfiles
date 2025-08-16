@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Prefer 'code-insiders'; fallback to stable 'code'.
+# Pass all provided arguments through.
+
+set -euo pipefail
+
+if command -v code-insiders >/dev/null 2>&1; then
+	exec code-insiders "$@"
+elif command -v code >/dev/null 2>&1; then
+	exec code "$@"
+else
+	echo "Error: Neither 'code-insiders' nor 'code' found in PATH." >&2
+	exit 127
+fi
