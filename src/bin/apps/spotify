@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
-LD_PRELOAD="/usr/lib/spotify-adblock.so /usr/lib/spotifywm.so" /usr/bin/spotify
+# LD_PRELOAD="/usr/lib/spotify-adblock.so /usr/lib/spotifywm.so" /usr/bin/spotify
 # LD_PRELOAD="/usr/lib/spotify-adblock.so" /usr/bin/spotify
-
+# LD_PRELOAD="/usr/lib/spotifywm.so" /usr/bin/spotify
+/usr/bin/spotify
