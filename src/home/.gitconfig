@@ -192,3 +192,4 @@
 	required = true
 [safe]
 	directory = /mnt/Windows
+	directory = /mnt/Windows/Users/TMene/Vault
