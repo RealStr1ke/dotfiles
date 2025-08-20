@@ -43,7 +43,7 @@ copyq --start-server &
 /usr/lib/lxpolkit/lxpolkit &
 
 # XWayland to Wayland Video Bridge
-xwaylandvideobridge &
+# xwaylandvideobridge &
 
 # Bluetooth Utilities
 # /usr/lib/bluetooth/mpris-proxy &
