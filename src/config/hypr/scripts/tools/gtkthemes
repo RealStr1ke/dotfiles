@@ -6,7 +6,8 @@
 
 THEME='Catppuccin-Mocha-Standard-Mauve-Dark'
 ICONS='Adwaita'
-FONT='Noto Sans'
+# FONT='Noto Sans'
+FONT='CaskaydiaCove Nerd Font'
 CURSOR='Catppuccin-Mocha-Dark'
 
 SCHEMA='gsettings set org.gnome.desktop.interface'
