@@ -122,5 +122,9 @@ wdm &
 # WLSunset
 wlsunset -S 8:00 -s 18:00 -t 4500 -T 7500 &
 
+# Vicinae Server
+vicinae server &
+# or systemctl enable --now --user vicinae.service
+
 # Swayidle (GitHub Copilot made this so idk)
 # swayidle -w timeout 300 'swaylock -f -i /home/alex/Pictures/Wallpapers/lockscreen.png' resume 'swaymsg "output * dpms off"' timeout 600 'swaymsg "output * dpms on"' resume 'swaymsg "output * dpms off"' before-sleep 'swaylock -f -i /home/alex/Pictures/Wallpapers/lockscreen.png'
