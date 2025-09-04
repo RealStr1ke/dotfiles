@@ -100,6 +100,14 @@ return {
             end,
         },
 
+		-- Typr
+		{
+			"nvzone/typr",
+			dependencies = "nvzone/volt",
+			opts = {}n
+			cmd = { "Typr", "TyprStats" },
+		},
+
         -- Telescope
         {
             "nvim-telescope/telescope.nvim",

@@ -50,6 +50,7 @@ mpd = { source = "src/config/mpd", target = "~/.config/mpd", type = "folder" }
 ncmpcpp = { source = "src/config/ncmpcpp", target = "~/.config/ncmpcpp", type = "folder" }
 neofetch = { source = "src/config/neofetch", target = "~/.config/neofetch", type = "folder" }
 nitrogen = { source = "src/config/nitrogen", target = "~/.config/nitrogen", type = "folder" }
+niri = { source = "src/config/niri", target = "~/.config/niri", type = "folder" }
 nix = { source = "src/config/nix", target = "~/.config/nix", type = "folder" }
 nvim = { source = "src/config/nvim", target = "~/.config/nvim", type = "folder" }
 nwg-bar = { source = "src/config/nwg-bar", target = "~/.config/nwg-bar", type = "folder" }
