@@ -62,6 +62,8 @@ const settings = {
 			'sublime_text': '󰎞 Sublime Text',
 			'org.gnome.font-viewer': '󰎞 Font Viewer',
 			'com.chatterino.chatterino': ' Chatterino',
+			'steam': ' Steam',
+			'lunarclient': '󰍳 Lunar Client',
 		},
 	},
 };
