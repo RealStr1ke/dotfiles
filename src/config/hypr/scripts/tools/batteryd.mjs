@@ -184,7 +184,8 @@ function shouldNotify(type) {
 async function sendNotification(urgency, title, body, icon = '') {
 	try {
 		const iconPart = icon ? icon + ' ' : '';
-		await $`notify-send -u ${urgency} "${iconPart}${title}" "${body}"`;
+		const notificationTitle = iconPart + title;
+		await $`notify-send -u ${urgency} ${notificationTitle} ${body}`;
 		log('info', `Notification sent: ${title}`);
 	} catch (error) {
 		log('error', 'Failed to send notification:', error.message);
@@ -224,7 +225,7 @@ async function handleBatteryStatus(battery) {
 	// Low battery notification
 	if (percentage <= CONFIG.thresholds.low && isDischarging && shouldNotify('low')) {
 		await sendNotification(
-			'normal',
+			'critical',
 			'Battery low',
 			`${percentage}% remaining. Please plug in the AC adapter soon.`,
 			CONFIG.icons.low,
