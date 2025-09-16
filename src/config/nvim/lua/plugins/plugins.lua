@@ -104,8 +104,8 @@ return {
 		{
 			"nvzone/typr",
 			dependencies = "nvzone/volt",
-			opts = {}n
-			cmd = { "Typr", "TyprStats" },
+			opts = {},
+      cmd = { "Typr", "TyprStats" },
 		},
 
         -- Telescope
