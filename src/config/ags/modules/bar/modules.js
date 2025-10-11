@@ -35,6 +35,7 @@ function Workspaces(monitor) {
 	// };
 
 	const array = Array.from({ length: 9 }, (_, i) => i + 1 + (monitor * 10));
+	// const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 	// console.log(array, monitor);
 	return Box({
 		className: 'bar-workspaces',
@@ -43,7 +44,9 @@ function Workspaces(monitor) {
 			return Button({
 				onClicked: () => {
 					try {
-						exec(`bash -c "~/.config/hypr/scripts/tools/workspaces workspace ${i}"`);
+						// exec(`bash -c "~/.config/hypr/scripts/tools/workspaces workspace ${i}"`);
+						console.log(`Switching to workspace ${i}`);
+						exec(`hyprctl dispatch workspace ${i}`);
 					} catch (error) {
 						console.log(error);
 					}
