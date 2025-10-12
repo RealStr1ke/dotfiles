@@ -66,6 +66,7 @@ picom = { source = "src/config/picom", target = "~/.config/picom", type = "folde
 polybar = { source = "src/config/polybar", target = "~/.config/polybar", type = "folder" }
 qt5ct = { source = "src/config/qt5ct", target = "~/.config/qt5ct", type = "folder" }
 qt6ct = { source = "src/config/qt6ct", target = "~/.config/qt6ct", type = "folder" }
+quickshell = { source = "src/config/quickshell", target = "~/.config/quickshell", type = "folder"}
 ranger = { source = "src/config/ranger", target = "~/.config/ranger", type = "folder" }
 rofi = { source = "src/config/rofi", target = "~/.config/rofi", type = "folder" }
 spotifyd = { source = "src/config/spotifyd", target = "~/.config/spotifyd", type = "folder" }
