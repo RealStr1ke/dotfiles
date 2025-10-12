@@ -1,0 +1,267 @@
+/* Waybar Stylesheet */
+/* Preserves all original styling and configuration */
+
+/* ============================= */
+/*           WAYBAR              */
+/* ============================= */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: 'CaskaydiaCove Nerd Font', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(30, 30, 46, 0.5);
+    border-bottom: 3px solid {{colors.interactive.primary}};
+    color: {{colors.text.primary}};
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* ============================= */
+/*          MODULES              */
+/* ============================= */
+
+#workspaces {
+    margin: 0 4px;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: {{colors.text.primary}};
+    border-bottom: 3px solid transparent;
+}
+
+#workspaces button:hover {
+    background: {{colors.background.overlay}};
+    box-shadow: inset 0 -3px {{colors.interactive.primary}};
+}
+
+#workspaces button.focused {
+    background-color: {{colors.background.overlay}};
+    border-bottom: 3px solid {{colors.interactive.primary}};
+}
+
+#workspaces button.urgent {
+    background-color: {{colors.semantic.error}};
+    color: {{colors.background.primary}};
+}
+
+#mode {
+    background-color: {{colors.background.overlay}};
+    border-bottom: 3px solid {{colors.text.primary}};
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#mpd {
+    padding: 0 10px;
+    color: {{colors.text.primary}};
+}
+
+#window,
+#workspaces {
+    margin: 0 4px;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+#clock {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.palette.purple}};
+}
+
+#battery {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.semantic.success}};
+}
+
+#battery.charging, #battery.plugged {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.semantic.success}};
+}
+
+@keyframes blink {
+    to {
+        background-color: {{colors.text.primary}};
+        color: {{colors.background.primary}};
+    }
+}
+
+#battery.critical:not(.charging) {
+    background-color: {{colors.semantic.error}};
+    color: {{colors.background.primary}};
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+label:focus {
+    background-color: {{colors.background.primary}};
+}
+
+#cpu {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.palette.blue}};
+}
+
+#memory {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.semantic.warning}};
+}
+
+#disk {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.palette.orange}};
+}
+
+#backlight {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.semantic.warning}};
+}
+
+#network {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.palette.blue}};
+}
+
+#network.disconnected {
+    background-color: {{colors.semantic.error}};
+    color: {{colors.background.primary}};
+}
+
+#pulseaudio {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.palette.purple}};
+}
+
+#pulseaudio.muted {
+    background-color: {{colors.background.overlay}};
+    color: {{colors.text.secondary}};
+}
+
+#custom-media {
+    background-color: {{colors.semantic.success}};
+    color: {{colors.background.primary}};
+    min-width: 100px;
+}
+
+#custom-media.custom-spotify {
+    background-color: {{colors.semantic.success}};
+    color: {{colors.background.primary}};
+}
+
+#custom-media.custom-vlc {
+    background-color: {{colors.palette.orange}};
+    color: {{colors.background.primary}};
+}
+
+#temperature {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.semantic.error}};
+}
+
+#temperature.critical {
+    background-color: {{colors.semantic.error}};
+    color: {{colors.background.primary}};
+}
+
+#tray {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.border.secondary}};
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: {{colors.semantic.error}};
+}
+
+#idle_inhibitor {
+    background-color: {{colors.background.tertiary}};
+    border-bottom: 3px solid {{colors.border.secondary}};
+}
+
+#idle_inhibitor.activated {
+    background-color: {{colors.text.primary}};
+    color: {{colors.background.primary}};
+}
+
+#mpd {
+    background-color: {{colors.semantic.success}};
+    color: {{colors.background.primary}};
+}
+
+#mpd.disconnected {
+    background-color: {{colors.semantic.error}};
+    color: {{colors.background.primary}};
+}
+
+#mpd.stopped {
+    background-color: {{colors.background.overlay}};
+    color: {{colors.text.primary}};
+}
+
+#mpd.paused {
+    background-color: {{colors.semantic.warning}};
+    color: {{colors.background.primary}};
+}
+
+#language {
+    background: {{colors.background.tertiary}};
+    color: {{colors.text.primary}};
+    padding: 0 5px;
+    margin: 0 5px;
+    min-width: 16px;
+    border-bottom: 3px solid {{colors.palette.pink}};
+}
+
+#keyboard-state {
+    background: {{colors.background.tertiary}};
+    color: {{colors.text.primary}};
+    padding: 0 0px;
+    margin: 0 5px;
+    min-width: 16px;
+    border-bottom: 3px solid {{colors.palette.cyan}};
+}
+
+#keyboard-state > label {
+    padding: 0 5px;
+}
+
+#keyboard-state > label.locked {
+    background: rgba(0, 0, 0, 0.2);
+}

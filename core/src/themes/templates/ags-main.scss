@@ -1,0 +1,26 @@
+// AGS Main Stylesheet
+// Universal styling and component imports
+
+// Import active theme colors
+@import "themes/active.scss";
+
+// Import component modules
+@import "modules/bar.scss";
+
+// Universal Styling
+* {
+    all: unset;
+    font-family: 'CaskaydiaCove Nerd Font', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+window {
+    background-color: transparent;
+}
+
+button {
+    cursor: pointer;
+    
+    &:hover {
+        transition: all 0.3s ease;
+    }
+}
