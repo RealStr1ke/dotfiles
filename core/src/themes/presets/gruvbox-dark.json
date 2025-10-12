@@ -1,0 +1,50 @@
+{
+  "name": "Gruvbox Dark",
+  "variant": "dark",
+  "author": "Pavel Pertsev",
+  "description": "The retro groove dark theme with orange accent",
+  "source": "preset",
+  "timestamp": 1728691200000,
+  "colors": {
+    "background": {
+      "primary": "#282828",
+      "secondary": "#3c3836",
+      "tertiary": "#504945",
+      "overlay": "#665c54"
+    },
+    "text": {
+      "primary": "#ebdbb2",
+      "secondary": "#d5c4a1",
+      "tertiary": "#bdae93",
+      "inverse": "#282828"
+    },
+    "interactive": {
+      "primary": "#fe8019",
+      "secondary": "#83a598",
+      "hover": "#fabd2f",
+      "active": "#d79921",
+      "disabled": "#928374"
+    },
+    "semantic": {
+      "success": "#b8bb26",
+      "warning": "#fabd2f",
+      "error": "#fb4934",
+      "info": "#83a598"
+    },
+    "border": {
+      "primary": "#665c54",
+      "secondary": "#504945",
+      "focus": "#fe8019"
+    },
+    "palette": {
+      "red": "#fb4934",
+      "orange": "#fe8019",
+      "yellow": "#fabd2f",
+      "green": "#b8bb26",
+      "blue": "#83a598",
+      "purple": "#d3869b",
+      "pink": "#d3869b",
+      "cyan": "#8ec07c"
+    }
+  }
+}

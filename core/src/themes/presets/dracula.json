@@ -1,0 +1,50 @@
+{
+  "name": "Dracula",
+  "variant": "dark",
+  "author": "Dracula Team",
+  "description": "The dark theme with purple accent inspired by the famous vampire",
+  "source": "preset",
+  "timestamp": 1728691200000,
+  "colors": {
+    "background": {
+      "primary": "#282a36",
+      "secondary": "#44475a",
+      "tertiary": "#6272a4",
+      "overlay": "#8be9fd"
+    },
+    "text": {
+      "primary": "#f8f8f2",
+      "secondary": "#f8f8f2",
+      "tertiary": "#6272a4",
+      "inverse": "#282a36"
+    },
+    "interactive": {
+      "primary": "#bd93f9",
+      "secondary": "#8be9fd",
+      "hover": "#ff79c6",
+      "active": "#50fa7b",
+      "disabled": "#6272a4"
+    },
+    "semantic": {
+      "success": "#50fa7b",
+      "warning": "#f1fa8c",
+      "error": "#ff5555",
+      "info": "#8be9fd"
+    },
+    "border": {
+      "primary": "#6272a4",
+      "secondary": "#44475a",
+      "focus": "#bd93f9"
+    },
+    "palette": {
+      "red": "#ff5555",
+      "orange": "#ffb86c",
+      "yellow": "#f1fa8c",
+      "green": "#50fa7b",
+      "blue": "#8be9fd",
+      "purple": "#bd93f9",
+      "pink": "#ff79c6",
+      "cyan": "#8be9fd"
+    }
+  }
+}

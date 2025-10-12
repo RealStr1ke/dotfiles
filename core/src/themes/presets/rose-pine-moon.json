@@ -1,0 +1,50 @@
+{
+  "name": "Rose Pine Moon",
+  "variant": "dark",
+  "author": "Rose Pine Team",
+  "description": "The Rose Pine Moon theme with rose accent",
+  "source": "preset",
+  "timestamp": 1728691200000,
+  "colors": {
+    "background": {
+      "primary": "#232136",
+      "secondary": "#2a273f",
+      "tertiary": "#393552",
+      "overlay": "#44415a"
+    },
+    "text": {
+      "primary": "#e0def4",
+      "secondary": "#908caa",
+      "tertiary": "#6e6a86",
+      "inverse": "#232136"
+    },
+    "interactive": {
+      "primary": "#ea9a97",
+      "secondary": "#9ccfd8",
+      "hover": "#f6c177",
+      "active": "#eb6f92",
+      "disabled": "#6e6a86"
+    },
+    "semantic": {
+      "success": "#3e8fb0",
+      "warning": "#f6c177",
+      "error": "#eb6f92",
+      "info": "#9ccfd8"
+    },
+    "border": {
+      "primary": "#56526e",
+      "secondary": "#44415a",
+      "focus": "#ea9a97"
+    },
+    "palette": {
+      "red": "#eb6f92",
+      "orange": "#f6c177",
+      "yellow": "#f6c177",
+      "green": "#3e8fb0",
+      "blue": "#9ccfd8",
+      "purple": "#c4a7e7",
+      "pink": "#ea9a97",
+      "cyan": "#9ccfd8"
+    }
+  }
+}

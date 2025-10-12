@@ -1,0 +1,50 @@
+{
+  "name": "Tokyo Night",
+  "variant": "dark",
+  "author": "Tokyo Night Team",
+  "description": "A clean dark theme with blue accent inspired by the city lights of Tokyo",
+  "source": "preset",
+  "timestamp": 1728691200000,
+  "colors": {
+    "background": {
+      "primary": "#1a1b26",
+      "secondary": "#24283b",
+      "tertiary": "#414868",
+      "overlay": "#565f89"
+    },
+    "text": {
+      "primary": "#c0caf5",
+      "secondary": "#a9b1d6",
+      "tertiary": "#9aa5ce",
+      "inverse": "#1a1b26"
+    },
+    "interactive": {
+      "primary": "#7aa2f7",
+      "secondary": "#7dcfff",
+      "hover": "#bb9af7",
+      "active": "#2ac3de",
+      "disabled": "#565f89"
+    },
+    "semantic": {
+      "success": "#9ece6a",
+      "warning": "#e0af68",
+      "error": "#f7768e",
+      "info": "#7aa2f7"
+    },
+    "border": {
+      "primary": "#565f89",
+      "secondary": "#414868",
+      "focus": "#7aa2f7"
+    },
+    "palette": {
+      "red": "#f7768e",
+      "orange": "#ff9e64",
+      "yellow": "#e0af68",
+      "green": "#9ece6a",
+      "blue": "#7aa2f7",
+      "purple": "#bb9af7",
+      "pink": "#f7768e",
+      "cyan": "#7dcfff"
+    }
+  }
+}

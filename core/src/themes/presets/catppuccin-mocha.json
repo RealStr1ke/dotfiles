@@ -1,0 +1,58 @@
+{
+  "name": "Catppuccin Mocha",
+  "variant": "dark",
+  "author": "Catppuccin Team",
+  "description": "The classic Catppuccin Mocha theme with mauve accent",
+  "source": "preset",
+  "timestamp": 1728691200000,
+  "colors": {
+    "background": {
+      "primary": "#1e1e2e",
+      "secondary": "#313244",
+      "tertiary": "#45475a",
+      "overlay": "#6c7086"
+    },
+    "text": {
+      "primary": "#cdd6f4",
+      "secondary": "#bac2de",
+      "tertiary": "#a6adc8",
+      "inverse": "#11111b"
+    },
+    "interactive": {
+      "primary": "#cba6f7",
+      "secondary": "#74c7ec",
+      "hover": "#b4befe",
+      "active": "#89b4fa",
+      "disabled": "#7f849c"
+    },
+    "semantic": {
+      "success": "#a6e3a1",
+      "warning": "#f9e2af",
+      "error": "#f38ba8",
+      "info": "#89b4fa"
+    },
+    "border": {
+      "primary": "#585b70",
+      "secondary": "#45475a",
+      "focus": "#cba6f7"
+    },
+    "palette": {
+      "red": "#f38ba8",
+      "orange": "#fab387",
+      "yellow": "#f9e2af",
+      "green": "#a6e3a1",
+      "blue": "#89b4fa",
+      "purple": "#cba6f7",
+      "pink": "#f5c2e7",
+      "cyan": "#94e2d5",
+      "lavender": "#b4befe",
+      "sapphire": "#74c7ec",
+      "sky": "#89dceb",
+      "teal": "#94e2d5",
+      "maroon": "#eba0ac",
+      "flamingo": "#f2cdcd",
+      "rosewater": "#f5e0dc"
+    }
+  },
+  "wallpaper": "/home/str1ke/.dotfiles/assets/wallpapers/catppuccin-mocha.png"
+}

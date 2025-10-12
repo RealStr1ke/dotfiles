@@ -1,0 +1,50 @@
+{
+  "name": "Nord",
+  "variant": "dark",
+  "author": "Arctic Ice Studio",
+  "description": "An arctic, north-bluish clean and elegant theme with blue accent",
+  "source": "preset",
+  "timestamp": 1728691200000,
+  "colors": {
+    "background": {
+      "primary": "#2e3440",
+      "secondary": "#3b4252",
+      "tertiary": "#434c5e",
+      "overlay": "#4c566a"
+    },
+    "text": {
+      "primary": "#eceff4",
+      "secondary": "#e5e9f0",
+      "tertiary": "#d8dee9",
+      "inverse": "#2e3440"
+    },
+    "interactive": {
+      "primary": "#5e81ac",
+      "secondary": "#88c0d0",
+      "hover": "#81a1c1",
+      "active": "#8fbcbb",
+      "disabled": "#4c566a"
+    },
+    "semantic": {
+      "success": "#a3be8c",
+      "warning": "#ebcb8b",
+      "error": "#bf616a",
+      "info": "#5e81ac"
+    },
+    "border": {
+      "primary": "#4c566a",
+      "secondary": "#434c5e",
+      "focus": "#5e81ac"
+    },
+    "palette": {
+      "red": "#bf616a",
+      "orange": "#d08770",
+      "yellow": "#ebcb8b",
+      "green": "#a3be8c",
+      "blue": "#5e81ac",
+      "purple": "#b48ead",
+      "pink": "#b48ead",
+      "cyan": "#8fbcbb"
+    }
+  }
+}

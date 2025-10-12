@@ -1,0 +1,50 @@
+{
+  "name": "Rose Pine Dawn",
+  "variant": "light",
+  "author": "Rose Pine Team",
+  "description": "The light Rose Pine Dawn theme with rose accent",
+  "source": "preset", 
+  "timestamp": 1728691200000,
+  "colors": {
+    "background": {
+      "primary": "#faf4ed",
+      "secondary": "#f2e9de",
+      "tertiary": "#ede4d3",
+      "overlay": "#d7827e"
+    },
+    "text": {
+      "primary": "#575279",
+      "secondary": "#797593",
+      "tertiary": "#9893a5",
+      "inverse": "#faf4ed"
+    },
+    "interactive": {
+      "primary": "#d7827e",
+      "secondary": "#56949f",
+      "hover": "#ea9d34",
+      "active": "#b4637a",
+      "disabled": "#9893a5"
+    },
+    "semantic": {
+      "success": "#286983",
+      "warning": "#ea9d34",
+      "error": "#b4637a",
+      "info": "#56949f"
+    },
+    "border": {
+      "primary": "#c4a7e7",
+      "secondary": "#e9e3d1",
+      "focus": "#d7827e"
+    },
+    "palette": {
+      "red": "#b4637a",
+      "orange": "#ea9d34",
+      "yellow": "#ea9d34",
+      "green": "#286983",
+      "blue": "#56949f",
+      "purple": "#907aa9",
+      "pink": "#d7827e",
+      "cyan": "#56949f"
+    }
+  }
+}
