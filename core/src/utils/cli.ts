@@ -32,16 +32,24 @@ class CLI {
 	}
 
 	public run(args: string[]) {
-		const { command, options } = this.parseArgs(args);
+		const command = args[0];
 
 		if (!command) {
 			console.error('No command provided. Use "help" to see available commands.');
 			process.exit(1);
 		}
-		// Update instance options with parsed options
+
+		// For theme command, handle arguments differently
+		if (command === 'theme') {
+			this.handleThemeCommand(args);
+			return;
+		}
+
+		// For other commands, parse options normally
+		const { command: parsedCommand, options } = this.parseArgs(args);
 		Object.assign(this.options, options);
 
-		switch (command) {
+		switch (parsedCommand) {
 			case 'install':
 				this.install();
 				break;
@@ -58,10 +66,79 @@ class CLI {
 				this.help();
 				break;
 			default:
-				console.error(`Unknown command: ${command}`);
-				console.error('Available commands: install, status, update, uninstall, help');
+				console.error(`Unknown command: ${parsedCommand}`);
+				console.error('Available commands: install, status, update, uninstall, theme, help');
 				process.exit(1);
 		}
+	}
+
+	private async handleThemeCommand(args: string[]) {
+		// Parse options for theme command more flexibly
+		const themeArgs: string[] = [];
+		const options: CliOptions & { 
+			backup?: boolean;
+			reload?: boolean;
+			apps?: string;
+		} = {
+			headless: false,
+			interactive: false,
+			force: false,
+			dryRun: false,
+			verbose: false,
+		};
+
+		// Skip 'theme' command itself
+		for (let i = 1; i < args.length; i++) {
+			const arg = args[i];
+			switch (arg) {
+				case '--headless':
+					options.headless = true;
+					break;
+				case '--interactive':
+					options.interactive = true;
+					break;
+				case '--force':
+					options.force = true;
+					break;
+				case '--dry-run':
+					options.dryRun = true;
+					break;
+				case '--verbose':
+					options.verbose = true;
+					break;
+				case '--no-backup':
+					options.backup = false;
+					break;
+				case '--no-reload':
+					options.reload = false;
+					break;
+				default:
+					// Handle --apps flag
+					if (arg.startsWith('--apps=')) {
+						options.apps = arg.split('=')[1];
+					} else if (arg === '--apps' && i + 1 < args.length) {
+						options.apps = args[i + 1];
+						i++; // Skip next arg since we consumed it
+					} else if (arg.startsWith('--')) {
+						console.error(`Unknown option: ${arg}`);
+						process.exit(1);
+					} else {
+						// Otherwise, it's a theme command argument
+						themeArgs.push(arg);
+					}
+					break;
+			}
+		}
+
+		Object.assign(this.options, options);
+
+		const { ThemeCommand } = await import('../theme');
+		const themeCommand = new ThemeCommand();
+
+		const subcommand = themeArgs[0] || 'help';
+		const subArgs = themeArgs.slice(1);
+
+		await themeCommand.handle(subcommand, subArgs, options);
 	}
 
 	private parseArgs(args: string[]): { command: string; options: CliOptions } {
@@ -186,6 +263,7 @@ class CLI {
 		console.log('  status      Show the current status of dotfiles');
 		console.log('  update      Update/refresh all symlinks (same as install)');
 		console.log('  uninstall   Remove all dotfiles symlinks (DANGEROUS!)');
+		console.log('  theme       Manage themes (use "theme help" for details)');
 		console.log('  help        Show this help message');
 		console.log('');
 		console.log('Options:');
