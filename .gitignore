@@ -9,3 +9,10 @@ package-lock.json
 config.dots.json
 dotfiles.log
 config.active.toml
+
+# Theme system generated files
+core/src/themes/active.json
+src/config/ags/assets/styles/main.scss
+src/config/ags/assets/styles/themes/active.scss
+src/config/waybar/style.css
+src/config/waybar/themes/active.css
