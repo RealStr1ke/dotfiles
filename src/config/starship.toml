@@ -1,76 +1,105 @@
-# Get editor completions based on the config schema
+# ~/.config/starship.toml
+
+# Get editor completions based on the config schema.
 "$schema" = 'https://starship.rs/config-schema.json'
 
-# Inserts a blank line between shell prompts
-add_newline = true
+# -------------------- General Settings --------------------
 
-# Wait 10 milliseconds for starship to check files under the current directory.
-scan_timeout = 10
+# Set the default palette.
+palette = 'catppuccin_mocha'
 
-# format = '''
-# $username$hostname$directory$git_branch$git_status
-# └─$character
+# -------------------- Prompt Format --------------------
+
+# The main prompt format.
+format = """
+[](fg:mauve)\
+$os\
+$username\
+[](bg:lavender fg:mauve)\
+$directory\
+[](bg:yellow fg:lavender)\
+$git_branch\
+$git_status\
+[ ](fg:yellow)\
+$cmd_duration\
+$line_break\
+$character"""
+
+# The right prompt format (disabled).
+# right_format = '''
+# [](fg:red)
+# [$time](bg:red)
+# [](fg:red)$ssh_symbol
 # '''
-format = '''
-[┌──────────────────────󱐋](bold 141)
-[│](bold 141)$username$hostname$directory$git_branch$git_status
-[└─$character](bold 141)
-'''
-right_format = "$os$sudo$battery"
 
-command_timeout = 50000
+# -------------------- Module Configurations --------------------
 
-# Main Modules
-
-[battery]
-full_symbol = '󰁹 '
-charging_symbol = '󰂄 '
-discharging_symbol = '󱟤 '
-
-[[battery.display]]
-threshold = 10
-style = 'bold 124'
-[[battery.display]]
-threshold = 20
-style = 'bold 215'
-[[battery.display]]
-threshold = 30
-style = 'bold 214'
-[[battery.display]]
-threshold = 50
-style = 'bold 142'
-[[battery.display]]
-threshold = 100
-style = 'bold 114'
-
-[character] 
-# success_symbol = '[➜](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
-format = "(bold white)❯ "
-
-[cmd_duration]
-min_time = 1000
-format = "[${duration}]($style)"
+# -- Hostname --
+[hostname]
+ssh_only = false
+format = '[$hostname]($style)'
+style = "bg:blue fg:mantle bold"
 disabled = true
 
+# -- Operating System --
+[os]
+disabled = false
+style = "bg:mauve fg:crust"
+
+[os.symbols]
+Windows = ""
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+
+# -- Username --
+[username]
+show_always = true
+style_user = "bg:mauve fg:crust bold"
+style_root = "bg:mauve fg:crust bold"
+format = '[ $user]($style)'
+
+# -- Directory --
 [directory]
 truncation_length = 0
-format = '[$home_symbol$path]($style)[$read_only]($read_only_style) '
+format = '[ $home_symbol$path]($style)[$read_only]($read_only_style)'
 home_symbol = "~"
-style = 'bold 141'
+style = "bg:lavender fg:base bold"
 
-[fill]
-symbol = '─'
-style = 'bold 141'
+# [directory.substitutions]
+# "Documents" = "󰈙 "
+# "Downloads" = " "
+# "Music" = "󰝚 "
+# "Pictures" = " "
+# "Developer" = "󰲋 "
+# "Projects" = "󰏗 "
+# "Sandbox" = "󰒋 "
 
+# -- Git Branch --
 [git_branch]
-format = "[\\($symbol$branch\\)]($style) "
-symbol = " "
-style = 'bold 111'
-disabled = false
+symbol = ""
+style = "bg:yellow"
+format = '[[ $symbol $branch ](fg:crust bg:yellow)]($style)'
 
+# -- Git Status --
 [git_status]
-format ="([\\[$all_status$ahead_behind\\]]($style) )"
-style = 'bold 111'
+style = "bg:yellow"
+format = '[[($all_status$ahead_behind)](fg:crust bg:yellow)]($style)'
 conflicted = '='
 ahead = '⇡'
 behind = '⇣'
@@ -83,44 +112,61 @@ staged = '+'
 renamed = '»'
 deleted = '✘'
 
-[hostname]
-ssh_only = false
-format = 'on [$hostname](bold 111) [$ssh_symbol](bold blue)'
-# trim_at = '.companyname.com'
+# -- Time --
+[time]
 disabled = false
+time_format = "%H:%M:%S"
+format = ' $time'
 
-[os]
-format ="[$symbol]($style)"
-style = 'bold 141'
-disabled = false
-
-[os.symbols]
-Android = " "
-Arch = "  "
-Artix = " "
-Debian = " "
-EndeavourOS = " "
-Fedora = " "
-Linux = ""
-NixOS = " "
-Raspbian = ""
-Ubuntu = " "
-Unknown = " "
-Windows = " "
-
-[sudo]
-format = "[$symbol]($style)"
-style = 'bold 111'
-symbol = ''
-disabled = false
-
-[username]
-format = "[$user]($style) "
-style_user = "bold 141"
-style_root = "bold 111"
-disabled = false
-show_always = true
-
-# Disable the package module, hiding it from the prompt completely
-[package]
+# -- Line Break --
+[line_break]
 disabled = true
+
+# -- Character --
+[character]
+disabled = false
+success_symbol = '[❯](bold fg:green)'
+error_symbol = '[❯](bold fg:red)'
+vimcmd_symbol = '[❮](bold fg:green)'
+vimcmd_replace_one_symbol = '[❮](bold fg:lavender)'
+vimcmd_replace_symbol = '[❮](bold fg:lavender)'
+vimcmd_visual_symbol = '[❮](bold fg:yellow)'
+
+# -- Command Duration --
+[cmd_duration]
+show_milliseconds = true
+format = " in $duration "
+style = "bg:lavender"
+disabled = false
+show_notifications = true
+min_time_to_notify = 45000
+
+# -------------------- Color Palettes --------------------
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
