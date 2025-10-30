@@ -120,7 +120,7 @@ format = ' $time'
 
 # -- Line Break --
 [line_break]
-disabled = true
+disabled = false
 
 # -- Character --
 [character]
