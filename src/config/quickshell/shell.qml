@@ -1,6 +1,9 @@
 import Quickshell
 import Quickshell.Io
+import Quickshell.Hyprland
 import QtQuick
+
+import "./modules/common" as Common
 
 Scope {
     id: root
@@ -24,7 +27,7 @@ Scope {
 
                 Text {
                     anchors.centerIn: parent
-                    text: root.time
+                    text: Hyprland.focusedWorkspace.id
                 }
             }
         }
