@@ -8,8 +8,8 @@
   "colors": {
     "background": {
       "primary": "#1e1e2e",
-      "secondary": "#313244",
-      "tertiary": "#45475a",
+      "secondary": "#181825",
+      "tertiary": "#313244",
       "overlay": "#6c7086"
     },
     "text": {
@@ -33,7 +33,7 @@
     },
     "border": {
       "primary": "#585b70",
-      "secondary": "#45475a",
+      "secondary": "#313244",
       "focus": "#cba6f7"
     },
     "palette": {

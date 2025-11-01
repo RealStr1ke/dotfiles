@@ -43,7 +43,7 @@
             padding: 0px 4px;
         }
         &.bw-occupied {
-            color: $lavender;
+            color: $mauve;
             padding: 0px 4px;
         }
         &.bw-focused {
@@ -81,7 +81,7 @@
     border: 1.5px solid $base;
     font-size: 12px;
     &:hover {
-        background-color: $surface0;
+        background-color: $base;
     }
 }
 .bnf-label {
@@ -124,7 +124,7 @@
     border-radius: 10px;
     border: 1.5px solid $base;
     &:hover {
-        background-color: $surface0;
+        background-color: $base;
     }
 }
 
@@ -166,7 +166,7 @@ progress, highlight {
     border: 1.5px solid $base;
     // padding: 0px 5px 0px 0px;
     &:hover {
-        background-color: $surface0;
+        background-color: $base;
     }
 }
 .bm-title {
@@ -243,6 +243,9 @@ progress, highlight {
     color: $red;
     font-size: 18px;
     margin: 0px 16px 0px 8px;
+    &:hover {
+        background-color: $base;
+    }
 }
 
 // .bar-system {

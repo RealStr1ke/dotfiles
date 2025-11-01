@@ -49,8 +49,8 @@ export const CatppuccinAdapter: ThemeAdapter<CatppuccinColors> = {
 		return {
 			background: {
 				primary: colors.base,
-				secondary: colors.surface0,
-				tertiary: colors.surface1,
+				secondary: colors.mantle,
+				tertiary: colors.surface0,
 				overlay: colors.overlay0,
 			},
 			text: {
@@ -372,21 +372,39 @@ class TemplateProcessor {
 				}
 			}
 
-			if (autoReload && appConfig.reloadCommands && appConfig.reloadCommands.length > 0) {
+			if (autoReload && (appConfig.reloadCommands && appConfig.reloadCommands.length > 0 || appConfig.name === 'ags-main')) {
 				console.log(`Reloading ${appConfig.name}...`);
-				for (const command of appConfig.reloadCommands) {
+				
+				// Special handling for AGS which needs sequential execution
+				if (appConfig.name === 'ags-main') {
 					try {
-						// Run commands in background using spawn instead of execSync
-						const args = command.split(' ');
-						const cmd = args[0];
-						const cmdArgs = args.slice(1);
-
-						spawn(cmd, cmdArgs, {
-							detached: true,
-							stdio: 'ignore',
-						}).unref();
+						// Kill AGS first
+						spawn('pkill', ['ags'], { stdio: 'ignore' });
+						// Wait a bit, then restart
+						setTimeout(() => {
+							spawn('hyprctl', ['dispatch', 'exec', 'ags'], {
+								detached: true,
+								stdio: 'ignore',
+							}).unref();
+						}, 500);
 					} catch (error) {
-						console.warn(`Failed to run reload command: ${command}`, error);
+						console.warn(`Failed to reload ${appConfig.name}:`, error);
+					}
+				} else {
+					// Standard reload for other applications
+					for (const command of appConfig.reloadCommands) {
+						try {
+							const args = command.split(' ');
+							const cmd = args[0];
+							const cmdArgs = args.slice(1);
+
+							spawn(cmd, cmdArgs, {
+								detached: true,
+								stdio: 'ignore',
+							}).unref();
+						} catch (error) {
+							console.warn(`Failed to run reload command: ${command}`, error);
+						}
 					}
 				}
 			}
@@ -903,7 +921,7 @@ export class ThemeCommand {
 					name: 'ags-main',
 					templatePath: path.join(dotfilesPath, 'core', 'src', 'themes', 'templates', 'ags-main.scss'),
 					outputPath: path.join(dotfilesPath, 'src', 'config', 'ags', 'assets', 'styles', 'main.scss'),
-					reloadCommands: ['pkill ags', 'ags &'],
+					reloadCommands: [], // Special handling in code
 					templateOptions: { format: 'scss' },
 				},
 				{

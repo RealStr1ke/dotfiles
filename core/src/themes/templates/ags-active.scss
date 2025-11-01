@@ -3,19 +3,19 @@
 
 // Base Colors (universal scheme)
 $base: {{colors.background.primary}};
-$crust: {{colors.background.secondary}};
-$mantle: {{colors.background.tertiary}};
-$surface0: {{colors.background.overlay}};
-$surface1: {{colors.text.tertiary}};
-$surface2: {{colors.border.secondary}};
+$mantle: {{colors.background.secondary}};
+$crust: {{colors.text.inverse}};
+$surface0: {{colors.background.tertiary}};
+$surface1: {{colors.border.secondary}};
+$surface2: {{colors.border.primary}};
 
 // Text Colors (universal scheme)
 $text: {{colors.text.primary}};
-$subtext0: {{colors.text.secondary}};
-$subtext1: {{colors.text.tertiary}};
-$overlay0: {{colors.text.tertiary}};
+$subtext1: {{colors.text.secondary}};
+$subtext0: {{colors.text.tertiary}};
+$overlay0: {{colors.background.overlay}};
 $overlay1: {{colors.text.secondary}};
-$overlay2: {{colors.text.primary}};
+$overlay2: {{colors.interactive.disabled}};
 
 // Palette Colors (mapped from universal scheme)
 $rosewater: {{colors.palette.pink}};
@@ -26,12 +26,12 @@ $red: {{colors.palette.red}};
 $maroon: {{colors.semantic.error}};
 $peach: {{colors.palette.orange}};
 $yellow: {{colors.palette.yellow}};
-$green: {{colors.palette.green}};
+$green: {{colors.semantic.success}};
 $teal: {{colors.palette.cyan}};
 $sky: {{colors.palette.blue}};
-$sapphire: {{colors.palette.blue}};
+$sapphire: {{colors.interactive.secondary}};
 $blue: {{colors.palette.blue}};
-$lavender: {{colors.palette.purple}};
+$lavender: {{colors.interactive.hover}};
 
 // Universal Theme Variables
 $accent: {{colors.interactive.primary}};

@@ -1,14 +1,14 @@
 {
   "name": "Rose Pine",
-  "variant": "dark",
+  "variant": "dark", 
   "author": "Rose Pine Team",
   "description": "The elegant Rose Pine theme with rose accent",
   "source": "preset",
   "timestamp": 1728691200000,
   "colors": {
     "background": {
-      "primary": "#191724",
-      "secondary": "#1f1d2e",
+      "primary": "#403d52",
+      "secondary": "#1f1d2e", 
       "tertiary": "#26233a",
       "overlay": "#393552"
     },
@@ -21,26 +21,26 @@
     "interactive": {
       "primary": "#ebbcba",
       "secondary": "#9ccfd8",
-      "hover": "#f6c177",
-      "active": "#eb6f92",
+      "hover": "#403d52",
+      "active": "#eb6f92", 
       "disabled": "#6e6a86"
     },
     "semantic": {
       "success": "#31748f",
-      "warning": "#f6c177",
+      "warning": "#f6c177", 
       "error": "#eb6f92",
       "info": "#9ccfd8"
     },
     "border": {
       "primary": "#524f67",
-      "secondary": "#393552",
+      "secondary": "#403d52",
       "focus": "#ebbcba"
     },
     "palette": {
       "red": "#eb6f92",
       "orange": "#f6c177",
       "yellow": "#f6c177",
-      "green": "#31748f",
+      "green": "#31748f", 
       "blue": "#9ccfd8",
       "purple": "#c4a7e7",
       "pink": "#ebbcba",
