@@ -75,9 +75,8 @@ class CLI {
 	private async handleThemeCommand(args: string[]) {
 		// Parse options for theme command more flexibly
 		const themeArgs: string[] = [];
-		const options: CliOptions & { 
-			backup?: boolean;
-			reload?: boolean;
+		const options: CliOptions & {
+			accent?: string;
 			apps?: string;
 		} = {
 			headless: false,
@@ -91,30 +90,20 @@ class CLI {
 		for (let i = 1; i < args.length; i++) {
 			const arg = args[i];
 			switch (arg) {
-				case '--headless':
-					options.headless = true;
-					break;
-				case '--interactive':
-					options.interactive = true;
-					break;
-				case '--force':
-					options.force = true;
-					break;
 				case '--dry-run':
 					options.dryRun = true;
 					break;
 				case '--verbose':
 					options.verbose = true;
 					break;
-				case '--no-backup':
-					options.backup = false;
-					break;
-				case '--no-reload':
-					options.reload = false;
-					break;
 				default:
-					// Handle --apps flag
-					if (arg.startsWith('--apps=')) {
+					// Handle --accent flag
+					if (arg.startsWith('--accent=')) {
+						options.accent = arg.split('=')[1];
+					} else if (arg === '--accent' && i + 1 < args.length) {
+						options.accent = args[i + 1];
+						i++; // Skip next arg since we consumed it
+					} else if (arg.startsWith('--apps=')) {
 						options.apps = arg.split('=')[1];
 					} else if (arg === '--apps' && i + 1 < args.length) {
 						options.apps = args[i + 1];
@@ -132,13 +121,221 @@ class CLI {
 
 		Object.assign(this.options, options);
 
-		const { ThemeCommand } = await import('../theme');
-		const themeCommand = new ThemeCommand();
+		// Import theme engine and handle theme commands
+		const { ThemeEngine } = await import('./theme');
+		const themeEngine = new ThemeEngine();
 
 		const subcommand = themeArgs[0] || 'help';
 		const subArgs = themeArgs.slice(1);
 
-		await themeCommand.handle(subcommand, subArgs, options);
+		await this.handleThemeSubcommand(themeEngine, subcommand, subArgs, options);
+	}
+
+	private async handleThemeSubcommand(themeEngine: any, subcommand: string, args: string[], options: any): Promise<void> {
+		try {
+			switch (subcommand) {
+				case 'list':
+					await this.listThemes(themeEngine);
+					break;
+				case 'current':
+					await this.showCurrentTheme(themeEngine);
+					break;
+				case 'set':
+				case 'apply':
+					if (!args[0]) {
+						console.error('❌ Theme name required. Usage: dots theme set <theme-name> [--accent color]');
+						process.exit(1);
+					}
+					await this.applyTheme(themeEngine, args[0], options);
+					break;
+				case 'preview':
+					if (!args[0]) {
+						console.error('❌ Theme name required. Usage: dots theme preview <theme-name> [--accent color]');
+						process.exit(1);
+					}
+					await this.previewTheme(themeEngine, args[0], options);
+					break;
+				case 'help':
+					this.showThemeHelp();
+					break;
+				default:
+					console.error(`❌ Unknown theme subcommand: ${subcommand}`);
+					this.showThemeHelp();
+					process.exit(1);
+			}
+		} catch (error: any) {
+			console.error('❌ Theme command failed:', error.message);
+			process.exit(1);
+		}
+	}
+
+	private async listThemes(themeEngine: any): Promise<void> {
+		console.log('🎨 Available themes:');
+		console.log('');
+
+		const themes = await themeEngine.listThemes();
+
+		if (themes.length === 0) {
+			console.log('No themes found. Make sure theme presets exist in core/src/themes/presets/');
+			return;
+		}
+
+		const currentTheme = await themeEngine.getCurrentTheme();
+
+		themes.forEach((theme: string) => {
+			const isCurrent = currentTheme?.name === theme;
+			const marker = isCurrent ? '→' : ' ';
+			console.log(`  ${marker} ${theme}`);
+		});
+
+		console.log('');
+		console.log(`Total: ${themes.length} themes`);
+		if (currentTheme) {
+			console.log(`Current: ${currentTheme.name}${currentTheme.accent ? ` (accent: ${currentTheme.accent})` : ''}`);
+		}
+	}
+
+	private async showCurrentTheme(themeEngine: any): Promise<void> {
+		const currentTheme = await themeEngine.getCurrentTheme();
+
+		if (!currentTheme) {
+			console.log('No theme is currently active.');
+			return;
+		}
+
+		console.log('🎨 Current theme:');
+		console.log('');
+		console.log(`Name: ${currentTheme.name}`);
+		if (currentTheme.accent) {
+			console.log(`Accent: ${currentTheme.accent}`);
+		}
+		console.log('');
+		console.log('To change theme: dots theme set <theme-name> [--accent color]');
+		console.log('To change accent: dots theme set <current-theme> --accent <color>');
+	}
+
+	private async applyTheme(themeEngine: any, themeName: string, options: any): Promise<void> {
+		console.log(`🎨 Applying theme: ${themeName}${options.accent ? ` with accent: ${options.accent}` : ''}`);
+
+		try {
+			// Load theme with accent override
+			const theme = await themeEngine.loadTheme(themeName, options.accent);
+
+			// Apply to specified applications or default to AGS
+			const applications = options.apps ? options.apps.split(',') : ['ags'];
+
+			for (const app of applications) {
+				await themeEngine.applyTheme(theme, app);
+			}
+
+			// Save current theme state
+			await this.saveThemeState(themeName, options.accent);
+
+			console.log('✅ Theme applied successfully!');
+			console.log(`Applied to: ${applications.join(', ')}`);
+
+			if (options.accent) {
+				console.log(`Using custom accent: ${theme.accent.base}`);
+			}
+		} catch (error: any) {
+			console.error('❌ Failed to apply theme:', error.message);
+			process.exit(1);
+		}
+	}
+
+	private async previewTheme(themeEngine: any, themeName: string, options: any): Promise<void> {
+		console.log(`👀 Previewing theme: ${themeName}${options.accent ? ` with accent: ${options.accent}` : ''}`);
+
+		try {
+			// Load theme with accent override
+			const theme = await themeEngine.loadTheme(themeName, options.accent);
+
+			console.log('✅ Preview successful!');
+			console.log('');
+			console.log('Theme details:');
+			console.log(`  Name: ${theme.name}`);
+			console.log(`  Background: ${theme.background.primary}`);
+			console.log(`  Text: ${theme.text.primary}`);
+			console.log(`  Accent: ${theme.accent.base}`);
+			console.log(`  - Light: ${theme.accent.light}`);
+			console.log(`  - Dark: ${theme.accent.dark}`);
+			console.log(`  - Dim: ${theme.accent.dim}`);
+			console.log('');
+			console.log('To apply this theme, run:');
+			console.log(`  dots theme set ${themeName}${options.accent ? ` --accent ${options.accent}` : ''}`);
+		} catch (error: any) {
+			console.error('❌ Preview failed:', error.message);
+		}
+	}
+
+	private async saveThemeState(themeName: string, accent?: string): Promise<void> {
+		try {
+			const fs = await import('fs/promises');
+			const path = await import('path');
+
+			const configPath = path.join(process.env.HOME || '~', '.dotfiles/src/config.active.toml');
+
+			// Read existing config
+			let content = '';
+			try {
+				content = await fs.readFile(configPath, 'utf-8');
+			} catch {
+				// File doesn't exist, create new
+			}
+
+			// Update theme line
+			if (content.includes('theme =')) {
+				content = content.replace(/theme\s*=\s*"[^"]*"/, `theme = "${themeName}"`);
+			} else {
+				content += `\ntheme = "${themeName}"\n`;
+			}
+
+			// Update accent line
+			if (accent) {
+				if (content.includes('accent =')) {
+					content = content.replace(/accent\s*=\s*"[^"]*"/, `accent = "${accent}"`);
+				} else {
+					content += `accent = "${accent}"\n`;
+				}
+			} else {
+				// Remove accent line if no accent specified
+				content = content.replace(/\naccent\s*=\s*"[^"]*"\n?/, '\n');
+			}
+
+			// Ensure directory exists
+			await fs.mkdir(path.dirname(configPath), { recursive: true });
+
+			// Write config
+			await fs.writeFile(configPath, content);
+		} catch (error: any) {
+			console.warn(`Warning: Could not save theme state: ${error.message}`);
+		}
+	}
+
+	private showThemeHelp(): void {
+		console.log('🎨 Theme management commands:');
+		console.log('');
+		console.log('Usage: dots theme <command> [options]');
+		console.log('');
+		console.log('Commands:');
+		console.log('  list                    List all available themes');
+		console.log('  current                 Show current theme information');
+		console.log('  set <theme-name>        Apply a theme');
+		console.log('  preview <theme-name>    Preview a theme without applying');
+		console.log('  help                    Show this help');
+		console.log('');
+		console.log('Options:');
+		console.log('  --accent <color>        Override accent color (hex or palette name)');
+		console.log('  --apps <app1,app2>      Apply only to specific applications');
+		console.log('  --dry-run              Preview changes without applying');
+		console.log('');
+		console.log('Examples:');
+		console.log('  dots theme list');
+		console.log('  dots theme set catppuccin-mocha');
+		console.log('  dots theme set rose-pine --accent "#ff79c6"');
+		console.log('  dots theme set catppuccin-mocha --accent blue');
+		console.log('  dots theme preview rose-pine --accent green');
+		console.log('  dots theme set ~/wallpaper.jpg  # Generate from wallpaper (coming soon)');
 	}
 
 	private parseArgs(args: string[]): { command: string; options: CliOptions } {

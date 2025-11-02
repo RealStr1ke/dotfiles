@@ -1,6 +1,6 @@
 import { Widget } from '../utils/imports.js';
-const { Box, CenterBox, Window } = Widget;
 import BM from './modules.js';
+const { Box, CenterBox, Window } = Widget;
 
 function Left(monitor) {
 	const left = Box({

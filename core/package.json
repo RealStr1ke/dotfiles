@@ -4,6 +4,7 @@
   "description": "TypeScript-based dotfiles management system",
   "main": "main.ts",
   "dependencies": {
+    "node-vibrant": "^4.0.3",
     "toml": "^3.0.0"
   },
   "devDependencies": {

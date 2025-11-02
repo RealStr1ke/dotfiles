@@ -78,7 +78,7 @@ function ClientTitle() {
 			if (replacements[window]) {
 				window = replacements[window];
 			} else {
-				window.length > 25 ? window.substring(0, 25) + '...' : window;
+				window = window.length > 25 ? window.substring(0, 25) + '...' : window;
 			}
 			label.label = window;
 		}]],
@@ -156,8 +156,8 @@ function SystemInfo() {
 function PowerMenu() {
 	const powermenu = Button({
 		onPrimaryClick: () => exec('bash -c "~/.config/wlogout/launch.sh"'),
+		className: 'bar-powermenu',
 		child: Label({
-			className: 'bar-powermenu',
 			label: '',
 		}),
 	});
@@ -465,12 +465,12 @@ function Notification() {
 	return Button({
 		className: 'bar-notification',
 		child: Box({
-			className: 'bnf-button',
 			children: [
 				Revealer({
 					transition: 'slide_right',
 					'transition-duration': 350,
 					child: Label({
+						className: 'bnf-label',
 						connections: [[Notifications, label => {
 							label.label = Notifications.popups[Notifications.popups.length - 1]?.summary || '';
 						}]],

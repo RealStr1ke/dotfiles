@@ -1,7 +1,7 @@
 .bar { 
     // margin: 2px;
     // border-radius: 12px;
-    background-color: $crust;
+    background-color: $background_tertiary;
 }
 
 .bar-launcher {
@@ -10,47 +10,50 @@
         padding: 6px;
         margin: 4px 0px 6px 10px;
         border-radius: 20px;
+		border: 1.5px solid $background_tertiary;
         // padding: 2px;
-        &:hover {
-            background-color: $base;
-        }
+		&:hover {
+			background-color: $background_primary;
+			border: 1.5px solid $background_secondary;
+		}
     }
 }
 
+
 .bar-workspaces {
     margin: 4px 12px 4px 0px;
-    background-color: $mantle;
+    background-color: $background_secondary;
     padding: 0px 2px;
     border-radius: 8px;
-    border: 1.5px solid $base;
+    border: 1.5px solid $background_primary;
 
     button {
         background-color: transparent;
         font-size: 20px;
         font-weight: bolder;
-        color: $overlay1;
+        color: $border_primary;
         margin: 0px 1px;
         border-radius: 10px;
         padding: 0px 4px;
         transition: padding 0.2s cubic-bezier(0.12, 0, 0.39, 0);
 
         &:hover {
-            background-color: $surface0;
+            background-color: $background_primary;
         }
 
         &.bw-unoccupied {
-            color: $overlay1;
+            color: $border_primary;
             padding: 0px 4px;
         }
         &.bw-occupied {
-            color: $mauve;
+            color: $accent_base;
             padding: 0px 4px;
         }
         &.bw-focused {
-            color: $mauve;
+            color: $accent_base;
             font-weight: bolder;
-            background-color: $surface0;
-            border: 1.5px solid $mauve;
+            background-color: $background_primary;
+            border: 1.5px solid $accent_base;
             border-radius: 5px;
             padding: 0px 8px;
         }
@@ -61,34 +64,33 @@
     margin: 4px;
     border-radius: 10px;
     padding: 0px 6px;
-    color: $text;
-    background-color: $mantle;
-    border: 1.5px solid $base;
+    color: $text_primary;
+    background-color: $background_secondary;
+    border: 1.5px solid $background_primary;
     font-size: 16px;
     font-weight: bolder;
 }
 
-// .bar-notification {
-// }
 // .bnf-icon {
-//     margin: 0px 5px 0px 4px;
+// 	margin: 0px 5px 0px 4px;
 // }
-.bnf-button {
-    background-color: $mantle;
+.bar-notification {
+    background-color: $background_secondary;
     border-radius: 8px;
     margin: 4px 4px;
     padding: 0px 4px;
-    border: 1.5px solid $base;
+    border: 1.5px solid $background_primary;
     font-size: 12px;
     &:hover {
-        background-color: $base;
+        background-color: $background_primary;
+		border: 1.5px solid $background_secondary;
     }
 }
 .bnf-label {
     margin: 0px 4px;
 }
 .bnf-notif-critical {
-    border: 2px solid $red;
+    border: 2px solid $semantic_error;
     padding: 0px 6px;
     border-radius: 8px;
 }
@@ -103,33 +105,34 @@
     font-size: 19px;
 }
 .bcr-clock {
-    color: $text;
+    color: $text_primary;
     font-weight: bold;
     padding: 0px 6px 0px 4px;
     font-size: 24px;
 }
 .bcr-date {
-    color: $text;
+    color: $text_primary;
     font-weight: normal;
     font-size: 22px;
     padding: 0px 6px 0px 6px;
 }
 
 .bar-clock-button {
-    background-color: $mantle;
+    background-color: $background_secondary;
     margin: 4px;
     padding: 0px 6px;
     font-size: 16px;
-    color: $text;
+    color: $text_primary;
     border-radius: 10px;
-    border: 1.5px solid $base;
+    border: 1.5px solid $background_primary;
     &:hover {
-        background-color: $base;
+        background-color: $background_primary;
+		border: 1.5px solid $background_secondary;
     }
 }
 
 progress, highlight {
-    background-color: $mauve;
+    background-color: $accent_base;
     min-height: 8px;
     border-radius: 8px;
 }
@@ -137,8 +140,8 @@ progress, highlight {
 .bar-systray {
     margin: 4px 5px;
     padding: 0px 4px;
-    background-color: $mantle;
-    border: 1.5px solid $base;
+    background-color: $background_secondary;
+    border: 1.5px solid $background_primary;
     border-radius: 10px;
     button {
         margin: 0px;
@@ -146,7 +149,7 @@ progress, highlight {
         border-radius: 10px;
     }
     button:hover {
-        background-color: $base;
+        background-color: $background_primary;
     }
 }
 
@@ -155,22 +158,23 @@ progress, highlight {
     // padding: 0px 8px;
     label {
         font-size: 14px; 
-        color: $overlay0;
+        color: $border_secondary;
     }
 }
 
 .bar-media {
-    background-color: $mantle;
+    background-color: $background_secondary;
     border-radius: 8px;
     margin: 4px;
-    border: 1.5px solid $base;
+    border: 1.5px solid $background_primary;
     // padding: 0px 5px 0px 0px;
     &:hover {
-        background-color: $base;
+        background-color: $background_primary;
+		border: 1.5px solid $background_secondary;
     }
 }
 .bm-title {
-    color: $text;
+    color: $text_primary;
     font-size: 16px;
     margin: 0px 6px 0px 0px;
 }
@@ -183,24 +187,25 @@ progress, highlight {
 .bv-icon {
     margin: 0px 12px;
     font-size: 22px;
-    color: $text;
+    color: $text_primary;
 }
 .bv-slider {
     scale {
-        margin: 0px 8px;
+        margin: 0px 6px;
         contents {
+			background-color: transparent;
             trough {
                 slider {
-                    background-color: $mantle;
-                    box-shadow: 0 0 0 2.5px $text;
+                    background-color: $background_secondary;
+                    box-shadow: 0 0 0 2.5px $accent_base;
                     &:hover {
-                        background-color: $surface2;
+                        background-color: $border_primary;
                     }
                 }
                 highlight {
-                    background-color: $mauve;
+                    background-color: $accent_base;
                 }
-                background-color: $surface0;
+                background-color: $background_secondary;
                 border-radius: 10px;
             }
             margin: 0px 4px;
@@ -213,15 +218,15 @@ progress, highlight {
 .bb-icon {
     margin: 0px 12px;
     font-size: 20px;
-    color: $text;
+    color: $text_primary;
 }
 .bb-progress {
     margin: 0px 8px;
     trough {
         highlight {
-            background-color: $mauve;
+            background-color: $accent_base;
         }
-        background-color: $surface0;
+        background-color: $background_secondary;
         border-radius: 10px;
         padding: 2px 0px;
     }
@@ -230,36 +235,40 @@ progress, highlight {
 .bn-icon {
     margin: 0px 10px 0px 6px;
     font-size: 20px;
-    color: $text;
+    color: $text_primary;
 }
 .bn-text {
-    color: $text;
+    color: $text_primary;
     font-weight: bolder;
     font-size: 16px;
     padding: 0px 6px 0px 6px;
 }
 
 .bar-powermenu {
-    color: $red;
+    color: $semantic_error;
     font-size: 18px;
-    margin: 0px 16px 0px 8px;
+    padding: 0px 12px 0px 7px;
+	margin: 4px;
+	border-radius: 10px;
+	border: 1.5px solid $background_tertiary;
     &:hover {
-        background-color: $base;
+        background-color: $background_primary;
+		border: 1.5px solid $background_secondary;
     }
 }
 
 // .bar-system {
-//     background-color: $red;
+//     background-color: $semantic_error;
 // }
 .bs-ram {
-    color: $red;
-    background-color: $base;
+    color: $semantic_error;
+    background-color: $background_primary;
     border-radius: 10px;
     padding: 0px 4px;
 }
 .bs-cpu {
-    color: $lavender;
-    background-color: $base;
+    color: $accent_base;
+    background-color: $background_primary;
     border-radius: 10px;
     padding: 0px 4px;
 }
