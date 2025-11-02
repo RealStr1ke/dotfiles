@@ -4,7 +4,11 @@
   "description": "TypeScript-based dotfiles management system",
   "main": "main.ts",
   "dependencies": {
+    "child_process": "^1.0.2",
+    "fs": "^0.0.1-security",
     "node-vibrant": "^4.0.3",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
     "toml": "^3.0.0"
   },
   "devDependencies": {
