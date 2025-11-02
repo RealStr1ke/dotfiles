@@ -3,19 +3,14 @@
 SETUVAR --export MARONNE:1000
 SETUVAR --export SHELL:/usr/sbin/fish
 SETUVAR --export UID:1000
-SETUVAR ZO_CMD:zo
-SETUVAR Z_CMD:z
-SETUVAR Z_DATA:/home/str1ke/\x2elocal/share/z/data
 SETUVAR Z_DATA_DIR:/home/str1ke/\x2elocal/share/z
-SETUVAR Z_EXCLUDE:\x5e/home/str1ke\x24
 SETUVAR __fish_initialized:3800
 SETUVAR _fisher_franciscolourenco_2F_done_files:\x7e/\x2econfig/fish/conf\x2ed/done\x2efish
-SETUVAR _fisher_jethrokuan_2F_z_files:\x7e/\x2econfig/fish/functions/__z\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_add\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_clean\x2efish\x1e\x7e/\x2econfig/fish/functions/__z_complete\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/z\x2efish
 SETUVAR _fisher_jorgebucaran_2F_autopair_2E_fish_files:\x7e/\x2econfig/fish/functions/_autopair_backspace\x2efish\x1e\x7e/\x2econfig/fish/functions/_autopair_insert_left\x2efish\x1e\x7e/\x2econfig/fish/functions/_autopair_insert_right\x2efish\x1e\x7e/\x2econfig/fish/functions/_autopair_insert_same\x2efish\x1e\x7e/\x2econfig/fish/functions/_autopair_tab\x2efish\x1e\x7e/\x2econfig/fish/conf\x2ed/autopair\x2efish
 SETUVAR _fisher_jorgebucaran_2F_fisher_files:\x7e/\x2econfig/fish/functions/fisher\x2efish\x1e\x7e/\x2econfig/fish/completions/fisher\x2efish
 SETUVAR _fisher_jorgebucaran_2F_spark_2E_fish_files:\x7e/\x2econfig/fish/functions/spark\x2efish\x1e\x7e/\x2econfig/fish/completions/spark\x2efish
 SETUVAR _fisher_kama_2D_meshi_2F_fish_2D_wakatime_files:\x7e/\x2econfig/fish/conf\x2ed/wakatime_fish_prompt\x2efish
-SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejorgebucaran/spark\x2efish\x1ejethrokuan/z\x1efranciscolourenco/done\x1ekama\x2dmeshi/fish\x2dwakatime\x1ejorgebucaran/autopair\x2efish
+SETUVAR _fisher_plugins:jorgebucaran/fisher\x1ejorgebucaran/spark\x2efish\x1efranciscolourenco/done\x1ekama\x2dmeshi/fish\x2dwakatime\x1ejorgebucaran/autopair\x2efish
 SETUVAR _fisher_upgraded_to_4_4:\x1d
 SETUVAR fish_color_autosuggestion:6e738d
 SETUVAR fish_color_cancel:ed8796
