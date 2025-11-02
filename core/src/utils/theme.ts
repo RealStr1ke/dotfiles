@@ -163,10 +163,10 @@ export class ThemeEngine {
 	/**
 	 * Load a theme from preset or generate from wallpaper
 	 */
-	async loadTheme(name: string, accentOverride?: string): Promise<ResolvedTheme> {
+	async loadTheme(name: string, accentOverride?: string, themeMode?: string): Promise<ResolvedTheme> {
 		// Check if it's a wallpaper path
 		if (name.includes('/') || name.endsWith('.jpg') || name.endsWith('.png')) {
-			return this.generateFromWallpaper(name, accentOverride);
+			return this.generateFromWallpaper(name, accentOverride, themeMode);
 		}
 
 		// Load preset theme
@@ -195,118 +195,110 @@ export class ThemeEngine {
 	}
 
 	/**
-	 * Generate theme from wallpaper colors
+	 * Load theme configuration from config.toml
 	 */
-	private async generateFromWallpaper(wallpaperPath: string, accentOverride?: string): Promise<ResolvedTheme> {
+	private async loadThemeConfig(): Promise<{ wallpaper_mode: string; default_dark_theme: string; default_light_theme: string }> {
 		try {
+			const configPath = join(process.env.HOME || '~', '.dotfiles/src/config.toml');
+			const configContent = await fs.readFile(configPath, 'utf-8');
+			
+			// Simple TOML parsing for theme section
+			const themeSection = configContent.match(/\[theme\]([\s\S]*?)(?=\[|$)/);
+			if (!themeSection) {
+				// Return defaults if no theme section found
+				return {
+					wallpaper_mode: 'auto',
+					default_dark_theme: 'catppuccin-mocha',
+					default_light_theme: 'catppuccin-latte'
+				};
+			}
+
+			const sectionContent = themeSection[1];
+			const wallpaperModeMatch = sectionContent.match(/wallpaper_mode\s*=\s*"([^"]+)"/);
+			const defaultDarkMatch = sectionContent.match(/default_dark_theme\s*=\s*"([^"]+)"/);
+			const defaultLightMatch = sectionContent.match(/default_light_theme\s*=\s*"([^"]+)"/);
+
+			return {
+				wallpaper_mode: wallpaperModeMatch?.[1] || 'auto',
+				default_dark_theme: defaultDarkMatch?.[1] || 'catppuccin-mocha',
+				default_light_theme: defaultLightMatch?.[1] || 'catppuccin-latte'
+			};
+		} catch (error: any) {
+			console.warn('Could not load theme config, using defaults');
+			return {
+				wallpaper_mode: 'auto',
+				default_dark_theme: 'catppuccin-mocha',
+				default_light_theme: 'catppuccin-latte'
+			};
+		}
+	}
+
+	/**
+	 * Generate theme from wallpaper using base theme + accent extraction
+	 */
+	private async generateFromWallpaper(wallpaperPath: string, accentOverride?: string, themeMode?: string): Promise<ResolvedTheme> {
+		try {
+			// Load theme configuration
+			const config = await this.loadThemeConfig();
+
 			// Import Vibrant for color extraction
 			const { Vibrant } = (await import('node-vibrant/node'));
 
 			// Extract colors from image
 			const palette = await Vibrant.from(wallpaperPath).getPalette();
 
-			// Extract and sort colors by population
-			const colors = Object.values(palette)
-				.filter((swatch: any) => swatch !== null)
-				.sort((a: any, b: any) => b.population - a.population);
-
-			if (colors.length === 0) {
-				throw new Error('Could not extract colors from image');
+			// Get the most vibrant color as accent
+			const vibrantColor = (palette as any).Vibrant?.hex;
+			if (!vibrantColor) {
+				throw new Error('Could not extract vibrant color from image');
 			}
 
-			// Build color scheme from extracted colors
-			const dominantColor = (colors[0] as any).hex;
-			const vibrantColor = (palette as any).Vibrant?.hex || dominantColor;
-			const darkMutedColor = (palette as any).DarkMuted?.hex || darken(dominantColor, 30);
-			const lightMutedColor = (palette as any).LightMuted?.hex || lighten(dominantColor, 30);
-			const mutedColor = (palette as any).Muted?.hex || dominantColor;
+			// Detect if wallpaper is light or dark based on dominant/muted colors, not vibrant
+			const dominantColor = (palette as any).DarkMuted?.hex || (palette as any).Muted?.hex || (palette as any).LightMuted?.hex;
+			const isDarkWallpaper = dominantColor ? this.isColorDark(dominantColor) : true; // Default to dark if no dominant color
 
-			// Determine if image is light or dark themed
-			const isDarkTheme = this.isColorDark(dominantColor);
+			// Determine which base theme to use
+			let baseThemeName: string;
+			
+			if (themeMode === 'dark') {
+				baseThemeName = config.default_dark_theme;
+			} else if (themeMode === 'light') {
+				baseThemeName = config.default_light_theme;
+			} else if (config.wallpaper_mode === 'dark') {
+				baseThemeName = config.default_dark_theme;
+			} else if (config.wallpaper_mode === 'light') {
+				baseThemeName = config.default_light_theme;
+			} else {
+				// Auto mode - use wallpaper detection
+				baseThemeName = isDarkWallpaper ? config.default_dark_theme : config.default_light_theme;
+			}
 
-			const baseTheme: ThemeStructure = {
-				name: `Generated: ${wallpaperPath.split('/').pop()}`,
-				default_accent: '', // Not used for wallpaper themes
-				background: {
-					primary: isDarkTheme ? darkMutedColor : lightMutedColor,
-					secondary: isDarkTheme ? darken(darkMutedColor, 10) : darken(lightMutedColor, 5),
-					tertiary: isDarkTheme ? lighten(darkMutedColor, 10) : lighten(lightMutedColor, 5),
-				},
-				text: {
-					primary: isDarkTheme ? lightMutedColor : darkMutedColor,
-					secondary: isDarkTheme ? mutedColor : darken(mutedColor, 20),
-					tertiary: isDarkTheme ? darken(mutedColor, 10) : darken(mutedColor, 30),
-					inverse: isDarkTheme ? darkMutedColor : lightMutedColor,
-				},
-				border: {
-					primary: isDarkTheme ? lighten(darkMutedColor, 20) : darken(lightMutedColor, 20),
-					secondary: isDarkTheme ? lighten(darkMutedColor, 10) : darken(lightMutedColor, 10),
-					focus: 'accent.base',
-				},
-				interactive: {
-					primary: 'accent.base',
-					secondary: 'accent.dim',
-					hover: 'accent.light',
-				},
-				semantic: {
-					success: '#22c55e', // Green
-					warning: '#f59e0b', // Amber
-					error: '#ef4444', // Red
-				},
-			};
+			console.log(`🎨 Extracted accent color: ${vibrantColor}`);
+			console.log(`🎨 Wallpaper detected as: ${isDarkWallpaper ? 'Dark' : 'Light'}`);
+			console.log(`🎨 Using base theme: ${baseThemeName}`);
 
-			console.log(`🎨 Extracted colors from ${wallpaperPath}:`);
-			console.log(`  Dominant: ${dominantColor}`);
-			console.log(`  Vibrant: ${vibrantColor}`);
-			console.log(`  Theme: ${isDarkTheme ? 'Dark' : 'Light'}`);
+			// Load the base theme
+			const baseTheme = await this.loadPresetTheme(baseThemeName);
 
-			// For wallpaper themes, use the extracted vibrant color directly as accent
+			// Override the accent with extracted color (or user override)
 			const finalAccent = accentOverride || vibrantColor;
 			const accent = generateAccentVariations(finalAccent);
 
+			// Return base theme with new accent
 			return {
 				...baseTheme,
+				name: `${baseTheme.name} (from ${wallpaperPath.split('/').pop()})`,
 				accent,
 				resolved_accent: finalAccent,
 				accent_source: accentOverride ? 'hex' : 'extracted',
 			};
+
 		} catch (error: any) {
 			console.error(`Failed to extract colors from ${wallpaperPath}: ${error.message}`);
-			console.log('Falling back to default theme structure...');
+			console.log('Falling back to default theme...');
 
-			// Fallback to basic theme structure
-			const baseTheme: ThemeStructure = {
-				name: `Generated: ${wallpaperPath.split('/').pop()}`,
-				default_accent: 'primary',
-				background: {
-					primary: '#1e1e2e',
-					secondary: '#181825',
-					tertiary: '#313244',
-				},
-				text: {
-					primary: '#cdd6f4',
-					secondary: '#bac2de',
-					tertiary: '#a6adc8',
-					inverse: '#1e1e2e',
-				},
-				border: {
-					primary: '#585b70',
-					secondary: '#45475a',
-					focus: 'accent.base',
-				},
-				interactive: {
-					primary: 'accent.base',
-					secondary: 'accent.dim',
-					hover: 'accent.light',
-				},
-				semantic: {
-					success: '#a6e3a1',
-					warning: '#f9e2af',
-					error: '#f38ba8',
-				},
-			};
-
-			return this.resolveTheme(baseTheme, accentOverride);
+			// Fallback to default theme
+			return this.loadPresetTheme('catppuccin-mocha', accentOverride);
 		}
 	}
 
@@ -448,19 +440,37 @@ export class ThemeEngine {
 	/**
 	 * Get current theme info
 	 */
-	async getCurrentTheme(): Promise<{ name: string; accent?: string } | null> {
+	async getCurrentTheme(): Promise<{ 
+		name: string; 
+		accent?: string; 
+		accent_source?: string;
+		theme_type?: string;
+		theme_mode?: string;
+		wallpaper_path?: string;
+		timestamp?: number;
+	} | null> {
 		try {
 			const stateFile = join(process.env.HOME || '~', '.dotfiles/src/config.active.toml');
 			const content = await fs.readFile(stateFile, 'utf-8');
 
-			// Basic TOML parsing for theme info
-			const themeMatch = content.match(/theme\s*=\s*"([^"]+)"/);
-			const accentMatch = content.match(/accent\s*=\s*"([^"]+)"/);
+			// Parse theme section information
+			const nameMatch = content.match(/\[theme\][\s\S]*?name\s*=\s*"([^"]+)"/);
+			const accentMatch = content.match(/\[theme\][\s\S]*?accent\s*=\s*"([^"]+)"/);
+			const accentSourceMatch = content.match(/\[theme\][\s\S]*?accent_source\s*=\s*"([^"]+)"/);
+			const themeTypeMatch = content.match(/\[theme\][\s\S]*?theme_type\s*=\s*"([^"]+)"/);
+			const themeModeMatch = content.match(/\[theme\][\s\S]*?theme_mode\s*=\s*"([^"]+)"/);
+			const wallpaperPathMatch = content.match(/\[theme\][\s\S]*?wallpaper_path\s*=\s*"([^"]+)"/);
+			const timestampMatch = content.match(/\[theme\][\s\S]*?timestamp\s*=\s*(\d+)/);
 
-			if (themeMatch) {
+			if (nameMatch) {
 				return {
-					name: themeMatch[1],
+					name: nameMatch[1],
 					accent: accentMatch?.[1],
+					accent_source: accentSourceMatch?.[1],
+					theme_type: themeTypeMatch?.[1],
+					theme_mode: themeModeMatch?.[1],
+					wallpaper_path: wallpaperPathMatch?.[1],
+					timestamp: timestampMatch ? parseInt(timestampMatch[1]) : undefined,
 				};
 			}
 		} catch {

@@ -91,3 +91,8 @@ starship_toml = { source = "src/config/starship.toml", target = "~/.config/stars
 
 ### Shell
 # Nothing rly but I'll figure smth out here
+
+[theme]
+wallpaper_mode = "auto"  # auto, dark, light
+default_dark_theme = "catppuccin-mocha"
+default_light_theme = "catppuccin-latte"

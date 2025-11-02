@@ -42,11 +42,11 @@
         }
 
         &.bw-unoccupied {
-            color: $border_primary;
+			color: rgba($text_primary, 0.2);
             padding: 0px 4px;
         }
         &.bw-occupied {
-            color: $accent_base;
+            color: $text_primary;
             padding: 0px 4px;
         }
         &.bw-focused {
@@ -158,7 +158,7 @@ progress, highlight {
     // padding: 0px 8px;
     label {
         font-size: 14px; 
-        color: $border_secondary;
+        color: $text_primary;
     }
 }
 

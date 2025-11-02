@@ -1,0 +1,46 @@
+{
+	"name": "Catppuccin Macchiato",
+	"default_accent": "mauve",
+	"background": {
+		"primary": "#24273a",
+		"secondary": "#1e2030",
+		"tertiary": "#181926"
+	},
+	"text": {
+		"primary": "#cad3f5",
+		"secondary": "#b8c0e0",
+		"tertiary": "#a5adcb",
+		"inverse": "#24273a"
+	},
+	"border": {
+		"primary": "#5b6078",
+		"secondary": "#494d64",
+		"focus": "accent.base"
+	},
+	"interactive": {
+		"primary": "accent.base",
+		"secondary": "accent.dim",
+		"hover": "accent.light"
+	},
+	"semantic": {
+		"success": "#a6da95",
+		"warning": "#eed49f",
+		"error": "#ed8796"
+	},
+	"palette": {
+		"rosewater": "#f4dbd6",
+		"flamingo": "#f0c6c6",
+		"pink": "#f5bde6",
+		"mauve": "#c6a0f6",
+		"red": "#ed8796",
+		"maroon": "#ee99a0",
+		"peach": "#f5a97f",
+		"yellow": "#eed49f",
+		"green": "#a6da95",
+		"teal": "#8bd5ca",
+		"sky": "#91d7e3",
+		"sapphire": "#7dc4e4",
+		"blue": "#8aadf4",
+		"lavender": "#b7bdf8"
+	}
+}

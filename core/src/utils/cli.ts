@@ -78,6 +78,7 @@ class CLI {
 		const options: CliOptions & {
 			accent?: string;
 			apps?: string;
+			themeMode?: string;
 		} = {
 			headless: false,
 			interactive: false,
@@ -95,6 +96,12 @@ class CLI {
 					break;
 				case '--verbose':
 					options.verbose = true;
+					break;
+				case '--dark':
+					options.themeMode = 'dark';
+					break;
+				case '--light':
+					options.themeMode = 'light';
 					break;
 				default:
 					// Handle --accent flag
@@ -215,11 +222,12 @@ class CLI {
 	}
 
 	private async applyTheme(themeEngine: any, themeName: string, options: any): Promise<void> {
-		console.log(`🎨 Applying theme: ${themeName}${options.accent ? ` with accent: ${options.accent}` : ''}`);
+		const modeStr = options.themeMode ? ` (${options.themeMode} mode)` : '';
+		console.log(`🎨 Applying theme: ${themeName}${options.accent ? ` with accent: ${options.accent}` : ''}${modeStr}`);
 
 		try {
-			// Load theme with accent override
-			const theme = await themeEngine.loadTheme(themeName, options.accent);
+			// Load theme with accent override and theme mode
+			const theme = await themeEngine.loadTheme(themeName, options.accent, options.themeMode);
 
 			// Apply to specified applications or default to AGS
 			const applications = options.apps ? options.apps.split(',') : ['ags'];
@@ -228,14 +236,16 @@ class CLI {
 				await themeEngine.applyTheme(theme, app);
 			}
 
-			// Save current theme state
-			await this.saveThemeState(themeName, options.accent);
+			// Save current theme state with comprehensive info
+			await this.saveThemeState(themeName, options.accent || theme.resolved_accent, options.themeMode, theme);
 
 			console.log('✅ Theme applied successfully!');
 			console.log(`Applied to: ${applications.join(', ')}`);
 
 			if (options.accent) {
 				console.log(`Using custom accent: ${theme.accent.base}`);
+			} else if (theme.accent_source === 'extracted') {
+				console.log(`Using extracted accent: ${theme.accent.base}`);
 			}
 		} catch (error: any) {
 			console.error('❌ Failed to apply theme:', error.message);
@@ -244,11 +254,12 @@ class CLI {
 	}
 
 	private async previewTheme(themeEngine: any, themeName: string, options: any): Promise<void> {
-		console.log(`👀 Previewing theme: ${themeName}${options.accent ? ` with accent: ${options.accent}` : ''}`);
+		const modeStr = options.themeMode ? ` (${options.themeMode} mode)` : '';
+		console.log(`👀 Previewing theme: ${themeName}${options.accent ? ` with accent: ${options.accent}` : ''}${modeStr}`);
 
 		try {
-			// Load theme with accent override
-			const theme = await themeEngine.loadTheme(themeName, options.accent);
+			// Load theme with accent override and theme mode
+			const theme = await themeEngine.loadTheme(themeName, options.accent, options.themeMode);
 
 			console.log('✅ Preview successful!');
 			console.log('');
@@ -262,45 +273,91 @@ class CLI {
 			console.log(`  - Dim: ${theme.accent.dim}`);
 			console.log('');
 			console.log('To apply this theme, run:');
-			console.log(`  dots theme set ${themeName}${options.accent ? ` --accent ${options.accent}` : ''}`);
+			const cmdOptions = [
+				options.accent ? `--accent ${options.accent}` : '',
+				options.themeMode ? `--${options.themeMode}` : ''
+			].filter(Boolean).join(' ');
+			console.log(`  dots theme set ${themeName}${cmdOptions ? ` ${cmdOptions}` : ''}`);
 		} catch (error: any) {
 			console.error('❌ Preview failed:', error.message);
 		}
 	}
 
-	private async saveThemeState(themeName: string, accent?: string): Promise<void> {
+	private async saveThemeState(themeName: string, accent?: string, themeMode?: string, resolvedTheme?: any): Promise<void> {
 		try {
 			const fs = await import('fs/promises');
 			const path = await import('path');
+			const toml = await import('toml');
 
 			const configPath = path.join(process.env.HOME || '~', '.dotfiles/src/config.active.toml');
 
-			// Read existing config
-			let content = '';
+			// Read existing config to preserve other sections
+			let existingData: any = {};
 			try {
-				content = await fs.readFile(configPath, 'utf-8');
+				const existingContent = await fs.readFile(configPath, 'utf-8');
+				existingData = toml.parse(existingContent);
 			} catch {
-				// File doesn't exist, create new
+				// File doesn't exist or is empty
 			}
 
-			// Update theme line
-			if (content.includes('theme =')) {
-				content = content.replace(/theme\s*=\s*"[^"]*"/, `theme = "${themeName}"`);
-			} else {
-				content += `\ntheme = "${themeName}"\n`;
-			}
+			// Update theme section
+			const isWallpaper = themeName.includes('/') || themeName.endsWith('.jpg') || themeName.endsWith('.png');
+			
+			existingData.theme = {
+				name: themeName,
+				timestamp: Date.now(),
+				theme_type: isWallpaper ? 'wallpaper' : 'preset'
+			};
 
-			// Update accent line
 			if (accent) {
-				if (content.includes('accent =')) {
-					content = content.replace(/accent\s*=\s*"[^"]*"/, `accent = "${accent}"`);
-				} else {
-					content += `accent = "${accent}"\n`;
-				}
-			} else {
-				// Remove accent line if no accent specified
-				content = content.replace(/\naccent\s*=\s*"[^"]*"\n?/, '\n');
+				existingData.theme.accent = accent;
+				
+				// Use accent source from resolved theme
+				existingData.theme.accent_source = resolvedTheme?.accent_source || 'custom';
 			}
+
+			if (isWallpaper) {
+				existingData.theme.wallpaper_path = themeName;
+				if (themeMode) {
+					existingData.theme.theme_mode = themeMode;
+				}
+			}
+
+			// Generate complete multi-section TOML
+			let content = `# Multi-component active state file\n# Auto-generated by dotfiles system\n\n`;
+
+			// Preserve symlinks section
+			if (existingData.symlinks) {
+				content += `[symlinks]\n`;
+				content += `version = "${existingData.symlinks.version || 'unknown'}"\n`;
+				content += `timestamp = ${existingData.symlinks.timestamp || Date.now()}\n\n`;
+
+				Object.entries(existingData.symlinks).forEach(([key, value]) => {
+					if (typeof value === 'object' && value !== null && key !== 'version' && key !== 'timestamp') {
+						const safeName = key.replace(/[^\w.-]/g, '_');
+						content += `[symlinks.${safeName}]\n`;
+						const item = value as any;
+						content += `source = "${item.source.replace(/"/g, '\\"')}"\n`;
+						content += `target = "${item.target.replace(/"/g, '\\"')}"\n`;
+						if (item.type) {
+							content += `type = "${item.type.replace(/"/g, '\\"')}"\n`;
+						}
+						content += `\n`;
+					}
+				});
+			}
+
+			// Theme section
+			content += `[theme]\n`;
+			Object.entries(existingData.theme).forEach(([key, value]) => {
+				if (typeof value === 'string') {
+					content += `${key} = "${value.replace(/"/g, '\\"')}"\n`;
+				} else {
+					content += `${key} = ${value}\n`;
+				}
+			});
+
+			content += `\n# Last updated: ${new Date().toISOString()}\n`;
 
 			// Ensure directory exists
 			await fs.mkdir(path.dirname(configPath), { recursive: true });
@@ -327,6 +384,8 @@ class CLI {
 		console.log('Options:');
 		console.log('  --accent <color>        Override accent color (hex or palette name)');
 		console.log('  --apps <app1,app2>      Apply only to specific applications');
+		console.log('  --dark                  Force dark theme (for wallpaper themes)');
+		console.log('  --light                 Force light theme (for wallpaper themes)');
 		console.log('  --dry-run              Preview changes without applying');
 		console.log('');
 		console.log('Examples:');
@@ -334,8 +393,10 @@ class CLI {
 		console.log('  dots theme set catppuccin-mocha');
 		console.log('  dots theme set rose-pine --accent "#ff79c6"');
 		console.log('  dots theme set catppuccin-mocha --accent blue');
-		console.log('  dots theme preview rose-pine --accent green');
-		console.log('  dots theme set ~/wallpaper.jpg  # Generate from wallpaper (coming soon)');
+		console.log('  dots theme set ~/wallpaper.jpg                # Auto-detect light/dark');
+		console.log('  dots theme set ~/wallpaper.jpg --dark         # Force dark theme');
+		console.log('  dots theme set ~/wallpaper.jpg --accent blue  # Custom accent');
+		console.log('  dots theme preview ~/wallpaper.jpg --light    # Preview light theme');
 	}
 
 	private parseArgs(args: string[]): { command: string; options: CliOptions } {
