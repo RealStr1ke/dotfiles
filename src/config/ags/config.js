@@ -21,14 +21,14 @@ const hyprland = await Service.import('hyprland');
 
 let currentMonitorCount = hyprland.monitors.length;
 
-// Pick HDMI-A-1 if BOTH HDMI-A-1(id:1) and DP-1(id:2) exist, else pick eDP-1 (fallback to any eDP-* if needed)
+// Pick HDMI-A-1 if BOTH HDMI-A-1 (id:2) and DP-3 (id:1) exist, else pick eDP-1 (fallback to any eDP-* if needed)
 function getPreferredMonitorIndex() {
 	const mons = hyprland.monitors;
 
-	const hasHdmi1 = mons.some(m => m.name === 'HDMI-A-1' && m.id === 1 && !m.disabled);
-	const hasDp1 = mons.some(m => m.name === 'DP-1' && m.id === 2 && !m.disabled);
+	const hasHdmi2 = mons.some(m => m.name === 'HDMI-A-1' && m.id === 2 && !m.disabled);
+	const hasDp1 = mons.some(m => m.name === 'DP-3' && m.id === 1 && !m.disabled);
 
-	if (hasHdmi1 && hasDp1) {
+	if (hasHdmi2 && hasDp1) {
 		const idx = mons.findIndex(m => m.name === 'HDMI-A-1');
 		return idx !== -1 ? idx : 0;
 	}
