@@ -17,7 +17,7 @@ spotifyd &
 # eww open bar0 --config ~/.dotfiles/src/config/eww/hyprland/
 
 # AGS
-agsv1 &
+ags &
 
 # Clipboard Manager (copyq)
 copyq --start-server &
@@ -71,6 +71,9 @@ spotifyd &
 
 # Hyprland Language Server
 hyprls &
+
+# Tailscale Tray
+trayscale &
 
 # Wob
 function wbs() {

@@ -64,6 +64,10 @@ const settings = {
 			'com.chatterino.chatterino': ' Chatterino',
 			'steam': ' Steam',
 			'lunarclient': '󰍳 Lunar Client',
+			'rustdesk': '󰢹 RustDesk',
+			'dev.deedles.Trayscale': '󰖂 Trayscale',
+			'syncthing-gtk': '󰘿 Syncthing GTK',
+			'org.gnome.gedit': '󰎞 Gedit',
 		},
 	},
 };

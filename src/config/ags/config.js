@@ -21,22 +21,71 @@ const hyprland = await Service.import('hyprland');
 
 let currentMonitorCount = hyprland.monitors.length;
 
-// Pick HDMI-A-1 if BOTH HDMI-A-1 (id:2) and DP-3 (id:1) exist, else pick eDP-1 (fallback to any eDP-* if needed)
+// Monitor configurations - checks in order until a match is found
+const monitorConfigs = [
+	{
+		name: 'docked-dual-monitor',
+		enabled: true,
+		condition: (monitors) => {
+			const hasHdmi1 = monitors.some(m => m.name === 'HDMI-A-1' && m.id === 1 && !m.disabled);
+			const hasDp1 = monitors.some(m => m.name === 'DP-1' && m.id === 2 && !m.disabled);
+			return hasHdmi1 && hasDp1;
+		},
+		barMonitor: 'HDMI-A-1',
+	},
+	{
+		name: 'hdmi-only',
+		enabled: true,
+		condition: (monitors) => monitors.some(m => m.name === 'HDMI-A-1' && !m.disabled),
+		barMonitor: 'HDMI-A-1',
+	},
+	{
+		name: 'laptop-primary',
+		enabled: true,
+		condition: (monitors) => monitors.some(m => m.name === 'eDP-1' && !m.disabled),
+		barMonitor: 'eDP-1',
+	},
+	{
+		name: 'laptop-fallback',
+		enabled: true,
+		condition: (monitors) => monitors.some(m => /^eDP-\d+$/.test(m.name) && !m.disabled),
+		barMonitor: (monitors) => {
+			const edp = monitors.find(m => /^eDP-\d+$/.test(m.name) && !m.disabled);
+			return edp?.name || null;
+		},
+	},
+	{
+		name: 'fallback',
+		enabled: true,
+		condition: () => true,
+		barMonitor: 0,
+	},
+];
+
 function getPreferredMonitorIndex() {
 	const mons = hyprland.monitors;
 
-	const hasHdmi2 = mons.some(m => m.name === 'HDMI-A-1' && m.id === 2 && !m.disabled);
-	const hasDp1 = mons.some(m => m.name === 'DP-3' && m.id === 1 && !m.disabled);
+	// Find the first matching configuration
+	for (const config of monitorConfigs) {
+		if (config.enabled && config.condition(mons)) {
+			const monitorTarget = typeof config.barMonitor === 'function'
+				? config.barMonitor(mons)
+				: config.barMonitor;
 
-	if (hasHdmi2 && hasDp1) {
-		const idx = mons.findIndex(m => m.name === 'HDMI-A-1');
-		return idx !== -1 ? idx : 0;
+			// If it's a string (monitor name), find its index
+			if (typeof monitorTarget === 'string') {
+				const idx = mons.findIndex(m => m.name === monitorTarget);
+				if (idx !== -1) return idx;
+			}
+			// If it's a number, return it directly
+			else if (typeof monitorTarget === 'number') {
+				return monitorTarget;
+			}
+		}
 	}
 
-	// Default to eDP-1; if not present (e.g. eDP-2), fallback to first eDP-*
-	let idx = mons.findIndex(m => m.name === 'eDP-1');
-	if (idx === -1) idx = mons.findIndex(m => /^eDP-\d+$/.test(m.name));
-	return idx !== -1 ? idx : 0;
+	// Ultimate fallback
+	return 0;
 }
 
 let currentTargetIndex = getPreferredMonitorIndex();
