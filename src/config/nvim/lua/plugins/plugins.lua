@@ -290,7 +290,7 @@ return {
             end,
         },
         {
-            "ggandor/leap.nvim",
+            "https://codeberg.org/andyg/leap.nvim",
             config = function()
                 require("plugins.configs.leap")
             end,

@@ -73,7 +73,7 @@ spotifyd &
 hyprls &
 
 # Tailscale Tray
-trayscale &
+trayscale --hide-window &
 
 # Wob
 function wbs() {
