@@ -1,13 +1,14 @@
 # ================================
-# |        Applicati# Spotifyd Daemon
+# |        Applications          |
+# ================================
+# Spotifyd Daemon
 spotifyd &
 
 # Battery Daemon
 ~/.config/hypr/scripts/tools/batteryd.mjs &
 
 # Music Player Daemon (MPD)
-# mpd --stdout --verbose &        |
-# ================================
+# mpd --stdout --verbose &
 
 # Waybar
 # ~/.config/waybar/launch.sh &
