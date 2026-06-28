@@ -36,8 +36,8 @@ alias py="python3"
 # ----------------------------
 # |        ShockLab          |
 # ----------------------------
-alias caddyreload=docker compose exec -w /etc/caddy caddy caddy reload
-alias caddyformat=docker compose exec -w /etc/caddy caddy caddy fmt --overwrite
+alias caddyreload="docker compose exec -w /etc/caddy caddy caddy reload"
+alias caddyformat="docker compose exec -w /etc/caddy caddy caddy fmt --overwrite"
 
 # ----------------------------
 # |       Applications       |
