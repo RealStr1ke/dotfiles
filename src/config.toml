@@ -81,6 +81,7 @@ waypaper = { source = "src/config/waypaper", target = "~/.config/waypaper", type
 wlogout = { source = "src/config/wlogout", target = "~/.config/wlogout", type = "folder" }
 wofi = { source = "src/config/wofi", target = "~/.config/wofi", type = "folder" }
 youtube-tui = { source = "src/config/youtube-tui", target = "~/.config/youtube-tui", type = "folder" }
+zellij = { source = "src/config/zellij", target = "~/.config/zellij", type = "folder" }
 zotify = { source = "src/config/zotify", target = "~/.config/zotify", type = "folder" }
 betterlockscreenrc = { source = "src/config/betterlockscreenrc", target = "~/.config/betterlockscreenrc", type = "file" }
 code-flags_conf = { source = "src/config/code-flags.conf", target = "~/.config/code-flags.conf", type = "file" }
